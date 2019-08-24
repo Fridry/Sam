@@ -64,6 +64,38 @@ public class PessoaBean implements Serializable{
     public void setListPessoa(List<Pessoa> listPessoa) {
         this.listPessoa = listPessoa;
     }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    public ContatoDAO getContatoDao() {
+        return contatoDao;
+    }
+
+    public void setContatoDao(ContatoDAO contatoDao) {
+        this.contatoDao = contatoDao;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public LoginDAO getLoginDao() {
+        return loginDao;
+    }
+
+    public void setLoginDao(LoginDAO loginDao) {
+        this.loginDao = loginDao;
+    }
     
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -80,7 +112,7 @@ public class PessoaBean implements Serializable{
         this.pessoa.setContato(contato);
         pessoaDao.createPessoa(pessoa);
         mensagem("Pessoa criada com Sucesso!", "");
-        pessoa = new Pessoa();
+        this.pessoa = new Pessoa();
         this.contato = new Contato();
         this.login = new Login();
     }
