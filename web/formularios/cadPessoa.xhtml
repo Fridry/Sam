@@ -1,16 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de usuários</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <p:panel id="panel" header="Cadastro de usuários">
+
+                <p:growl id="mensagem" autoUpdate="true"/>
+
+                <h:panelGrid columns="2" cellpadding="4">
+                    <h:outputLabel for="id-nome" value="Nome: " />
+                    <p:inputText id="id-nome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
+                    <h:outputLabel for="id-genero" value="Gênero: " />
+                    <p:selectOneRadio id="id-genero" value="#{pessoaBean.pessoa.genero}">
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                        <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                        <f:selectItem itemLabel="Outro" itemValue="Outro" />
+                    </p:selectOneRadio>
+
+                    <h:outputLabel for="id-data-nasc" value="Data de Nascimento " />
+                    <p:calendar id="id-data-nasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
+                    
+                    <h:outputLabel for="id-cpf" value="CPF: " />
+                    <p:inputText id="id-cpf" value="#{pessoaBean.pessoa.cpf}" maxlength="11"/>
+                    <h:outputLabel for="id-num-sus" value="Número SUS: " />
+                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="20"/>
+
+                    <h:outputLabel for="id-email" value="E-mail: " />
+                    <p:inputText id="id-email" value="#{contatoBean.contato.email}" maxlength="50"/>
+                    <h:outputLabel for="id-telefone" value="Telefone: " />
+                    <p:inputText id="id-telefone" value="#{contatoBean.contato.telefone}"/>
+                    <h:outputLabel for="id-rua" value="Rua: " />
+                    <p:inputText id="id-rua" value="#{contatoBean.contato.rua}" maxlength="50"/>
+                    <h:outputLabel for="id-numero" value="Numero: " />
+                    <p:inputText id="id-numero" value="#{contatoBean.contato.numero}" maxlength="6"/>
+                    <h:outputLabel for="id-bairro" value="Bairro: " />
+                    <p:inputText id="id-bairro" value="#{contatoBean.contato.bairro}" maxlength="20"/>
+                    <h:outputLabel for="id-cep" value="CEP: " />
+                    <p:inputText id="id-cep" value="#{contatoBean.contato.cep}" maxlength="9"/>
+                    <h:outputLabel for="id-cidade" value="Cidade: " />
+                    <p:inputText id="id-cidade" value="#{contatoBean.contato.cidade}" maxlength="20"/>
+
+                    <h:outputLabel for="id-usuario" value="Usuário: " />
+                    <p:inputText id="id-usuario" value="#{loginBean.login.usuario}"/>
+                    <h:outputLabel for="id-senha" value="Senha: " />
+                    <p:password id="id-senha" value="#{loginBean.login.senha}"/>
+                </h:panelGrid>
+
+                <p:commandButton value="Cadastrar" update="panel" action="#{pessoaBean.salvaPessoa(contatoBean.contato, loginBean.login)}" icon="pi pi-check" />
+            </p:panel>
+        </h:form>
+    </h:body>
 </html>

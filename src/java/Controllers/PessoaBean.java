@@ -1,5 +1,9 @@
 package Controllers;
 
+import Models.Contato;
+import Models.ContatoDAO;
+import Models.Login;
+import Models.LoginDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
 import java.io.Serializable;
@@ -22,11 +26,19 @@ public class PessoaBean implements Serializable{
     
     private Pessoa pessoa;
     private PessoaDAO pessoaDao;
+    private Contato contato;
+    private ContatoDAO contatoDao;
+    private Login login;
+    private LoginDAO loginDao;
     private List<Pessoa> listPessoa;
     
     public PessoaBean() {
         this.pessoa = new Pessoa();
         this.pessoaDao = new PessoaDAO();
+        this.contato = new Contato();
+        this.contatoDao = new ContatoDAO();
+        this.login = new Login();
+        this.loginDao = new LoginDAO();
     }
 
     public Pessoa getPessoa() {
@@ -63,10 +75,14 @@ public class PessoaBean implements Serializable{
         return "editar";     
     }
     
-    public void salvaPessoa(){
+    public void salvaPessoa(Contato contato, Login login){
+        this.pessoa.setLogin(login);
+        this.pessoa.setContato(contato);
         pessoaDao.createPessoa(pessoa);
         mensagem("Pessoa criada com Sucesso!", "");
         pessoa = new Pessoa();
+        this.contato = new Contato();
+        this.login = new Login();
     }
     
     public void atualizaPessoa() {
