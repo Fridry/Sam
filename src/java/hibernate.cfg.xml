@@ -12,5 +12,10 @@
         <mapping class="Models.Login"/>
         <mapping class="Models.Pessoa"/>
         <mapping class="Models.Contato"/>
+        <mapping class="Models.Agendamento"/>
+        <mapping class="Models.Especialidade"/>
+        <mapping class="Models.Horario"/>
+        <mapping class="Models.Evento"/>
+        <mapping class="Models.Local"/>
     </session-factory>
 </hibernate-configuration>
