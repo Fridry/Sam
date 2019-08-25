@@ -31,7 +31,7 @@ public class Evento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_evento", unique = true, nullable = false)
-    private Integer idEvento;
+    private int idEvento;
 
     @Column(name = "nome_evento")
     private String nomeEvento;
@@ -53,7 +53,7 @@ public class Evento implements Serializable {
     public Evento() {
     }
 
-    public Evento(Integer idEvento, String nomeEvento, Date diaEvento, Date horaEvento, String informacoes, Local local) {
+    public Evento(int idEvento, String nomeEvento, Date diaEvento, Date horaEvento, String informacoes, Local local) {
         this.nomeEvento = nomeEvento;
         this.diaEvento = diaEvento;
         this.horaEvento = horaEvento;
@@ -61,11 +61,11 @@ public class Evento implements Serializable {
         this.local = local;
     }
 
-    public Integer getIdEvento() {
+    public int getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(Integer idEvento) {
+    public void setIdEvento(int idEvento) {
         this.idEvento = idEvento;
     }
 

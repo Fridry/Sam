@@ -22,7 +22,7 @@ public class Local implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_local", unique = true, nullable = false)
-    private Integer idLocal;
+    private int idLocal;
 
     @Column(name = "nome_local")
     private String nomeLocal;
@@ -38,11 +38,11 @@ public class Local implements Serializable {
         this.contato = contato;
     }
 
-    public Integer getIdLocal() {
+    public int getIdLocal() {
         return idLocal;
     }
 
-    public void setIdLocal(Integer idLocal) {
+    public void setIdLocal(int idLocal) {
         this.idLocal = idLocal;
     }
 

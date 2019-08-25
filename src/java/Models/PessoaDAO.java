@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -77,6 +78,20 @@ public class PessoaDAO implements Serializable{
             trans = sessao.beginTransaction();
             Pessoa pessoa = new Pessoa();
             return pessoa = (Pessoa) sessao.get(Pessoa.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            sessao.close();
+        }
+        return null;
+    }
+        
+        public Pessoa search(int id){
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria cri = sessao.createCriteria(Pessoa.class);
+            cri.add(Restrictions.idEq(id));
+            Pessoa resultado = (Pessoa) cri.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
         } finally{

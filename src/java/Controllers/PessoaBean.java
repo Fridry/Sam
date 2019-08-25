@@ -117,6 +117,12 @@ public class PessoaBean implements Serializable{
         this.login = new Login();
     }
     
+    public void salvaPessoa(){
+        pessoaDao.createPessoa(pessoa);
+        mensagem("Pessoa criada com Sucesso!", "");
+        this.pessoa = new Pessoa();
+    }
+    
     public void atualizaPessoa() {
         pessoaDao.updatePessoa(pessoa);
         mensagem("Pessoa atualizada com sucesso!", "");

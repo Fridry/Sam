@@ -21,7 +21,7 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_horario", unique = true, nullable = false)
-    private Integer idHorario;
+    private int idHorario;
     
     @Column(name="hora")
     private String hora;
@@ -33,11 +33,11 @@ public class Horario implements Serializable {
         this.hora = hora;
     }
 
-    public Integer getIdHorario() {
+    public int getIdHorario() {
         return idHorario;
     }
 
-    public void setIdHorario(Integer idHorario) {
+    public void setIdHorario(int idHorario) {
         this.idHorario = idHorario;
     }
 

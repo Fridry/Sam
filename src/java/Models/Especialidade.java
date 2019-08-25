@@ -21,7 +21,7 @@ public class Especialidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_especialidade", unique = true, nullable = false)
-    private Integer idEspecialidade;
+    private int idEspecialidade;
     
     @Column(name="tipo_especialidade")
     private String tipoEspecialidade;
@@ -29,16 +29,16 @@ public class Especialidade implements Serializable {
     public Especialidade() {
     }
 
-    public Especialidade(Integer idEspecialidade, String tipoEspecialidade) {
+    public Especialidade(int idEspecialidade, String tipoEspecialidade) {
         this.idEspecialidade = idEspecialidade;
         this.tipoEspecialidade = tipoEspecialidade;
     }
 
-    public Integer getIdEspecialidade() {
+    public int getIdEspecialidade() {
         return idEspecialidade;
     }
 
-    public void setIdEspecialidade(Integer idEspecialidade) {
+    public void setIdEspecialidade(int idEspecialidade) {
         this.idEspecialidade = idEspecialidade;
     }
 

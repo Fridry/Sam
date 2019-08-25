@@ -21,7 +21,7 @@ public class Login implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_login",unique=true, nullable=false)
-    private Integer idLogin;
+    private int idLogin;
     
     @Column(name = "usuario")
     private String usuario;
@@ -37,11 +37,11 @@ public class Login implements Serializable{
         this.senha = senha;
     }
 
-    public Integer getIdLogin() {
+    public int getIdLogin() {
         return idLogin;
     }
 
-    public void setIdLogin(Integer idLogin) {
+    public void setIdLogin(int idLogin) {
         this.idLogin = idLogin;
     }
 

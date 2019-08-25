@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de usuários</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <p:panel id="panel" header="Cadastro de usuários">
+
+                <p:growl id="mensagem" autoUpdate="true"/>
+
+                <h:panelGrid columns="2" cellpadding="4">
+                    <p:outputLabel for="id-nome" value="Nome: " />
+                    <p:inputText id="id-nome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
+                    <p:outputLabel for="id-genero" value="Gênero: " />
+                    <p:selectOneRadio id="id-genero" value="#{pessoaBean.pessoa.genero}">
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                        <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                        <f:selectItem itemLabel="Outro" itemValue="Outro" />
+                    </p:selectOneRadio>
+
+                    <p:outputLabel for="id-data-nasc" value="Data de Nascimento " />
+                    <p:calendar id="id-data-nasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
+                    
+                    <p:outputLabel for="id-cpf" value="CPF: " />
+                    <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}" maxlength="11" />
+                    <p:outputLabel for="id-num-sus" value="Número SUS: " />
+                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="20"/>
+
+                </h:panelGrid>
+
+                <p:commandButton value="Cadastrar" update="panel" action="#{pessoaBean.salvaPessoa()}" icon="pi pi-check" />
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

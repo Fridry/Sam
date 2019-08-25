@@ -26,7 +26,7 @@ public class Pessoa implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_pessoa",unique=true, nullable=false)
-    private Integer idPessoa;
+    private int idPessoa;
     
     @Column(name = "nome")
     private String nome;
@@ -35,14 +35,14 @@ public class Pessoa implements Serializable{
     private String genero;
     
     @Column(name = "cpf", unique=true)
-    private Integer cpf;
+    private int cpf;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "data_nascimento")
     private Date dataNascimento;
     
-    @Column(name = "num_sus")
-    private Integer numSus;
+    @Column(name = "num_sus", unique=true)
+    private int numSus;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Login login;
@@ -53,7 +53,7 @@ public class Pessoa implements Serializable{
     public Pessoa(){
     }
 
-    public Pessoa(Integer idPessoa, String nome, String genero, Integer cpf, Date dataNascimento, Integer numSus, Login login, Contato contato) {
+    public Pessoa(int idPessoa, String nome, String genero, int cpf, Date dataNascimento, int numSus, Login login, Contato contato) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.genero = genero;
@@ -64,11 +64,11 @@ public class Pessoa implements Serializable{
         this.contato = contato;
     }
 
-    public Integer getIdPessoa() {
+    public int getIdPessoa() {
         return idPessoa;
     }
 
-    public void setIdPessoa(Integer idPessoa) {
+    public void setIdPessoa(int idPessoa) {
         this.idPessoa = idPessoa;
     }
 
@@ -88,11 +88,11 @@ public class Pessoa implements Serializable{
         this.genero = genero;
     }
 
-    public Integer getCpf() {
+    public int getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(int cpf) {
         this.cpf = cpf;
     }
 
@@ -104,11 +104,11 @@ public class Pessoa implements Serializable{
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getNumSus() {
+    public int getNumSus() {
         return numSus;
     }
 
-    public void setNumSus(Integer numSus) {
+    public void setNumSus(int numSus) {
         this.numSus = numSus;
     }
 

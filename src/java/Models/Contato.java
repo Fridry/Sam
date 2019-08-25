@@ -20,10 +20,10 @@ public class Contato implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_contato", unique=true, nullable = false)
-    private Integer idContato;
+    private int idContato;
 
     @Column(name = "telefone")
-    private Integer telefone;
+    private int telefone;
 
     @Column(name = "email")
     private String email;
@@ -32,13 +32,13 @@ public class Contato implements Serializable {
     private String rua;
 
     @Column(name = "numero")
-    private Integer numero;
+    private int numero;
 
     @Column(name = "bairro")
     private String bairro;
 
     @Column(name = "cep")
-    private Integer cep;
+    private int cep;
 
     @Column(name = "cidade")
     private String cidade;
@@ -46,7 +46,7 @@ public class Contato implements Serializable {
     public Contato() {
     }
 
-    public Contato(Integer telefone, String email, String rua, Integer numero, String bairro, Integer cep, String cidade) {
+    public Contato(int telefone, String email, String rua, int numero, String bairro, int cep, String cidade) {
         this.telefone = telefone;
         this.email = email;
         this.rua = rua;
@@ -56,19 +56,19 @@ public class Contato implements Serializable {
         this.cidade = cidade;
     }
 
-    public Integer getIdContato() {
+    public int getIdContato() {
         return idContato;
     }
 
-    public void setIdContato(Integer idContato) {
+    public void setIdContato(int idContato) {
         this.idContato = idContato;
     }
 
-    public Integer getTelefone() {
+    public int getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(int telefone) {
         this.telefone = telefone;
     }
 
@@ -88,11 +88,11 @@ public class Contato implements Serializable {
         this.rua = rua;
     }
 
-    public Integer getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -104,11 +104,11 @@ public class Contato implements Serializable {
         this.bairro = bairro;
     }
 
-    public Integer getCep() {
+    public int getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(int cep) {
         this.cep = cep;
     }
 

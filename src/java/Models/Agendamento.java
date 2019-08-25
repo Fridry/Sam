@@ -30,7 +30,7 @@ public class Agendamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_agendamento", unique = true, nullable = false)
-    private Integer idAgendamento;
+    private int idAgendamento;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Pessoa pessoa;
@@ -62,11 +62,11 @@ public class Agendamento implements Serializable {
        this.status = status;
     }
 
-    public Integer getIdAgendamento() {
+    public int getIdAgendamento() {
         return idAgendamento;
     }
 
-    public void setIdAgendamento(Integer idAgendamento) {
+    public void setIdAgendamento(int idAgendamento) {
         this.idAgendamento = idAgendamento;
     }
 
