@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Models;
 
 import Util.HibernateUtil;
@@ -12,17 +17,17 @@ import org.hibernate.Transaction;
  *
  * @author fridr
  */
-public class ContatoDAO implements Serializable{
+public class LocalDAO implements Serializable{
     
     private Session sessao;
     private Transaction trans;
-    private List<Contato> list;
+    private List<Local> list;
     
-    public void createContato(Contato contato) {
+    public void createLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.save(contato);
+            sessao.save(local);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -31,11 +36,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public void deleteContato(Contato contato) {
+    public void deleteLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.delete(contato);
+            sessao.delete(local);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -44,11 +49,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public void updateContato(Contato contato) {
+    public void updateLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.update(contato);
+            sessao.update(local);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -57,11 +62,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public List<Contato> getListContato() {
+    public List<Local> getListLocal() {
         try{
         sessao = HibernateUtil.getSessionFactory().openSession();
         trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Contato.class);
+        Criteria cri = sessao.createCriteria(Local.class);
         list = cri.list();
         }catch(RuntimeException e){
             e.printStackTrace();
@@ -71,12 +76,12 @@ public class ContatoDAO implements Serializable{
         return list;
     }
     
-        public Contato getById(int id){
+        public Local getById(int id){
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            Contato contato = new Contato();
-            return contato = (Contato) sessao.get(Contato.class, id);
+            Local local = new Local();
+            return local = (Local) sessao.get(Local.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -84,5 +89,6 @@ public class ContatoDAO implements Serializable{
         }
         return null;
     }
+    
     
 }

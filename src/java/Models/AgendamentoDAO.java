@@ -12,17 +12,17 @@ import org.hibernate.Transaction;
  *
  * @author fridr
  */
-public class ContatoDAO implements Serializable{
+public class AgendamentoDAO implements Serializable{
     
     private Session sessao;
     private Transaction trans;
-    private List<Contato> list;
+    private List<Agendamento> list;
     
-    public void createContato(Contato contato) {
+    public void createAgendamento(Agendamento agendamento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.save(contato);
+            sessao.save(agendamento);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -31,11 +31,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public void deleteContato(Contato contato) {
+    public void deleteAgendamento(Agendamento agendamento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.delete(contato);
+            sessao.delete(agendamento);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -44,11 +44,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public void updateContato(Contato contato) {
+    public void updateAgendamento(Agendamento agendamento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.update(contato);
+            sessao.update(agendamento);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -57,11 +57,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public List<Contato> getListContato() {
+    public List<Agendamento> getListAgendamento() {
         try{
         sessao = HibernateUtil.getSessionFactory().openSession();
         trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Contato.class);
+        Criteria cri = sessao.createCriteria(Agendamento.class);
         list = cri.list();
         }catch(RuntimeException e){
             e.printStackTrace();
@@ -71,12 +71,12 @@ public class ContatoDAO implements Serializable{
         return list;
     }
     
-        public Contato getById(int id){
+        public Agendamento getById(int id){
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            Contato contato = new Contato();
-            return contato = (Contato) sessao.get(Contato.class, id);
+            Agendamento agendamento = new Agendamento();
+            return agendamento = (Agendamento) sessao.get(Agendamento.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -84,5 +84,6 @@ public class ContatoDAO implements Serializable{
         }
         return null;
     }
+    
     
 }

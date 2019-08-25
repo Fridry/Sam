@@ -12,17 +12,17 @@ import org.hibernate.Transaction;
  *
  * @author fridr
  */
-public class ContatoDAO implements Serializable{
+public class EventoDAO implements Serializable{
     
     private Session sessao;
     private Transaction trans;
-    private List<Contato> list;
+    private List<Evento> list;
     
-    public void createContato(Contato contato) {
+    public void createEvento(Evento evento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.save(contato);
+            sessao.save(evento);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -31,11 +31,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public void deleteContato(Contato contato) {
+    public void deleteEvento(Evento evento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.delete(contato);
+            sessao.delete(evento);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -44,11 +44,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public void updateContato(Contato contato) {
+    public void updateEvento(Evento evento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            sessao.update(contato);
+            sessao.update(evento);
             trans.commit();
         } catch (PersistenceException e) {
             trans.rollback();
@@ -57,11 +57,11 @@ public class ContatoDAO implements Serializable{
         }
     }
     
-    public List<Contato> getListContato() {
+    public List<Evento> getListEvento() {
         try{
         sessao = HibernateUtil.getSessionFactory().openSession();
         trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Contato.class);
+        Criteria cri = sessao.createCriteria(Evento.class);
         list = cri.list();
         }catch(RuntimeException e){
             e.printStackTrace();
@@ -71,12 +71,12 @@ public class ContatoDAO implements Serializable{
         return list;
     }
     
-        public Contato getById(int id){
+        public Evento getById(int id){
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            Contato contato = new Contato();
-            return contato = (Contato) sessao.get(Contato.class, id);
+            Evento evento = new Evento();
+            return evento = (Evento) sessao.get(Evento.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -84,5 +84,6 @@ public class ContatoDAO implements Serializable{
         }
         return null;
     }
+    
     
 }

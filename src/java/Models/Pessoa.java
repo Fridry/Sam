@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class Pessoa implements Serializable{
     @Column(name = "genero")
     private String genero;
     
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique=true)
     private Integer cpf;
     
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -43,10 +44,10 @@ public class Pessoa implements Serializable{
     @Column(name = "num_sus")
     private Integer numSus;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Login login;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Contato contato;
     
     public Pessoa(){
