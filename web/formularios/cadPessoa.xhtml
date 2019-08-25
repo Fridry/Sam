@@ -12,44 +12,53 @@
         <h:form>
             <p:panel id="panel" header="Cadastro de usuários">
 
-                <p:growl id="mensagem" autoUpdate="true"/>
+                <p:growl id="mensagem"/>
 
                 <h:panelGrid columns="2" cellpadding="4">
-                    <h:outputLabel for="id-nome" value="Nome: " />
+                    <p:outputLabel for="id-nome" value="Nome: " />
                     <p:inputText id="id-nome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
-                    <h:outputLabel for="id-genero" value="Gênero: " />
+                    
+                    <p:outputLabel for="id-genero" value="Gênero: " />
                     <p:selectOneRadio id="id-genero" value="#{pessoaBean.pessoa.genero}">
                         <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
                         <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
                         <f:selectItem itemLabel="Outro" itemValue="Outro" />
                     </p:selectOneRadio>
 
-                    <h:outputLabel for="id-data-nasc" value="Data de Nascimento " />
+                    <p:outputLabel for="id-data-nasc" value="Data de Nascimento " />
                     <p:calendar id="id-data-nasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
                     
-                    <h:outputLabel for="id-cpf" value="CPF: " />
-                    <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}" />
-                    <h:outputLabel for="id-num-sus" value="Número SUS: " />
-                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="20"/>
+                    <p:outputLabel for="id-cpf" value="CPF: " />
+                    <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}"/>
+                    
+                    <p:outputLabel for="id-num-sus" value="Número SUS: " />
+                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
 
-                    <h:outputLabel for="id-email" value="E-mail: " />
+                    <p:outputLabel for="id-email" value="E-mail: " />
                     <p:inputText id="id-email" value="#{pessoaBean.contato.email}" maxlength="50"/>
-                    <h:outputLabel for="id-telefone" value="Telefone: " />
-                    <p:inputText id="id-telefone" value="#{pessoaBean.contato.telefone}"/>
-                    <h:outputLabel for="id-rua" value="Rua: " />
+                    
+                    <p:outputLabel for="id-telefone" value="Telefone: " />
+                    <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{pessoaBean.contato.telefone}"/>
+                    
+                    <p:outputLabel for="id-rua" value="Rua: " />
                     <p:inputText id="id-rua" value="#{pessoaBean.contato.rua}" maxlength="50"/>
-                    <h:outputLabel for="id-numero" value="Numero: " />
-                    <p:inputText id="id-numero" value="#{pessoaBean.contato.numero}" maxlength="6"/>
-                    <h:outputLabel for="id-bairro" value="Bairro: " />
+                    
+                    <p:outputLabel for="id-numero" value="Numero: " />
+                    <p:inputText id="id-numero" value="#{pessoaBean.contato.numero}"  maxlength="6"/>
+                    
+                    <p:outputLabel for="id-bairro" value="Bairro: " />
                     <p:inputText id="id-bairro" value="#{pessoaBean.contato.bairro}" maxlength="20"/>
-                    <h:outputLabel for="id-cep" value="CEP: " />
-                    <p:inputText id="id-cep" value="#{pessoaBean.contato.cep}" maxlength="9"/>
-                    <h:outputLabel for="id-cidade" value="Cidade: " />
+                    
+                    <p:outputLabel for="id-cep" value="CEP: " />
+                    <p:inputMask mask="99999-999" id="id-cep" value="#{pessoaBean.contato.cep}"/>
+                    
+                    <p:outputLabel for="id-cidade" value="Cidade: " />
                     <p:inputText id="id-cidade" value="#{pessoaBean.contato.cidade}" maxlength="20"/>
 
-                    <h:outputLabel for="id-usuario" value="Usuário: " />
+                    <p:outputLabel for="id-usuario" value="Usuário: " />
                     <p:inputText id="id-usuario" value="#{pessoaBean.login.usuario}"/>
-                    <h:outputLabel for="id-senha" value="Senha: " />
+                    
+                    <p:outputLabel for="id-senha" value="Senha: " />
                     <p:password id="id-senha" value="#{pessoaBean.login.senha}"/>
                 </h:panelGrid>
 

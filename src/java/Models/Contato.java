@@ -23,7 +23,7 @@ public class Contato implements Serializable {
     private int idContato;
 
     @Column(name = "telefone")
-    private int telefone;
+    private String telefone;
 
     @Column(name = "email")
     private String email;
@@ -38,7 +38,7 @@ public class Contato implements Serializable {
     private String bairro;
 
     @Column(name = "cep")
-    private int cep;
+    private String cep;
 
     @Column(name = "cidade")
     private String cidade;
@@ -46,7 +46,7 @@ public class Contato implements Serializable {
     public Contato() {
     }
 
-    public Contato(int telefone, String email, String rua, int numero, String bairro, int cep, String cidade) {
+    public Contato(String telefone, String email, String rua, int numero, String bairro, String cep, String cidade) {
         this.telefone = telefone;
         this.email = email;
         this.rua = rua;
@@ -64,11 +64,11 @@ public class Contato implements Serializable {
         this.idContato = idContato;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -104,11 +104,11 @@ public class Contato implements Serializable {
         this.bairro = bairro;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

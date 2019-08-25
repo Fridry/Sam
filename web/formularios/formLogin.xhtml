@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de usuários</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <p:panel id="panel" header="Cadastro de usuários">
+
+                <p:growl id="mensagem" autoUpdate="true"/>
+                <h:panelGrid columns="2" cellpadding="4">
+                    <p:outputLabel for="id-usuario" value="Usuário: " />
+                    <p:inputText id="id-usuario" value="#{loginBean.login.usuario}"/>
+                    <p:outputLabel for="id-senha" value="Senha: " />
+                    <p:password id="id-senha" value="#{loginBean.login.senha}"/>
+
+                </h:panelGrid>
+
+                <p:commandButton value="Cadastrar" update="panel" action="#{loginBean.salvaLogin()}" icon="pi pi-check" />
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

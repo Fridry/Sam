@@ -28,9 +28,9 @@
                     <p:calendar id="id-data-nasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
                     
                     <p:outputLabel for="id-cpf" value="CPF: " />
-                    <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}" maxlength="11" />
+                    <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}"/>
                     <p:outputLabel for="id-num-sus" value="Número SUS: " />
-                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="20"/>
+                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
 
                 </h:panelGrid>
 

@@ -34,15 +34,15 @@ public class Pessoa implements Serializable{
     @Column(name = "genero")
     private String genero;
     
-    @Column(name = "cpf", unique=true)
-    private int cpf;
+    @Column(name = "cpf", unique=true, nullable = false)
+    private String cpf;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "data_nascimento")
     private Date dataNascimento;
     
     @Column(name = "num_sus", unique=true)
-    private int numSus;
+    private String numSus;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Login login;
@@ -53,7 +53,7 @@ public class Pessoa implements Serializable{
     public Pessoa(){
     }
 
-    public Pessoa(int idPessoa, String nome, String genero, int cpf, Date dataNascimento, int numSus, Login login, Contato contato) {
+    public Pessoa(int idPessoa, String nome, String genero, String cpf, Date dataNascimento, String numSus, Login login, Contato contato) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.genero = genero;
@@ -88,11 +88,11 @@ public class Pessoa implements Serializable{
         this.genero = genero;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -104,11 +104,11 @@ public class Pessoa implements Serializable{
         this.dataNascimento = dataNascimento;
     }
 
-    public int getNumSus() {
+    public String getNumSus() {
         return numSus;
     }
 
-    public void setNumSus(int numSus) {
+    public void setNumSus(String numSus) {
         this.numSus = numSus;
     }
 
