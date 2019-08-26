@@ -21,16 +21,20 @@
                         <h:outputText value="#{pessoa.idPessoa}" />
                     </p:column>
 
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome: ">
                         <h:outputText value="#{pessoa.nome}" />
                     </p:column>
 
-                    <p:column headerText="Gênero">
+                    <p:column headerText="Gênero: ">
                         <h:outputText value="#{pessoa.genero}" />
                     </p:column>
                     
-                    <p:column headerText="Número SUS ">
+                    <p:column headerText="Número SUS: ">
                         <h:outputText value="#{pessoa.numSus}" />
+                    </p:column>
+                    
+                    <p:column headerText="Telefone: ">
+                        <h:outputText value="#{pessoa.contato.telefone}" />
                     </p:column>
 
                     <p:column headerText="Opções">
