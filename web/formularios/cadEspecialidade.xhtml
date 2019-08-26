@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de especialidades</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <p:panel id="panel" header="Cadastro de especialidade">
+
+                <p:growl id="mensagem" autoUpdate="true"/>
+                <h:panelGrid columns="2" cellpadding="4">
+                    <p:outputLabel for="id-especialidade" value="Especialidade: " />
+                    <p:inputText id="id-especialidade" value="#{especialidadeBean.especialidade.tipoEspecialidade}"/>
+                </h:panelGrid>
+
+                <p:commandButton value="Cadastrar" update="panel" action="#{especialidadeBean.salvaEspecialidade()}" icon="pi pi-check" />
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

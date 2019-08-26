@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Listagem de locais</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <div>
+            <h:form id="lista-contato">
+                <h2 style="padding: 20px;">Locais registrados</h2>
+                <p:dataTable var="locais" value="#{localBean.listarLocal()}" rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="15,25,50">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{locais.idLocal}" />
+                    </p:column>
+
+                    <p:column headerText="Local">
+                        <h:outputText value="#{locais.nomeLocal}" />
+                    </p:column>
+                    
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{locais.contato.telefone}" />
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <h:outputText value="" />
+                    </p:column>
+
+                    <f:facet name="paginatorTopLeft">
+                        <p:commandButton type="button" icon="pi pi-refresh" />
+                    </f:facet>
+
+                    <f:facet name="paginatorBottomRight">
+                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
+                    </f:facet>
+
+                </p:dataTable>
+            </h:form>
+        </div>
+
+    </h:body>
+</html>

@@ -65,7 +65,7 @@ public class EspecialidadeBean implements Serializable{
     
     public void salvaEspecialidade(){
         especialidadeDao.createEspecialidade(especialidade);
-        mensagem("Especialidade criado com Sucesso!", "");
+        mensagem("Especialidade criada com Sucesso!", "");
         especialidade = new Especialidade();
     }
     
