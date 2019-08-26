@@ -10,9 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -37,7 +39,7 @@ public class Pessoa implements Serializable{
     @Column(name = "cpf", unique=true, nullable = false)
     private String cpf;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_nascimento")
     private Date dataNascimento;
     
@@ -45,9 +47,11 @@ public class Pessoa implements Serializable{
     private String numSus;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Login login;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Contato contato;
     
     public Pessoa(){

@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,18 +37,19 @@ public class Evento implements Serializable {
     @Column(name = "nome_evento")
     private String nomeEvento;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Column(name = "dia_evento")
     private Date diaEvento;
     
     @Column(name = "hora_evento")
-    @Temporal(javax.persistence.TemporalType.TIME)
+    @Temporal(TemporalType.TIME)
     private Date horaEvento;
     
     @Column(name = "informacoes")
     private String informacoes;
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
     private Local local;
 
     public Evento() {

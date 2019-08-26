@@ -20,13 +20,13 @@ public class Login implements Serializable{
     
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name = "id_login",unique=true, nullable=false)
+    @Column(name = "id_login",unique = true, nullable = false)
     private int idLogin;
     
-    @Column(name = "usuario")
+    @Column(name = "usuario", nullable = false)
     private String usuario;
     
-    @Column(name = "senha")
+    @Column(name = "senha", length = 32, nullable = false)
     private String senha;
 
     public Login() {
