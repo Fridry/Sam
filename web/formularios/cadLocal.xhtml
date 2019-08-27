@@ -40,7 +40,7 @@
                     <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
                 </h:panelGrid>
 
-                <p:commandButton value="Cadastrar" update="panel" action="#{localBean.salvaLocal(localBean.contato)}" icon="pi pi-check" />
+                <p:commandButton value="Cadastrar" update="@form" action="#{localBean.salvaLocal(localBean.contato)}" icon="pi pi-check" />
             </p:panel>
         </h:form>
     </h:body>

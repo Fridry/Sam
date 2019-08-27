@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Listagem de eventos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <div>
+            <h:form id="lista-contato">
+                <h2 style="padding: 20px;">Eventos registrados</h2>
+                <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="10"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="15,25,50">
+
+                    <f:facet name="header">
+                        <p:commandButton value="Cadastrar novo evento" type="button" onclick="PF('id-modal').show();"/>
+                    </f:facet>
+
+                    <p:column headerText="Id">
+                        <h:outputText value="#{evento.idEvento}" />
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{evento.nomeEvento}" />
+                    </p:column>
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{evento.diaEvento}" />
+                    </p:column>
+
+                    <p:column headerText="Hora">
+                        <h:outputText value="#{evento.horaEvento}" />
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <h:outputText value="" />
+                    </p:column>
+
+                    <f:facet name="paginatorTopLeft">
+                        <p:commandButton type="button" icon="pi pi-refresh" />
+                    </f:facet>
+
+                    <f:facet name="paginatorBottomRight">
+                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
+                    </f:facet>
+
+                </p:dataTable>
+            </h:form>
+
+            <p:dialog header="Cadastro de eventos" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form>
+                    <h:panelGrid columns="2" cellpadding="4">
+                        <p:outputLabel for="id-nome-evento" value="Nome do evento: " />
+                        <p:inputText id="id-nome-evento" value="#{eventoBean.evento.nomeEvento}" maxlength="30"/>
+
+                        <p:outputLabel for="id-data-evento" value="Data do evento: " />
+                        <p:calendar id="id-data-evento" value="#{eventoBean.evento.diaEvento}" navigator="true" pattern="dd/MM/yyyy"/>
+
+                        <p:outputLabel for="id-hora-evento" value="Hora do evento:" />
+                        <p:calendar id="id-hora-evento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5" />
+
+                        <p:outputLabel for="id-local-evento" value="Local do evento:" />
+                        <p:selectOneMenu id="id-local-evento" value="#{eventoBean.evento.local}" filter="true">
+                            <f:selectItem itemLabel="Selecione o Local" itemValue="" />
+                            <f:selectItem itemLabel="Local 1" itemValue="Local 1" />
+                            <f:selectItem itemLabel="Local 2" itemValue="Local 2" />
+                            <f:selectItem itemLabel="Local 3" itemValue="Local 3" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="id-local-evento" value="Não localizou o local? " />
+                        <p:commandButton value="Cadastre um novo local" type="button" onclick="PF('id-modal-local').show();" />
+
+                        <p:outputLabel for="id-info-evento" value="Informações do evento:" />
+                        <p:inputTextarea rows="5" cols="30" value="#{eventoBean.evento.informacoes}" counter="id-info-evento" maxlength="50" counterTemplate="{0} caracteres restantes." autoResize="false" />
+                        <br />
+                        <h:outputText id="id-info-evento" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" action="#{localBean.salvaLocal(localBean.contato)}" update="@form"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog header="Cadastro de locais" widgetVar="id-modal-local" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="id-nome-local" value="Nome do local: " />
+                        <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="30"/>
+
+                        <p:outputLabel for="id-email" value="E-mail: " />
+                        <p:inputText id="id-email" value="#{localBean.contato.email}" maxlength="50"/>
+
+                        <p:outputLabel for="id-telefone" value="Telefone: " />
+                        <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{localBean.contato.telefone}"/>
+
+                        <p:outputLabel for="id-rua" value="Rua: " />
+                        <p:inputText id="id-rua" value="#{localBean.contato.rua}" maxlength="50"/>
+
+                        <p:outputLabel for="id-numero" value="Numero: " />
+                        <p:inputText id="id-numero" value="#{localBean.contato.numero}"  maxlength="6"/>
+
+                        <p:outputLabel for="id-bairro" value="Bairro: " />
+                        <p:inputText id="id-bairro" value="#{localBean.contato.bairro}" maxlength="20"/>
+
+                        <p:outputLabel for="id-cep" value="CEP: " />
+                        <p:inputMask mask="99999-999" id="id-cep" value="#{localBean.contato.cep}"/>
+
+                        <p:outputLabel for="id-cidade" value="Cidade: " />
+                        <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" action="#{localBean.salvaLocal(localBean.contato)}" update="@form"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('id-modal-local').hide();"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+        </div>
+
+    </h:body>
+</html>

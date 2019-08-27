@@ -33,10 +33,10 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="id-local-evento" value="Não localizou o local? " />
-                    <p:commandButton value="Cadastre um novo local" type="button" onclick="PF('dlg2').show();" />
+                    <p:commandButton value="Cadastre um novo local" type="button" onclick="PF('id-modal').show();" />
 
                     <p:outputLabel for="id-info-evento" value="Informações do evento:" />
-                    <p:inputTextarea rows="5" cols="30" value="#{eventoBean.evento.informacoes}" counter="id-info-evento" maxlength="50" counterTemplate="{0} characters remaining." autoResize="false" />
+                    <p:inputTextarea rows="5" cols="30" value="#{eventoBean.evento.informacoes}" counter="id-info-evento" maxlength="50" counterTemplate="{0} caracteres restantes." autoResize="false" />
                     <br />
                     <h:outputText id="id-info-evento" />
 
@@ -44,43 +44,41 @@
 
                 <p:commandButton value="Cadastrar" update="panel" action="#{eventoBean.salvaEvento()}" icon="pi pi-check" />
 
+                <p:dialog header="Cadastro de locais" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="id-nome-local" value="Nome do local: " />
+                        <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="30"/>
 
-                <p:dialog header="Cadastro de local" widgetVar="dlg2" modal="true">
-                    <h:form>
-                        <p:panel id="panel" header="Cadastro de local">
+                        <p:outputLabel for="id-email" value="E-mail: " />
+                        <p:inputText id="id-email" value="#{localBean.contato.email}" maxlength="50"/>
 
-                            <p:growl id="mensagem"/>
+                        <p:outputLabel for="id-telefone" value="Telefone: " />
+                        <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{localBean.contato.telefone}"/>
 
-                            <h:panelGrid columns="2" cellpadding="4">
-                                <p:outputLabel for="id-nome-local" value="Nome do local: " />
-                                <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="30"/>
+                        <p:outputLabel for="id-rua" value="Rua: " />
+                        <p:inputText id="id-rua" value="#{localBean.contato.rua}" maxlength="50"/>
 
-                                <p:outputLabel for="id-email" value="E-mail: " />
-                                <p:inputText id="id-email" value="#{localBean.contato.email}" maxlength="50"/>
+                        <p:outputLabel for="id-numero" value="Numero: " />
+                        <p:inputText id="id-numero" value="#{localBean.contato.numero}"  maxlength="6"/>
 
-                                <p:outputLabel for="id-telefone" value="Telefone: " />
-                                <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{localBean.contato.telefone}"/>
+                        <p:outputLabel for="id-bairro" value="Bairro: " />
+                        <p:inputText id="id-bairro" value="#{localBean.contato.bairro}" maxlength="20"/>
 
-                                <p:outputLabel for="id-rua" value="Rua: " />
-                                <p:inputText id="id-rua" value="#{localBean.contato.rua}" maxlength="50"/>
+                        <p:outputLabel for="id-cep" value="CEP: " />
+                        <p:inputMask mask="99999-999" id="id-cep" value="#{localBean.contato.cep}"/>
 
-                                <p:outputLabel for="id-numero" value="Numero: " />
-                                <p:inputText id="id-numero" value="#{localBean.contato.numero}"  maxlength="6"/>
+                        <p:outputLabel for="id-cidade" value="Cidade: " />
+                        <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
+                    </h:panelGrid>
 
-                                <p:outputLabel for="id-bairro" value="Bairro: " />
-                                <p:inputText id="id-bairro" value="#{localBean.contato.bairro}" maxlength="20"/>
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" action="#{localBean.salvaLocal(localBean.contato)}" update="@form"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>  
 
-                                <p:outputLabel for="id-cep" value="CEP: " />
-                                <p:inputMask mask="99999-999" id="id-cep" value="#{localBean.contato.cep}"/>
-
-                                <p:outputLabel for="id-cidade" value="Cidade: " />
-                                <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
-                            </h:panelGrid>
-
-                            <p:commandButton value="Cadastrar" update="panel" action="#{localBean.salvaLocal(localBean.contato)}" icon="pi pi-check" />
-                        </p:panel>
-                    </h:form>
-                </p:dialog>   
 
             </p:panel>
         </h:form>

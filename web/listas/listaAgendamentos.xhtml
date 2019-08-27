@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Listagem de agendamentos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <div>
+            <h:form id="lista-contato">
+                <h2 style="padding: 20px;">Agendamentos</h2>
+                <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento}" rows="10"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="15,25,50">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{agenda.idAgendamento}" />
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{agenda.nome}" />
+                    </p:column>
+                    
+                    <p:column headerText="Data">
+                        <h:outputText value="#{agenda.data}" />
+                    </p:column>
+
+                    <p:column headerText="Hora">
+                        <h:outputText value="#{agenda.hora}" />
+                    </p:column>
+                    
+                    <p:column headerText="Status">
+                        <h:outputText value="#{agenda.status}" />
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <h:outputText value="" />
+                    </p:column>
+
+                    <f:facet name="paginatorTopLeft">
+                        <p:commandButton type="button" icon="pi pi-refresh" />
+                    </f:facet>
+
+                    <f:facet name="paginatorBottomRight">
+                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
+                    </f:facet>
+
+                </p:dataTable>
+            </h:form>
+        </div>
+
+    </h:body>
+</html>
