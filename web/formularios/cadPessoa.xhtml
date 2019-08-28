@@ -59,7 +59,7 @@
                     <p:inputText id="id-usuario" value="#{pessoaBean.login.usuario}"/>
                     
                     <p:outputLabel for="id-senha" value="Senha: " />
-                    <p:password id="id-senha" value="#{pessoaBean.login.senha}"/>
+                    <p:password id="id-senha" value="#{pessoaBean.login.senha}" maxlength="10"/>
                 </h:panelGrid>
 
                 <p:commandButton value="Cadastrar" update="panel" action="#{pessoaBean.salvaPessoa(pessoaBean.contato, pessoaBean.login)}" icon="pi pi-check" />

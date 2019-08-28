@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sam?zeroDateTimeBehavior=convertToNull</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.autocommit">true</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.show_sql">true</property>
-        <mapping class="Models.Login"/>
-        <mapping class="Models.Pessoa"/>
-        <mapping class="Models.Contato"/>
-        <mapping class="Models.Agendamento"/>
-        <mapping class="Models.Especialidade"/>
-        <mapping class="Models.Horario"/>
-        <mapping class="Models.Evento"/>
-        <mapping class="Models.Local"/>
-        <mapping class="Models.Teste"/>
-    </session-factory>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sam?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.autocommit">true</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <mapping class="Models.Login"/>
+    <mapping class="Models.Pessoa"/>
+    <mapping class="Models.Contato"/>
+    <mapping class="Models.Agendamento"/>
+    <mapping class="Models.Especialidade"/>
+    <mapping class="Models.Horario"/>
+    <mapping class="Models.Evento"/>
+    <mapping class="Models.Local"/>
+    <mapping class="Models.Teste"/>
+  </session-factory>
 </hibernate-configuration>

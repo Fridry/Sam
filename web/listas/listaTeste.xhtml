@@ -43,9 +43,14 @@
 
         <p:dialog header="Cadastro de testes" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
             <h:form>
+                <h:panelGrid>
+                    <p:messages id="mensagem" showDetail="true" closable="true"/>
+                </h:panelGrid>
+                
                 <h:panelGrid columns="2">
+                    
                     <p:outputLabel value="Nome: " />
-                    <p:inputText size="50" maxlength="50"/>
+                    <p:inputText size="50" maxlength="50" value="#{testeBean.teste.nome}"/>
 
                     <p:outputLabel for="id-email" value="E-mail: " />
                     <p:inputText id="id-email" maxlength="50" size="50"/>
@@ -70,7 +75,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Salvar"/>
+                    <p:commandButton value="Salvar" actionListener="#{testeBean.salvar()}" update="mensagem"/>
                     <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();"/>
                 </h:panelGrid>
             </h:form>
