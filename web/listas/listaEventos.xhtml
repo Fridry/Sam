@@ -11,7 +11,7 @@
 
     <h:body>
         <div>
-            <h:form id="lista-contato">
+            <h:form id="lista-eventos">
                 <h2 style="padding: 20px;">Eventos registrados</h2>
                 <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="10"
                              paginator="true"
@@ -39,7 +39,18 @@
                     </p:column>
 
                     <p:column headerText="Opções">
-                        <h:outputText value="" />
+                        <p:commandButton icon="ui-icon-trash" action="#{loginBean.deletaLogin(login)}" 
+                                         update="@form :lista-eventos" alt="Remover" title="Remover" >
+                            <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{loginBean.carregaLoginId(login.idLogin)}" />
+                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
 
                     <f:facet name="paginatorTopLeft">

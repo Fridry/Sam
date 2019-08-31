@@ -11,12 +11,17 @@
 
     <h:body>
         <div>
-            <h:form id="lista-contato">
+            <h:form id="lista-login">
                 <h2 style="padding: 20px;">Logins registrados</h2>
-                <p:dataTable var="login" value="#{loginBean.listarLogin()}" rows="5"
+                <p:dataTable var="login" value="#{loginBean.listarLogin()}" rows="10"
                              paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
+
+                    <f:facet name="header">
+                        <p:commandButton value="Novo teste" type="button" onclick="PF('id-modal').show();" update="@dialog"/>
+                    </f:facet>
+
                     <p:column headerText="Id">
                         <h:outputText value="#{login.idLogin}" />
                     </p:column>
@@ -30,7 +35,17 @@
                     </p:column>
 
                     <p:column headerText="Opções">
-                        <h:outputText value="" />
+                        <p:commandButton icon="ui-icon-trash" action="#{loginBean.deletaLogin(login)}" 
+                                         update="@form :lista-login" alt="Remover" title="Remover" >
+                            <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir esse registro?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{loginBean.carregaLoginId(login.idLogin)}" />
                     </p:column>
 
                     <f:facet name="paginatorTopLeft">
@@ -43,6 +58,27 @@
 
                 </p:dataTable>
             </h:form>
+
+            <p:dialog header="Cadastro de testes" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form id="id-form-login">
+                    <h:panelGrid>
+                        <p:messages id="mensagem" showDetail="true" closable="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="id-usuario" value="Usuário: " />
+                        <p:inputText id="id-usuario" value="#{loginBean.login.usuario}"/>
+
+                        <p:outputLabel for="id-senha" value="Senha: " />
+                        <p:password id="id-senha" value="#{loginBean.login.senha}"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" actionListener="#{loginBean.salvaLogin()}" update="mensagem"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();" update=":lista-login"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog> 
         </div>
 
     </h:body>

@@ -35,7 +35,19 @@
                     </p:column>
 
                     <p:column headerText="Opções">
+                        <p:commandButton icon="ui-icon-trash" action="#{loginBean.deletaLogin(login)}" 
+                                         update="@form :lista-pessoas" alt="Remover" title="Remover" >
+                            <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
 
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{loginBean.carregaLoginId(login.idLogin)}" />
+                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />                        
+                        <p:commandButton  icon="ui-icon-list" value="Agendar" alt="Agendar" title="Agendar" action="#"  />
                     </p:column>
                 </p:dataTable>
             </p:panel>
@@ -53,25 +65,25 @@
                     <p:inputText size="50" maxlength="50" value="#{testeBean.teste.nome}"/>
 
                     <p:outputLabel for="id-email" value="E-mail: " />
-                    <p:inputText id="id-email" maxlength="50" size="50"/>
+                    <p:inputText id="id-email" maxlength="50" size="50" value="#{testeBean.contato.email}"/>
 
                     <p:outputLabel for="id-telefone" value="Telefone: " />
-                    <p:inputMask mask="(99) 99999-9999" id="id-telefone" size="20" />
+                    <p:inputMask mask="(99) 99999-9999" id="id-telefone" size="20" value="#{testeBean.contato.telefone}" />
 
                     <p:outputLabel for="id-rua" value="Rua: " />
-                    <p:inputText id="id-rua" maxlength="50" size="50"/>
+                    <p:inputText id="id-rua" maxlength="50" size="50" value="#{testeBean.contato.rua}"/>
 
                     <p:outputLabel for="id-numero" value="Numero: " />
-                    <p:inputText id="id-numero"  maxlength="6" size="10"/>
+                    <p:inputText id="id-numero"  maxlength="6" size="10" value="#{testeBean.contato.numero}"/>
 
                     <p:outputLabel for="id-bairro" value="Bairro: " />
-                    <p:inputText id="id-bairro" maxlength="20" size="20"/>
+                    <p:inputText id="id-bairro" maxlength="20" size="20" value="#{testeBean.contato.bairro}"/>
 
                     <p:outputLabel for="id-cep" value="CEP: " />
-                    <p:inputMask mask="99999-999" id="id-cep" />
+                    <p:inputMask mask="99999-999" id="id-cep" value="#{testeBean.contato.cep}"/>
 
                     <p:outputLabel for="id-cidade" value="Cidade: " />
-                    <p:inputText id="id-cidade" maxlength="20" size="20"/>
+                    <p:inputText id="id-cidade" maxlength="20" size="20" value="#{testeBean.contato.cidade}"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">

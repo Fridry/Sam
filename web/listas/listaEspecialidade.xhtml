@@ -11,9 +11,9 @@
 
     <h:body>
         <div>
-            <h:form id="lista-contato">
+            <h:form id="lista-especialidade">
                 <h2 style="padding: 20px;">Especialidades registradas</h2>
-                <p:dataTable var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="5"
+                <p:dataTable var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="20"
                              paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
@@ -31,7 +31,18 @@
                     </p:column>
 
                     <p:column headerText="Opções">
-                        <h:outputText value="" />
+                        <p:commandButton icon="ui-icon-trash" action="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
+                                         update="@form :lista-especialidade" alt="Remover" title="Remover" >
+                            <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{especialidadeBean.carregaEspecialidade(especialidade)}" />
+                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
 
                     <f:facet name="paginatorTopLeft">

@@ -54,7 +54,4 @@ public class TesteBean implements Serializable{
        contexto.addMessage(null, mensagem);
     }
     
-    public void mostra() {
-        System.out.println("Chamado");
-    }
 }
