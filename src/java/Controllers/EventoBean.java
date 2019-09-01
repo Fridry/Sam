@@ -58,15 +58,29 @@ public class EventoBean implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
     
+    public void erro(String summary, String detail) {
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    }
+    
+    public void init() {
+        evento = new Evento();
+    }
+    
     public String carregaEvento(Evento evento){
         this.evento = evento;
         return "editar";     
     }
     
     public void salvaEvento(){
+        try {
         eventoDao.createEvento(evento);
         mensagem("Evento criado com Sucesso!", "");
         evento = new Evento();
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao agendar o evento.", "");
+            e.printStackTrace();
+        }
     }
     
     public void atualizaEvento() {

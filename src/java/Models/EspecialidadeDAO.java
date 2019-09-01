@@ -63,12 +63,13 @@ public class EspecialidadeDAO implements Serializable{
         trans = sessao.beginTransaction();
         Criteria cri = sessao.createCriteria(Especialidade.class);
         list = cri.list();
+        return list;
         }catch(RuntimeException e){
             e.printStackTrace();
         }finally{
             sessao.close();
         }
-        return list;
+        return null;
     }
     
         public Especialidade getById(int id){

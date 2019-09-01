@@ -58,15 +58,29 @@ public class HorarioBean implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
     
+    public void erro(String summary, String detail) {
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    }
+    
+    public void init() {
+        horario = new Horario();
+    }
+    
     public String carregaHorario(Horario horario){
         this.horario = horario;
         return "editar";     
     }
     
     public void salvaHorario(){
+        try {
         horarioDao.createHorario(horario);
         mensagem("Horario criado com Sucesso!", "");
         horario = new Horario();
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao salvar o horário.", "");
+            e.printStackTrace();
+        }
     }
     
     public void atualizaHorario() {

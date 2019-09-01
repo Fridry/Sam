@@ -18,12 +18,11 @@ import javax.inject.Named;
  *
  * @author fridr
  */
-
 @Named(value = "pessoaBean")
 @ManagedBean
 @SessionScoped
-public class PessoaBean implements Serializable{
-    
+public class PessoaBean implements Serializable {
+
     private Pessoa pessoa;
     private PessoaDAO pessoaDao;
     private Contato contato;
@@ -31,7 +30,7 @@ public class PessoaBean implements Serializable{
     private Login login;
     private LoginDAO loginDao;
     private List<Pessoa> listPessoa;
-    
+
     public PessoaBean() {
         this.pessoa = new Pessoa();
         this.pessoaDao = new PessoaDAO();
@@ -96,50 +95,66 @@ public class PessoaBean implements Serializable{
     public void setLoginDao(LoginDAO loginDao) {
         this.loginDao = loginDao;
     }
-    
+
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
-    
-    public String carregaPessoa(Pessoa pessoa){
+
+    public void erro(String summary, String detail) {
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    }
+
+    public void init() {
+        pessoa = new Pessoa();
+    }
+
+    public String carregaPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-        return "editar";     
+        return "editar";
     }
+
+    public void salvaPessoa(Contato contato, Login login) {
+        try {
+            this.pessoa.setLogin(login);
+            this.pessoa.setContato(contato);
+            pessoaDao.createPessoa(pessoa);
+            mensagem("usuário cadastrado com Sucesso!", "");
+            this.pessoa = new Pessoa();
+            this.contato = new Contato();
+            this.login = new Login();
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao cadastra o usuário.", "");
+            e.printStackTrace();
+        }
+        }
     
-    public void salvaPessoa(Contato contato, Login login){
-        this.pessoa.setLogin(login);
-        this.pessoa.setContato(contato);
+    
+
+    public void salvaPessoa() {
         pessoaDao.createPessoa(pessoa);
         mensagem("Pessoa criada com Sucesso!", "");
         this.pessoa = new Pessoa();
-        this.contato = new Contato();
-        this.login = new Login();
     }
-    
-    public void salvaPessoa(){
-        pessoaDao.createPessoa(pessoa);
-        mensagem("Pessoa criada com Sucesso!", "");
-        this.pessoa = new Pessoa();
-    }
-    
+
     public void atualizaPessoa() {
         pessoaDao.updatePessoa(pessoa);
         mensagem("Pessoa atualizada com sucesso!", "");
-        pessoa = new Pessoa();       
+        pessoa = new Pessoa();
     }
-    
+
     public void deletaPessoa(Pessoa pessoa) {
         pessoaDao.deletePessoa(pessoa);
-        mensagem("Excluído com sucesso", "");        
+        mensagem("Excluído com sucesso", "");
     }
-    
-    public List listarPessoa(){
+
+    public List listarPessoa() {
         return listPessoa = pessoaDao.getListPessoa();
     }
-    
+
     public String carregaLoginId(int id) {
         this.pessoa = pessoaDao.getById(id);
         return "editar";
-    } 
+    }
 }

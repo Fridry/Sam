@@ -13,21 +13,21 @@
         <div>
             <h:form id="listaEspecialidade">
                 <h2 style="padding: 20px;">Especialidades registradas</h2>
-                <p:dataTable var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="20"
+                <p:dataTable var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
                              paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50">
+                             rowsPerPageTemplate="15,25,50" emptyMessage="Nenhuma especialidade encontrada.">
 
                     <f:facet name="header">
                         <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
-                                         action="#{especialidadeBean.init()}" update="@form :cadEspecialidade :inputEspecialidade"/>
+                                         action="#{especialidadeBean.init()}" update="@form :cadEspecialidade:inputEspecialidade"/>
                     </f:facet>
 
-                    <p:column headerText="Id">
+                    <p:column headerText="Id"  sortBy="#{especialidade.idEspecialidade}" filterBy="#{especialidade.idEspecialidade}">
                         <h:outputText value="#{especialidade.idEspecialidade}" />
                     </p:column>
 
-                    <p:column headerText="Especialidade">
+                    <p:column headerText="Especialidade" sortBy="#{especialidade.tipoEspecialidade}" filterBy="#{especialidade.tipoEspecialidade}" filterMatchMode="contains">
                         <h:outputText value="#{especialidade.tipoEspecialidade}" />
                     </p:column>
 
@@ -38,7 +38,7 @@
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form :listaEspecialidade"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
@@ -71,8 +71,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}" update="mensagem"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="@form :listaEspecialidade"/>
+                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}" update="mensagem :cadEspecialidade:inputEspecialidade :listaEspecialidade"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="@form"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog> 

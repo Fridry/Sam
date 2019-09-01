@@ -58,15 +58,29 @@ public class AgendamentoBean implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
     
+    public void erro(String summary, String detail) {
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    }
+    
+    public void init() {
+        agendamento = new Agendamento();
+    }
+    
     public String carregaAgendamento(Agendamento agendamento){
         this.agendamento = agendamento;
         return "editar";     
     }
     
     public void salvaAgendamento(){
+        try {
         agendamentoDao.createAgendamento(agendamento);
         mensagem("Agendamento criado com Sucesso!", "");
         agendamento = new Agendamento();
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao Realizar o agendamento.", "");
+            e.printStackTrace();
+        }
     }
     
     public void atualizaAgendamento() {

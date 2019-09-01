@@ -80,17 +80,31 @@ public class LocalBean implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
     
+    public void erro(String summary, String detail) {
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    }
+    
+    public void init() {
+        local = new Local();
+    }
+    
     public String carregaLocal(Local local){
         this.local = local;
         return "editar";     
     }
     
     public void salvaLocal(Contato contato){
+        try {
         this.local.setContato(contato);
         localDao.createLocal(local);
-        mensagem("Local criado com Sucesso!", "");
         this.local = new Local();
         this.contato = new Contato();
+        mensagem("Local criado com Sucesso!", "");
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao salvar o local.", "");
+            e.printStackTrace();
+        }
     }
     
     public void salvaLocal(){
