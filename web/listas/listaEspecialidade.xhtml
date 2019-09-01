@@ -11,17 +11,18 @@
 
     <h:body>
         <div>
-            <h:form id="lista-especialidade">
+            <h:form id="listaEspecialidade">
                 <h2 style="padding: 20px;">Especialidades registradas</h2>
                 <p:dataTable var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="20"
                              paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
-                    
+
                     <f:facet name="header">
-                        <p:commandButton value="Cadastrar especialidade" type="button" onclick="PF('id-modal').show();"/>
+                        <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
+                                         action="#{especialidadeBean.init()}" update="@form :cadEspecialidade :inputEspecialidade"/>
                     </f:facet>
-                    
+
                     <p:column headerText="Id">
                         <h:outputText value="#{especialidade.idEspecialidade}" />
                     </p:column>
@@ -32,7 +33,7 @@
 
                     <p:column headerText="Opções">
                         <p:commandButton icon="ui-icon-trash" action="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
-                                         update="@form :lista-especialidade" alt="Remover" title="Remover" >
+                                         update="@form :listaEspecialidade" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -55,22 +56,26 @@
 
                 </p:dataTable>
             </h:form>
-            
-            <p:dialog header="Cadastro de testes" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
-            <h:form>
-                <h:panelGrid columns="2" cellpadding="4">
 
-                    <p:outputLabel for="id-especialidade" value="Especialidade: " />
-                    <p:inputText id="id-especialidade" value="#{especialidadeBean.especialidade.tipoEspecialidade}" size="30" maxlength="30"/>
+            <p:dialog header="Cadastro de testes" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form id="cadEspecialidade">
+                    <h:panelGrid>
+                        <p:messages id="mensagem" showDetail="true" closable="true"/>
+                    </h:panelGrid>
 
-                </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="4" id="inputEspecialidade">
 
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}"/>
-                    <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();"/>
-                </h:panelGrid>
-            </h:form>
-        </p:dialog> 
+                        <p:outputLabel for="idEspecialidade" value="Especialidade: " />
+                        <p:inputText id="idEspecialidade" value="#{especialidadeBean.especialidade.tipoEspecialidade}" size="30" maxlength="30"/>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}" update="mensagem"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="@form :listaEspecialidade"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog> 
         </div>
 
     </h:body>
