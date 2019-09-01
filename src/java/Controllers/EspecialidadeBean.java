@@ -76,6 +76,7 @@ public class EspecialidadeBean implements Serializable {
         try {
             especialidadeDao.createEspecialidade(especialidade);
             init();
+            listarEspecialidade();
             mensagem("Especialidade criada com Sucesso!", "");
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar a Especialidade.", "");
@@ -91,8 +92,16 @@ public class EspecialidadeBean implements Serializable {
     }
 
     public void deletaEspecialidade(Especialidade especialidade) {
-        especialidadeDao.deleteEspecialidade(especialidade);
-        mensagem("Excluído com sucesso", "");
+        try {
+            especialidadeDao.deleteEspecialidade(especialidade);
+            listarEspecialidade();
+            mensagem("Excluído com sucesso", "");
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao excluir a Especialidade.", "");
+            e.printStackTrace();
+            
+        }
+
     }
 
     public List listarEspecialidade() {
@@ -105,6 +114,7 @@ public class EspecialidadeBean implements Serializable {
         }
     }
 
+    /*
     @PostConstruct
     public void listaDeEspecialidades() {
         try {
@@ -114,6 +124,7 @@ public class EspecialidadeBean implements Serializable {
             e.printStackTrace();
         }
     }
+     */
 
     public String carregaLoginId(int id) {
         this.especialidade = especialidadeDao.getById(id);

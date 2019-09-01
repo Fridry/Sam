@@ -12,19 +12,20 @@
     <h:body>
         <div>
             <h:form id="listaEspecialidade">
+                <p:growl id="mensagemExcluir" />
                 <h2 style="padding: 20px;">Especialidades registradas</h2>
-                <p:dataTable var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
-                             paginator="true"
+                <p:dataTable id="tabelaEspecialidade" var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
+                             paginator="true"  emptyMessage="Nenhuma especialidade encontrada."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50" emptyMessage="Nenhuma especialidade encontrada.">
+                             rowsPerPageTemplate="15,25,50">
 
                     <f:facet name="header">
                         <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
-                                         action="#{especialidadeBean.init()}" update="@form :cadEspecialidade:inputEspecialidade"/>
+                                         action="#{especialidadeBean.init()}" update=" :cadEspecialidade:inputEspecialidade"/>
                     </f:facet>
 
                     <p:column headerText="Id"  sortBy="#{especialidade.idEspecialidade}" filterBy="#{especialidade.idEspecialidade}">
-                        <h:outputText value="#{especialidade.idEspecialidade}" />
+                        <h:outputText value="#{especialidade.idEspecialidade}"/>
                     </p:column>
 
                     <p:column headerText="Especialidade" sortBy="#{especialidade.tipoEspecialidade}" filterBy="#{especialidade.tipoEspecialidade}" filterMatchMode="contains">
@@ -32,13 +33,13 @@
                     </p:column>
 
                     <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" action="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
-                                         update="@form :listaEspecialidade" alt="Remover" title="Remover" >
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
+                                         update=":listaEspecialidade:tabelaEspecialidade" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form :listaEspecialidade"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaEspecialidade"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
@@ -71,8 +72,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}" update="mensagem :cadEspecialidade:inputEspecialidade :listaEspecialidade"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="@form"/>
+                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}" update="mensagem :cadEspecialidade:inputEspecialidade :listaEspecialidade:tabelaEspecialidade"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog> 
