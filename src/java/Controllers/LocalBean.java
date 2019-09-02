@@ -16,18 +16,17 @@ import javax.inject.Named;
  *
  * @author fridr
  */
-
 @Named(value = "localBean")
 @ManagedBean
 @SessionScoped
-public class LocalBean implements Serializable{
-    
+public class LocalBean implements Serializable {
+
     private Local local;
     private LocalDAO localDao;
     private List<Local> listLocal;
     private Contato contato;
     private ContatoDAO contatoDao;
-    
+
     public LocalBean() {
         this.local = new Local();
         this.localDao = new LocalDAO();
@@ -74,63 +73,82 @@ public class LocalBean implements Serializable{
     public void setContatoDao(ContatoDAO contatoDao) {
         this.contatoDao = contatoDao;
     }
-    
+
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
-    
+
     public void erro(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
-    
+
     public void init() {
         local = new Local();
+        contato = new Contato();
     }
-    
-    public String carregaLocal(Local local){
+
+    public void carregaLocal(Local local) {
         this.local = local;
-        return "editar";     
     }
-    
-    public void salvaLocal(Contato contato){
+
+    public void salvaLocal(Contato contato) {
         try {
-        this.local.setContato(contato);
-        localDao.createLocal(local);
-        this.local = new Local();
-        this.contato = new Contato();
-        mensagem("Local criado com Sucesso!", "");
-        } catch(RuntimeException e) {
+            this.local.setContato(contato);
+            localDao.createLocal(local);
+            init();
+            mensagem("Local criado com Sucesso!", "");
+        } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar o local.", "");
             e.printStackTrace();
         }
     }
     
-    public void salvaLocal(){
-        localDao.createLocal(local);
-        mensagem("Local criado com Sucesso!", "");
-        this.local = new Local();
+    public void fundirLocal(Contato contato) {
+        try {
+            this.local.setContato(contato);
+            localDao.mergeLocal(local);
+            init();
+            listarLocal();
+            mensagem("Local criado com sucesso!", "");
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao criar o local.", "");
+            e.printStackTrace();
+        }
     }
-    
+
+
     public void atualizaLocal() {
         localDao.updateLocal(local);
         mensagem("Local atualizado com sucesso!", "");
-        local = new Local();       
+        local = new Local();
     }
     
     public void deletaLocal(Local local) {
-        localDao.deleteLocal(local);
-        mensagem("Excluído com sucesso", "");        
+        try {
+            localDao.deleteLocal(local);
+            listarLocal();
+            mensagem("Excluído com sucesso", "");
+        } catch(RuntimeException e) {
+            erro("Ocorreu um erro ao excluir o local.", "");
+            e.printStackTrace();   
+        }
     }
     
-    public List listarLocal(){
-        return listLocal = localDao.getListLocal();
+    public List listarLocal() {
+        try {
+            return listLocal = localDao.getListLocal();
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao listar os locais.", "");
+            e.printStackTrace();
+            return null;
+        }
     }
-    
+
     public String carregaLoginId(int id) {
         this.local = localDao.getById(id);
         return "editar";
     }
-    
+
 }

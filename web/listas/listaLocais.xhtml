@@ -5,29 +5,31 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Listagem de locais</title>
+        <title>Listagem de Locais</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
 
     <h:body>
         <div>
-            <h:form id="lista-locais">
+            <h:form id="listaLocais">
+                <p:growl id="mensagemExcluir" />
                 <h2 style="padding: 20px;">Locais registrados</h2>
-                <p:dataTable var="locais" value="#{localBean.listarLocal()}" rows="5"
-                             paginator="true"
+                <p:dataTable id="tabelaLocais" var="locais" value="#{localBean.listarLocal()}" rows="10"
+                             paginator="true"  emptyMessage="Nenhum local encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
 
                     <f:facet name="header">
-                        <p:commandButton value="Cadastrar novo local" type="button" onclick="PF('id-modal').show();"/>
+                        <p:commandButton value="Cadastrar local" onclick="PF('idModal').show();"
+                                         action="#{localBean.init()}" update=":cadLocal:inputLocal"/>
                     </f:facet>
-
+                    
                     <p:column headerText="Id">
                         <h:outputText value="#{locais.idLocal}" />
                     </p:column>
 
-                    <p:column headerText="Local">
-                        <h:outputText value="#{locais.nomeLocal}" />
+                    <p:column headerText="Local" filterBy="#{locais.nomeLocal}" filterMatchMode="contains">
+                        <h:outputText value="#{locais.nomeLocal}"/>
                     </p:column>
 
                     <p:column headerText="Telefone">
@@ -35,17 +37,19 @@
                     </p:column>
 
                     <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" action="#{loginBean.deletaLogin(login)}" 
-                                         update="@form :lista-locais" alt="Remover" title="Remover" >
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{localBean.deletaLocal(local)}" 
+                                         update=":listaLocais:tabelaLocais" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaLocais:tabelaLocais"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{loginBean.carregaLoginId(login.idLogin)}" />
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{localBean.carregaLocal(local)}"
+                                          onclick="PF('idModal').show();" update=":cadLocal"/>
+                        
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
 
@@ -60,40 +64,45 @@
                 </p:dataTable>
             </h:form>
 
-            <p:dialog header="Cadastro de locais" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
-                <h:form>
-                    <h:panelGrid columns="2" cellpadding="4">
-                        <p:outputLabel for="id-nome-local" value="Nome do local: " />
-                        <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="30"/>
+            <p:dialog header="Cadastro de testes" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form id="cadLocal">
+                    <h:panelGrid>
+                        <p:messages id="mensagem" showDetail="true" closable="true"/>
+                    </h:panelGrid>
 
-                        <p:outputLabel for="id-email" value="E-mail: " />
-                        <p:inputText id="id-email" value="#{localBean.contato.email}" maxlength="50"/>
+                    <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
 
-                        <p:outputLabel for="id-telefone" value="Telefone: " />
-                        <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{localBean.contato.telefone}"/>
+                       <p:outputLabel for="idLocal" value="Nome do local: " />
+                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="30"/>
 
-                        <p:outputLabel for="id-rua" value="Rua: " />
-                        <p:inputText id="id-rua" value="#{localBean.contato.rua}" maxlength="50"/>
+                        <p:outputLabel for="idEmail" value="E-mail: " />
+                        <p:inputText id="idEmail" value="#{localBean.contato.email}" maxlength="50"/>
 
-                        <p:outputLabel for="id-numero" value="Numero: " />
-                        <p:inputText id="id-numero" value="#{localBean.contato.numero}"  maxlength="6"/>
+                        <p:outputLabel for="idTelefone" value="Telefone: " />
+                        <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{localBean.contato.telefone}"/>
 
-                        <p:outputLabel for="id-bairro" value="Bairro: " />
-                        <p:inputText id="id-bairro" value="#{localBean.contato.bairro}" maxlength="20"/>
+                        <p:outputLabel for="idRua" value="Rua: " />
+                        <p:inputText id="idRua" value="#{localBean.contato.rua}" maxlength="50"/>
 
-                        <p:outputLabel for="id-cep" value="CEP: " />
-                        <p:inputMask mask="99999-999" id="id-cep" value="#{localBean.contato.cep}"/>
+                        <p:outputLabel for="idRumero" value="Numero: " />
+                        <p:inputText id="idRumero" value="#{localBean.contato.numero}"  maxlength="6"/>
 
-                        <p:outputLabel for="id-cidade" value="Cidade: " />
-                        <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
+                        <p:outputLabel for="idBairro" value="Bairro: " />
+                        <p:inputText id="idBairro" value="#{localBean.contato.bairro}" maxlength="20"/>
+
+                        <p:outputLabel for="idCep" value="CEP: " />
+                        <p:inputMask mask="99999-999" id="idCep" value="#{localBean.contato.cep}"/>
+
+                        <p:outputLabel for="idCidade" value="Cidade: " />
+                        <p:inputText id="idCidade" value="#{localBean.contato.cidade}" maxlength="20"/>
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Salvar" action="#{localBean.salvaLocal(localBean.contato)}" update="@form"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();"/>
+                        <p:commandButton value="Cadastrar" action="#{localBean.salvaLocal(localBean.contato)}" update="mensagem :listaLocais:tabelaLocais :cadLocal:inputLocal"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="mensagem"/>
                     </h:panelGrid>
                 </h:form>
-            </p:dialog>   
+            </p:dialog> 
         </div>
 
     </h:body>

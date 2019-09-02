@@ -90,5 +90,17 @@ public class LocalDAO implements Serializable{
         return null;
     }
     
+        public void mergeLocal(Local local) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            sessao.merge(local);
+            trans.commit();
+        } catch (PersistenceException e) {
+            trans.rollback();
+        } finally {
+            sessao.close();
+        }
+    }
     
 }

@@ -21,7 +21,7 @@
 
                     <f:facet name="header">
                         <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
-                                         action="#{especialidadeBean.init()}" update=" :cadEspecialidade:inputEspecialidade"/>
+                                         action="#{especialidadeBean.init()}" update=":cadEspecialidade:inputEspecialidade"/>
                     </f:facet>
 
                     <p:column headerText="Id"  sortBy="#{especialidade.idEspecialidade}" filterBy="#{especialidade.idEspecialidade}">
@@ -43,7 +43,9 @@
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{especialidadeBean.carregaEspecialidade(especialidade)}" />
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{especialidadeBean.carregaEspecialidade(especialidade)}"
+                                          onclick="PF('idModal').show();" update=" :cadEspecialidade:inputEspecialidade"/>
+                        
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
 
@@ -72,8 +74,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.salvaEspecialidade()}" update="mensagem :cadEspecialidade:inputEspecialidade :listaEspecialidade:tabelaEspecialidade"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();"/>
+                        <p:commandButton value="Cadastrar" action="#{especialidadeBean.fundirEspecialidade()}" update="mensagem :cadEspecialidade:inputEspecialidade :listaEspecialidade:tabelaEspecialidade"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="mensagem"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog> 

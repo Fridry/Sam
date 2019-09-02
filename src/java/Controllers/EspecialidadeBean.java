@@ -84,6 +84,18 @@ public class EspecialidadeBean implements Serializable {
         }
 
     }
+    
+    public void fundirEspecialidade() {
+        try {
+            especialidadeDao.mergeEspecialidade(especialidade);
+            init();
+            listarEspecialidade();
+            mensagem("Especialidade atualizada com Sucesso!", "");
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao atualizar a Especialidade.", "");
+            e.printStackTrace();
+        }
+    }
 
     public void atualizaEspecialidade() {
         especialidadeDao.updateEspecialidade(especialidade);
@@ -126,7 +138,7 @@ public class EspecialidadeBean implements Serializable {
     }
      */
 
-    public String carregaLoginId(int id) {
+    public String carregaEspecialidadeId(int id) {
         this.especialidade = especialidadeDao.getById(id);
         return "editar";
     }

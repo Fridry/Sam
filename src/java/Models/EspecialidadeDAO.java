@@ -12,12 +12,12 @@ import org.hibernate.Transaction;
  *
  * @author fridr
  */
-public class EspecialidadeDAO implements Serializable{
-    
+public class EspecialidadeDAO implements Serializable {
+
     private Session sessao;
     private Transaction trans;
     private List<Especialidade> list;
-    
+
     public void createEspecialidade(Especialidade especialidade) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -30,7 +30,7 @@ public class EspecialidadeDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void deleteEspecialidade(Especialidade especialidade) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -43,7 +43,7 @@ public class EspecialidadeDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void updateEspecialidade(Especialidade especialidade) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -56,23 +56,23 @@ public class EspecialidadeDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public List<Especialidade> getListEspecialidade() {
-        try{
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Especialidade.class);
-        list = cri.list();
-        return list;
-        }catch(RuntimeException e){
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Criteria cri = sessao.createCriteria(Especialidade.class);
+            list = cri.list();
+            return list;
+        } catch (RuntimeException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             sessao.close();
         }
         return null;
     }
-    
-        public Especialidade getById(int id){
+
+    public Especialidade getById(int id) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
@@ -80,11 +80,23 @@ public class EspecialidadeDAO implements Serializable{
             return especialidade = (Especialidade) sessao.get(Especialidade.class, id);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             sessao.close();
         }
         return null;
     }
-    
-    
+
+    public void mergeEspecialidade(Especialidade especialidade) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            sessao.merge(especialidade);
+            trans.commit();
+        } catch (PersistenceException e) {
+            trans.rollback();
+        } finally {
+            sessao.close();
+        }
+    }
+
 }
