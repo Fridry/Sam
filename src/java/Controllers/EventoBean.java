@@ -2,6 +2,8 @@ package Controllers;
 
 import Models.Evento;
 import Models.EventoDAO;
+import Models.Local;
+import Models.LocalDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -23,10 +25,14 @@ public class EventoBean implements Serializable{
     private Evento evento;
     private EventoDAO eventoDao;
     private List<Evento> listEvento;
+    private Local local;
+    private LocalDAO localDao;
     
     public EventoBean() {
         this.evento = new Evento();
         this.eventoDao = new EventoDAO();
+        this.local = new Local();
+        this.localDao = new LocalDAO();
     }
 
     public Evento getEvento() {
@@ -65,6 +71,7 @@ public class EventoBean implements Serializable{
     
     public void init() {
         evento = new Evento();
+        local = new Local();
     }
     
     public String carregaEvento(Evento evento){
@@ -79,6 +86,19 @@ public class EventoBean implements Serializable{
         evento = new Evento();
         } catch(RuntimeException e) {
             erro("Ocorreu um erro ao agendar o evento.", "");
+            e.printStackTrace();
+        }
+    }
+    
+    public void fundirEvento(Local local) {
+        try {
+            this.evento.setLocal(local);
+            eventoDao.mergeEvento(evento);
+            init();
+            listarEvento();
+            mensagem("Local criado com sucesso!", "");
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao criar o local.", "");
             e.printStackTrace();
         }
     }

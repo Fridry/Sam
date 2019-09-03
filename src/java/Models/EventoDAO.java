@@ -12,12 +12,12 @@ import org.hibernate.Transaction;
  *
  * @author fridr
  */
-public class EventoDAO implements Serializable{
-    
+public class EventoDAO implements Serializable {
+
     private Session sessao;
     private Transaction trans;
     private List<Evento> list;
-    
+
     public void createEvento(Evento evento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -30,7 +30,7 @@ public class EventoDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void deleteEvento(Evento evento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -43,7 +43,7 @@ public class EventoDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void updateEvento(Evento evento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -56,22 +56,22 @@ public class EventoDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public List<Evento> getListEvento() {
-        try{
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Evento.class);
-        list = cri.list();
-        }catch(RuntimeException e){
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Criteria cri = sessao.createCriteria(Evento.class);
+            list = cri.list();
+        } catch (RuntimeException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             sessao.close();
         }
         return list;
     }
-    
-        public Evento getById(int id){
+
+    public Evento getById(int id) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
@@ -79,11 +79,23 @@ public class EventoDAO implements Serializable{
             return evento = (Evento) sessao.get(Evento.class, id);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             sessao.close();
         }
         return null;
     }
-    
-    
+
+    public void mergeEvento(Evento evento) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            sessao.merge(evento);
+            trans.commit();
+        } catch (PersistenceException e) {
+            trans.rollback();
+        } finally {
+            sessao.close();
+        }
+    }
+
 }
