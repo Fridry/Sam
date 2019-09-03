@@ -14,11 +14,13 @@
 
                 <p:growl id="mensagem" autoUpdate="true"/>
                 <h:panelGrid columns="2" cellpadding="4">
-                    <p:outputLabel for="id-especialidade" value="Especialidade: " />
-                    <p:inputText id="id-especialidade" value="#{especialidadeBean.especialidade.tipoEspecialidade}"/>
+                    <p:outputLabel for="idEspecialidade" value="Especialidade: " />
+                    <p:inputText id="idEspecialidade" maxlength="30" size="50" value="#{especialidadeBean.especialidade.tipoEspecialidade}"/>
                 </h:panelGrid>
 
-                <p:commandButton value="Cadastrar" update="panel" action="#{especialidadeBean.salvaEspecialidade()}" icon="pi pi-check" />
+                <h:panelGrid columns="2" cellpadding="4">
+                    <p:commandButton value="Cadastrar" update="panel" action="#{especialidadeBean.salvaEspecialidade()}" icon="pi pi-check" />
+                </h:panelGrid>
             </p:panel>
         </h:form>
     </h:body>

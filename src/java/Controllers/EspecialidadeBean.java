@@ -66,6 +66,10 @@ public class EspecialidadeBean implements Serializable {
     public void init() {
         especialidade = new Especialidade();
     }
+    
+    public String redireciona() {
+        return "listaEspecialidade";
+    }
 
     public String carregaEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
@@ -78,6 +82,7 @@ public class EspecialidadeBean implements Serializable {
             init();
             listarEspecialidade();
             mensagem("Especialidade criada com Sucesso!", "");
+            redireciona();
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar a Especialidade.", "");
             e.printStackTrace();

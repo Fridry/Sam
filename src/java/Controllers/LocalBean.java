@@ -89,8 +89,9 @@ public class LocalBean implements Serializable {
         contato = new Contato();
     }
 
-    public void carregaLocal(Local local) {
+    public void carregaLocal(Local local, Contato contato) {
         this.local = local;
+        this.contato = contato;
     }
 
     public void salvaLocal(Contato contato) {

@@ -14,7 +14,7 @@
             <h:form id="listaLocais">
                 <p:growl id="mensagemExcluir" />
                 <h2 style="padding: 20px;">Locais registrados</h2>
-                <p:dataTable id="tabelaLocais" var="locais" value="#{localBean.listarLocal()}" rows="10"
+                <p:dataTable id="tabelaLocais" var="local" value="#{localBean.listarLocal()}" rows="10"
                              paginator="true"  emptyMessage="Nenhum local encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
@@ -25,15 +25,15 @@
                     </f:facet>
                     
                     <p:column headerText="Id">
-                        <h:outputText value="#{locais.idLocal}" />
+                        <h:outputText value="#{local.idLocal}" />
                     </p:column>
 
-                    <p:column headerText="Local" filterBy="#{locais.nomeLocal}" filterMatchMode="contains">
-                        <h:outputText value="#{locais.nomeLocal}"/>
+                    <p:column headerText="Local" filterBy="#{local.nomeLocal}" filterMatchMode="contains">
+                        <h:outputText value="#{local.nomeLocal}"/>
                     </p:column>
 
                     <p:column headerText="Telefone">
-                        <h:outputText value="#{locais.contato.telefone}" />
+                        <h:outputText value="#{local.contato.telefone}" />
                     </p:column>
 
                     <p:column headerText="Opções">
@@ -43,12 +43,12 @@
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaLocais:tabelaLocais"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaLocais"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{localBean.carregaLocal(local)}"
-                                          onclick="PF('idModal').show();" update=":cadLocal"/>
+                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{localBean.carregaLocal(local, local.contato)}"
+                                          onclick="PF('idModal').show();" update=":cadLocal:inputLocal"/>
                         
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
@@ -98,7 +98,7 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Cadastrar" action="#{localBean.salvaLocal(localBean.contato)}" update="mensagem :listaLocais:tabelaLocais :cadLocal:inputLocal"/>
+                        <p:commandButton value="Cadastrar" action="#{localBean.fundirLocal(localBean.contato)}" update="mensagem :listaLocais:tabelaLocais :cadLocal:inputLocal"/>
                         <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="mensagem"/>
                     </h:panelGrid>
                 </h:form>
