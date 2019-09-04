@@ -11,30 +11,30 @@
 
     <h:body>
         <div>
-            <h:form id="lista-pessoas">
+            <h:form id="listaPessoas">
                 <h2 style="padding: 20px;">Usuários registrados</h2>
                 <p:dataTable var="pessoa" value="#{pessoaBean.listarPessoa()}" rows="20"
-                             paginator="true"
+                             paginator="true" id="tabelaPessoas"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
 
                     <f:facet name="header">
-                        <p:commandButton value="Cadastrar novo usuário" type="button" onclick="PF('id-modal').show();"/>
+                        <p:commandButton value="Cadastrar novo usuário" type="button" onclick="PF('idModal').show();"/>
                     </f:facet>
 
                     <p:column headerText="Id">
                         <h:outputText value="#{pessoa.idPessoa}" />
                     </p:column>
 
-                    <p:column headerText="Nome: ">
-                        <h:outputText value="#{pessoa.nome}" />
+                    <p:column headerText="Nome: " filterBy="#{pessoa.nome}" filterMatchMode="contains" sortBy="#{pessoa.nome}">
+                        <h:outputText value="#{pessoa.nome}"/>
                     </p:column>
 
                     <p:column headerText="Gênero: ">
                         <h:outputText value="#{pessoa.genero}" />
                     </p:column>
 
-                    <p:column headerText="Número SUS: ">
+                    <p:column headerText="Número SUS: " filterBy="#{pessoa.numSus}" filterMatchMode="exact">
                         <h:outputText value="#{pessoa.numSus}" />
                     </p:column>
 
@@ -44,7 +44,7 @@
 
                     <p:column headerText="Opções">
                         <p:commandButton icon="ui-icon-trash" action="#{loginBean.deletaLogin(login)}" 
-                                         update="@form :lista-pessoas" alt="Remover" title="Remover" >
+                                         update="@form :listaPessoas" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -69,59 +69,72 @@
                 </p:dataTable>
             </h:form>
 
-            <p:dialog header="Cadastro de usuários" widgetVar="id-modal" modal="true" draggable="false" resizable="false" closable="false">
-                <h:form>
-                    <h:panelGrid columns="2" cellpadding="4">
-                    <p:outputLabel for="id-nome" value="Nome: " />
-                    <p:inputText id="id-nome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
-                    
-                    <p:outputLabel for="id-genero" value="Gênero: " />
-                    <p:selectOneRadio id="id-genero" value="#{pessoaBean.pessoa.genero}">
-                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
-                        <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
-                        <f:selectItem itemLabel="Outro" itemValue="Outro" />
-                    </p:selectOneRadio>
+            <p:dialog header="Cadastro de usuários" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
+                <h:form id="cadPessoa">
 
-                    <p:outputLabel for="id-data-nasc" value="Data de Nascimento " />
-                    <p:calendar id="id-data-nasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
-                    
-                    <p:outputLabel for="id-cpf" value="CPF: " />
-                    <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}"/>
-                    
-                    <p:outputLabel for="id-num-sus" value="Número SUS: " />
-                    <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
+                    <h:panelGrid>
+                        <p:messages id="mensagem" showDetail="true" closable="true"/>
+                    </h:panelGrid>
 
-                    <p:outputLabel for="id-email" value="E-mail: " />
-                    <p:inputText id="id-email" value="#{pessoaBean.contato.email}" maxlength="50"/>
-                    
-                    <p:outputLabel for="id-telefone" value="Telefone: " />
-                    <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{pessoaBean.contato.telefone}"/>
-                    
-                    <p:outputLabel for="id-rua" value="Rua: " />
-                    <p:inputText id="id-rua" value="#{pessoaBean.contato.rua}" maxlength="50"/>
-                    
-                    <p:outputLabel for="id-numero" value="Numero: " />
-                    <p:inputText id="id-numero" value="#{pessoaBean.contato.numero}"  maxlength="6"/>
-                    
-                    <p:outputLabel for="id-bairro" value="Bairro: " />
-                    <p:inputText id="id-bairro" value="#{pessoaBean.contato.bairro}" maxlength="20"/>
-                    
-                    <p:outputLabel for="id-cep" value="CEP: " />
-                    <p:inputMask mask="99999-999" id="id-cep" value="#{pessoaBean.contato.cep}"/>
-                    
-                    <p:outputLabel for="id-cidade" value="Cidade: " />
-                    <p:inputText id="id-cidade" value="#{pessoaBean.contato.cidade}" maxlength="20"/>
+                    <h:panelGrid columns="4" cellpadding="2" id="inputPessoa">
+                        <p:outputLabel for="id-nome" value="Nome: " />
+                        <p:inputText id="id-nome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
 
-                    <p:outputLabel for="id-usuario" value="Usuário: " />
-                    <p:inputText id="id-usuario" value="#{pessoaBean.login.usuario}"/>
+                        <p:outputLabel for="id-genero" value="Gênero: " />
+                        <p:selectOneRadio id="id-genero" value="#{pessoaBean.pessoa.genero}">
+                            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                            <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                            <f:selectItem itemLabel="Outro" itemValue="Outro" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="id-data-nasc" value="Data de Nascimento " />
+                        <p:calendar id="id-data-nasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
+
+                        <p:outputLabel for="id-cpf" value="CPF: " />
+                        <p:inputMask mask="999.999.999-99" id="id-cpf" value="#{pessoaBean.pessoa.cpf}"/>
+
+                        <p:outputLabel for="id-num-sus" value="Número SUS: " />
+                        <p:inputText id="id-num-sus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
+                    </h:panelGrid>
                     
-                    <p:outputLabel for="id-senha" value="Senha: " />
-                    <p:password id="id-senha" value="#{pessoaBean.login.senha}"/>
-                </h:panelGrid>
+                    <hr/>
+                    
+                    <h:panelGrid columns="4" cellpadding="4">
+                        <p:outputLabel for="id-email" value="E-mail: " />
+                        <p:inputText id="id-email" value="#{pessoaBean.contato.email}" maxlength="50"/>
+
+                        <p:outputLabel for="id-telefone" value="Telefone: " />
+                        <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{pessoaBean.contato.telefone}"/>
+
+                        <p:outputLabel for="id-rua" value="Rua: " />
+                        <p:inputText id="id-rua" value="#{pessoaBean.contato.rua}" maxlength="50"/>
+
+                        <p:outputLabel for="id-numero" value="Numero: " />
+                        <p:inputText id="id-numero" value="#{pessoaBean.contato.numero}"  maxlength="6"/>
+
+                        <p:outputLabel for="id-bairro" value="Bairro: " />
+                        <p:inputText id="id-bairro" value="#{pessoaBean.contato.bairro}" maxlength="20"/>
+
+                        <p:outputLabel for="id-cep" value="CEP: " />
+                        <p:inputMask mask="99999-999" id="id-cep" value="#{pessoaBean.contato.cep}"/>
+
+                        <p:outputLabel for="id-cidade" value="Cidade: " />
+                        <p:inputText id="id-cidade" value="#{pessoaBean.contato.cidade}" maxlength="20"/>
+                    </h:panelGrid>
+                    
+                    <hr/>
+                    
+                    <h:panelGrid columns="4" cellpadding="4">                        
+                        <p:outputLabel for="id-usuario" value="Usuário: " />
+                        <p:inputText id="id-usuario" value="#{pessoaBean.login.usuario}"/>
+                        <p:outputLabel for="id-senha" value="Senha: " />
+                        <p:password id="id-senha" value="#{pessoaBean.login.senha}"/>
+                    </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Salvar"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('id-modal').hide();"/>
+                        <p:commandButton value="Salvar" action="#{pessoaBean.fundirPessoa(pessoaBean.contato, pessoaBean.login)}"
+                                         update="mensagem :listaPessoas:tabelaPessoas :cadPessoa:inputPessoa"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog>   

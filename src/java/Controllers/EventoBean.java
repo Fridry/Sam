@@ -71,7 +71,6 @@ public class EventoBean implements Serializable{
     
     public void init() {
         evento = new Evento();
-        local = new Local();
     }
     
     public String carregaEvento(Evento evento){
@@ -90,13 +89,12 @@ public class EventoBean implements Serializable{
         }
     }
     
-    public void fundirEvento(Local local) {
+    public void fundirEvento() {
         try {
-            this.evento.setLocal(local);
             eventoDao.mergeEvento(evento);
             init();
             listarEvento();
-            mensagem("Local criado com sucesso!", "");
+            mensagem("Evento criado com sucesso!", "");
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao criar o local.", "");
             e.printStackTrace();

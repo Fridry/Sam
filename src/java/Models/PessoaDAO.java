@@ -13,12 +13,12 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author fridr
  */
-public class PessoaDAO implements Serializable{
-    
+public class PessoaDAO implements Serializable {
+
     private Session sessao;
     private Transaction trans;
     private List<Pessoa> list;
-    
+
     public void createPessoa(Pessoa pessoa) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -31,7 +31,7 @@ public class PessoaDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void deletePessoa(Pessoa pessoa) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -44,7 +44,7 @@ public class PessoaDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void updatePessoa(Pessoa pessoa) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -57,22 +57,22 @@ public class PessoaDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public List<Pessoa> getListPessoa() {
-        try{
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Pessoa.class);
-        list = cri.list();
-        }catch(RuntimeException e){
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Criteria cri = sessao.createCriteria(Pessoa.class);
+            list = cri.list();
+        } catch (RuntimeException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             sessao.close();
         }
         return list;
     }
-    
-        public Pessoa getById(int id){
+
+    public Pessoa getById(int id) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
@@ -80,13 +80,13 @@ public class PessoaDAO implements Serializable{
             return pessoa = (Pessoa) sessao.get(Pessoa.class, id);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             sessao.close();
         }
         return null;
     }
-        
-        public Pessoa search(int id){
+
+    public Pessoa search(int id) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Criteria cri = sessao.createCriteria(Pessoa.class);
@@ -94,10 +94,23 @@ public class PessoaDAO implements Serializable{
             Pessoa resultado = (Pessoa) cri.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             sessao.close();
         }
         return null;
     }
-    
+
+    public void mergePessoa(Pessoa pessoa) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            sessao.merge(pessoa);
+            trans.commit();
+        } catch (PersistenceException e) {
+            trans.rollback();
+        } finally {
+            sessao.close();
+        }
+    }
+
 }

@@ -76,18 +76,19 @@ public class EspecialidadeBean implements Serializable {
         return "editar";
     }
 
-    public void salvaEspecialidade() {
+    public String salvaEspecialidade() {
         try {
             especialidadeDao.createEspecialidade(especialidade);
             init();
             listarEspecialidade();
             mensagem("Especialidade criada com Sucesso!", "");
-            redireciona();
+            return "../";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar a Especialidade.", "");
             e.printStackTrace();
+            
         }
-
+        return "../";
     }
     
     public void fundirEspecialidade() {

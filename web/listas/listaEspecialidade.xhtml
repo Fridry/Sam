@@ -21,7 +21,7 @@
 
                     <f:facet name="header">
                         <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
-                                         action="#{especialidadeBean.init()}" update=":cadEspecialidade:inputEspecialidade"/>
+                                         action="#{especialidadeBean.init()}" update=":mensagem :cadEspecialidade:inputEspecialidade"/>
                     </f:facet>
 
                     <p:column headerText="Id"  sortBy="#{especialidade.idEspecialidade}" filterBy="#{especialidade.idEspecialidade}">

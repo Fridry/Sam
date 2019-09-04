@@ -124,18 +124,30 @@ public class PessoaBean implements Serializable {
             this.pessoa = new Pessoa();
             this.contato = new Contato();
             this.login = new Login();
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             erro("Ocorreu um erro ao cadastra o usuário.", "");
             e.printStackTrace();
         }
-        }
-    
-    
+    }
 
     public void salvaPessoa() {
         pessoaDao.createPessoa(pessoa);
         mensagem("Pessoa criada com Sucesso!", "");
         this.pessoa = new Pessoa();
+    }
+    
+    public void fundirPessoa(Contato contato, Login login) {
+        try {
+            this.pessoa.setLogin(login);
+            this.pessoa.setContato(contato);
+            pessoaDao.mergePessoa(pessoa);
+            init();
+            listarPessoa();
+            mensagem("Pessoa criada com sucesso!", "");
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao criar a pessoa.", "");
+            e.printStackTrace();
+        }
     }
 
     public void atualizaPessoa() {
