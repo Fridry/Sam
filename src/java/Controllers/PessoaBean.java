@@ -108,10 +108,14 @@ public class PessoaBean implements Serializable {
 
     public void init() {
         pessoa = new Pessoa();
+        contato = new Contato();
+        login = new Login();
     }
 
-    public String carregaPessoa(Pessoa pessoa) {
+    public String carregaPessoa(Pessoa pessoa, Contato contato, Login login) {
         this.pessoa = pessoa;
+        this.contato = contato;
+        this.login = login;
         return "editar";
     }
 
