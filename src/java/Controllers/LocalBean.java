@@ -89,6 +89,10 @@ public class LocalBean implements Serializable {
         contato = new Contato();
     }
 
+    public String redireciona() {
+        return "listaLocais";
+    }
+
     public void carregaLocal(Local local, Contato contato) {
         this.local = local;
         this.contato = contato;
@@ -100,12 +104,13 @@ public class LocalBean implements Serializable {
             localDao.createLocal(local);
             init();
             mensagem("Local criado com Sucesso!", "");
+            redireciona();
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar o local.", "");
             e.printStackTrace();
         }
     }
-    
+
     public void fundirLocal(Contato contato) {
         try {
             this.local.setContato(contato);
@@ -119,24 +124,23 @@ public class LocalBean implements Serializable {
         }
     }
 
-
     public void atualizaLocal() {
         localDao.updateLocal(local);
         mensagem("Local atualizado com sucesso!", "");
         local = new Local();
     }
-    
+
     public void deletaLocal(Local local) {
         try {
             localDao.deleteLocal(local);
             listarLocal();
             mensagem("Excluído com sucesso", "");
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             erro("Ocorreu um erro ao excluir o local.", "");
-            e.printStackTrace();   
+            e.printStackTrace();
         }
     }
-    
+
     public List listarLocal() {
         try {
             return listLocal = localDao.getListLocal();

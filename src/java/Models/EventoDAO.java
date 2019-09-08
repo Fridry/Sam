@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 
 /**
  *
@@ -61,7 +62,7 @@ public class EventoDAO implements Serializable {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            Criteria cri = sessao.createCriteria(Evento.class);
+            Criteria cri = sessao.createCriteria(Evento.class).addOrder(Order.asc("idEvento"));
             list = cri.list();
         } catch (RuntimeException e) {
             e.printStackTrace();

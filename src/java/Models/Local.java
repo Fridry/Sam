@@ -23,7 +23,7 @@ public class Local implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_local", unique = true, nullable = false)
-    private int idLocal;
+    private Integer idLocal;
 
     @Column(name = "nome_local")
     private String nomeLocal;
@@ -40,11 +40,11 @@ public class Local implements Serializable {
         this.contato = contato;
     }
 
-    public int getIdLocal() {
+    public Integer getIdLocal() {
         return idLocal;
     }
 
-    public void setIdLocal(int idLocal) {
+    public void setIdLocal(Integer idLocal) {
         this.idLocal = idLocal;
     }
 
@@ -71,8 +71,8 @@ public class Local implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.idLocal);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.idLocal);
         return hash;
     }
 
@@ -92,6 +92,8 @@ public class Local implements Serializable {
             return false;
         }
         return true;
-    }   
+    }
+
+    
 
 }

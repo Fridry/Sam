@@ -15,15 +15,14 @@
                 <p:growl id="mensagem"/>
 
                 <h:panelGrid columns="2" cellpadding="4">
-                    <p:outputLabel for="id-usuario" value="Usuário: " />
-                    <p:inputText id="id-usuario" value="#{agendamentoBean.agendamento.pessoa}" maxlength="30"/>
+                    <p:outputLabel for="idUsuario" value="Usuário: " />
+                    <p:inputText id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" maxlength="30"/>
 
-                    <p:outputLabel for="id-especialidade" value="Especialidade: " />
-                    <p:selectOneMenu id="id-especialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true">
-                        <f:selectItem itemLabel="Selecione a Especialidade" itemValue="" />
-                        <f:selectItem itemLabel="Especialidade 1" itemValue="Especialidade 1" />
-                        <f:selectItem itemLabel="Especialidade 2" itemValue="Especialidade 2" />
-                        <f:selectItem itemLabel="Especialidade 3" itemValue="Especialidade 3" />
+                    <p:outputLabel for="idEspecialidade" value="Especialidade: " />
+                    <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
+                        <f:selectItem itemLabel="Selecione a Especialidade" noSelectionOption="true" />
+                        <f:selectItems value="#{agendamentoBean.}" var="especialidade"
+                                       itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="id-local" value="Local:" />

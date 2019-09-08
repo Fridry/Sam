@@ -11,6 +11,8 @@
 
     <h:body>
         <div>
+            <p:growl id="mensagemGrowl" sticky="true" />  
+            
             <h:form id="listaEventos">
                 <h2 style="padding: 20px;">Eventos registrados</h2>
                 <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="10"
@@ -20,7 +22,7 @@
 
                     <f:facet name="header">
                         <p:commandButton value="Cadastrar evento" onclick="PF('idModal').show();"
-                                         action="#{eventoBean.init()}" update=":cadEvento:inputEvento"/>
+                                         action="#{eventoBean.init()}" update=":mensagemGrowl :cadEvento:inputEvento :cadEvento:mensagemAdd"/>
                     </f:facet>
 
                     <p:column headerText="Id">
@@ -79,7 +81,7 @@
                 <h:form id="cadEvento">
                     
                     <h:panelGrid>
-                        <p:messages id="mensagem" showDetail="true" closable="true"/>
+                        <p:messages id="mensagemAdd" showDetail="true" closable="true"/>
                     </h:panelGrid>
                     
                     <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
@@ -93,12 +95,10 @@
                         <p:calendar id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5" />
 
                         <p:outputLabel for="idLocalEvento" value="Local do evento:" />
-                        <p:selectOneMenu id="idLocalEvento" value="#{eventoBean.evento.local}" filter="true">
-                            <f:selectItem itemLabel="Selecione o Local" itemValue="" />
-                            <f:selectItem itemLabel="Local 1" itemValue="6" />
-                            <f:selectItem itemLabel="Local 2" itemValue="3" />
-                            <f:selectItem itemLabel="Local 3" itemValue="4" />
-                            <f:selectItem itemLabel="Local 3" itemValue="12" />
+                        <p:selectOneMenu id="idLocalEvento" value="#{eventoBean.evento.local}" filter="true" converter="localConverter">
+                            <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
+                            <f:selectItems value="#{eventoBean.locais}" var="local"
+                                           itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                         </p:selectOneMenu>
 
                         <p:outputLabel for="idLocalEventoAdd" value="Não localizou o local? " />
@@ -112,7 +112,7 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Salvar" action="#{eventoBean.fundirEvento()}" update="mensagem :listaEventos:tabelaEventos :cadEvento:inputEvento"/>
+                        <p:commandButton value="Salvar" action="#{eventoBean.fundirEvento()}" update="mensagemAdd :listaEventos:tabelaEventos :cadEvento:inputEvento"/>
                         <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();"/>
                     </h:panelGrid>
                 </h:form>

@@ -27,6 +27,7 @@ public class EspecialidadeBean implements Serializable {
     public EspecialidadeBean() {
         this.especialidade = new Especialidade();
         this.especialidadeDao = new EspecialidadeDAO();
+        listarEspecialidade();
     }
 
     public Especialidade getEspecialidade() {

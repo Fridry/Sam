@@ -9,12 +9,12 @@
     </h:head>
 
     <h:body>
-        <h:form>
-            <p:panel id="panel" header="Cadastro de local">
+        <h:form id="formLocal">
+            <p:panel header="Cadastro de local">
 
                 <p:growl id="mensagem"/>
 
-                <h:panelGrid columns="2" cellpadding="4">
+                <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
                     <p:outputLabel for="id-nome-local" value="Nome do local: " />
                     <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="30"/>
 
@@ -40,7 +40,7 @@
                     <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
                 </h:panelGrid>
 
-                <p:commandButton value="Cadastrar" update="@form" action="#{localBean.salvaLocal(localBean.contato)}" icon="pi pi-check" />
+                <p:commandButton value="Cadastrar" action="#{localBean.salvaLocal(localBean.contato)}" icon="pi pi-check" update=":formLocal:inputLocal" />
             </p:panel>
         </h:form>
     </h:body>
