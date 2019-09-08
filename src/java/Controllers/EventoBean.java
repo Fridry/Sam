@@ -27,6 +27,7 @@ public class EventoBean implements Serializable{
     private List<Evento> listEvento;
     private Local local;
     private LocalDAO localDao;
+    private List<Local> locais;
     
     public EventoBean() {
         this.evento = new Evento();
@@ -58,6 +59,31 @@ public class EventoBean implements Serializable{
     public void setListEvento(List<Evento> listEvento) {
         this.listEvento = listEvento;
     }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public LocalDAO getLocalDao() {
+        return localDao;
+    }
+
+    public void setLocalDao(LocalDAO localDao) {
+        this.localDao = localDao;
+    }
+
+    public List<Local> getLocais() {
+        return locais;
+    }
+
+    public void setLocais(List<Local> locais) {
+        this.locais = locais;
+    }
+    
     
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -71,6 +97,7 @@ public class EventoBean implements Serializable{
     
     public void init() {
         evento = new Evento();
+        local = new Local();
     }
     
     public String carregaEvento(Evento evento){
@@ -112,8 +139,14 @@ public class EventoBean implements Serializable{
         mensagem("Excluído com sucesso", "");        
     }
     
-    public List listarEvento(){
-        return listEvento = eventoDao.getListEvento();
+    public List listarEvento(){        
+        try {
+            return listEvento = eventoDao.getListEvento();
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao listar os eventos.", "");
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public String carregaLoginId(int id) {

@@ -48,7 +48,7 @@ public class Evento implements Serializable {
     @Column(name = "informacoes")
     private String informacoes;
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(nullable = false)
     private Local local;
 

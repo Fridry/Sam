@@ -14,7 +14,7 @@
             <h:form id="listaEventos">
                 <h2 style="padding: 20px;">Eventos registrados</h2>
                 <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="10"
-                             paginator="true" id="tabelaEventos"
+                             paginator="true" id="tabelaEventos" emptyMessage="Nenhum evento encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
 
@@ -29,6 +29,10 @@
 
                     <p:column headerText="Nome" filterBy="#{evento.nomeEvento}" filterMatchMode="contains">
                         <h:outputText value="#{evento.nomeEvento}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Local" filterBy="#{evento.local.nomeLocal}" filterMatchMode="contains">
+                        <h:outputText value="#{evento.local.nomeLocal}"/>
                     </p:column>
 
                     <p:column headerText="Data" sortBy="#{evento.diaEvento}" filterBy="#{evento.diaEvento}" filterMatchMode="contains">
