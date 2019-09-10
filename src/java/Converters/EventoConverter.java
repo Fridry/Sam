@@ -5,8 +5,8 @@
  */
 package Converters;
 
-import Models.Especialidade;
-import Models.EspecialidadeDAO;
+import Models.Evento;
+import Models.EventoDAO;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -16,16 +16,14 @@ import javax.faces.convert.FacesConverter;
  *
  * @author fridr
  */
-
-@FacesConverter(value = "especialidadeConverter", forClass = Especialidade.class)
-public class EspecialidadeConverter implements Converter{
-
+@FacesConverter(value = "eventoConverter", forClass = Evento.class)
+public class EventoConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0){
             Integer id = Integer.valueOf(value);
-            EspecialidadeDAO especialidadeDao = new EspecialidadeDAO();
-            return especialidadeDao.getById(id);
+            EventoDAO eventoDao = new EventoDAO();
+            return eventoDao.getById(id);
         }
         return null;
     }
@@ -33,11 +31,9 @@ public class EspecialidadeConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if(value != null){
-            Especialidade especialidade = (Especialidade) value;
-            return especialidade.getIdEspecialidade().toString();
+            Evento evento = (Evento) value;
+            return evento.getIdEvento().toString();
         }
         return null;
     }
-    
-    
 }

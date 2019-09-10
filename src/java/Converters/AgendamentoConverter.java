@@ -5,8 +5,9 @@
  */
 package Converters;
 
-import Models.Especialidade;
-import Models.EspecialidadeDAO;
+import Models.Agendamento;
+import Models.Agendamento;
+import Models.AgendamentoDAO;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,15 +18,14 @@ import javax.faces.convert.FacesConverter;
  * @author fridr
  */
 
-@FacesConverter(value = "especialidadeConverter", forClass = Especialidade.class)
-public class EspecialidadeConverter implements Converter{
-
+@FacesConverter(value = "agendamentoConverter", forClass = Agendamento.class)
+public class AgendamentoConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0){
             Integer id = Integer.valueOf(value);
-            EspecialidadeDAO especialidadeDao = new EspecialidadeDAO();
-            return especialidadeDao.getById(id);
+            AgendamentoDAO agendamentoDao = new AgendamentoDAO();
+            return agendamentoDao.getById(id);
         }
         return null;
     }
@@ -33,11 +33,10 @@ public class EspecialidadeConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if(value != null){
-            Especialidade especialidade = (Especialidade) value;
-            return especialidade.getIdEspecialidade().toString();
+            Agendamento agendamento = (Agendamento) value;
+            return agendamento.getIdAgendamento().toString();
         }
         return null;
     }
-    
     
 }

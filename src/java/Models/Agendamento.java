@@ -31,7 +31,7 @@ public class Agendamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_agendamento", unique = true, nullable = false)
-    private int idAgendamento;
+    private Integer idAgendamento;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
@@ -67,11 +67,11 @@ public class Agendamento implements Serializable {
        this.status = status;
     }
 
-    public int getIdAgendamento() {
+    public Integer getIdAgendamento() {
         return idAgendamento;
     }
 
-    public void setIdAgendamento(int idAgendamento) {
+    public void setIdAgendamento(Integer idAgendamento) {
         this.idAgendamento = idAgendamento;
     }
 
@@ -130,7 +130,7 @@ public class Agendamento implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        Integer hash = 7;
         hash = 97 * hash + Objects.hashCode(this.idAgendamento);
         return hash;
     }

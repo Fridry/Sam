@@ -21,7 +21,7 @@
                     <p:outputLabel for="idEspecialidade" value="Especialidade: " />
                     <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
                         <f:selectItem itemLabel="Selecione a Especialidade" noSelectionOption="true" />
-                        <f:selectItems value="#{agendamentoBean.}" var="especialidade"
+                        <f:selectItems value="#{agendamentoBean.agendamento}" var="especialidade"
                                        itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                     </p:selectOneMenu>
 

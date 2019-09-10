@@ -11,7 +11,7 @@
 
     <h:body>
         <div>
-            <p:growl id="mensagemGrowl" sticky="true" />  
+            <p:growl id="mensagemGrowl" />  
             
             <h:form id="listaEventos">
                 <h2 style="padding: 20px;">Eventos registrados</h2>
@@ -51,7 +51,7 @@
 
                     <p:column headerText="Opções">
                         <p:commandButton icon="ui-icon-trash" action="#{eventoBean.deletaEvento(evento)}" 
-                                         update="@form :listaEventos" alt="Remover" title="Remover" >
+                                         update=":mensagemGrowl :listaEventos:tabelaEventos" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 

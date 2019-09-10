@@ -21,7 +21,7 @@ public class Especialidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_especialidade", unique = true, nullable = false)
-    private int idEspecialidade;
+    private Integer idEspecialidade;
     
     @Column(name="tipo_especialidade")
     private String tipoEspecialidade;
@@ -29,16 +29,16 @@ public class Especialidade implements Serializable {
     public Especialidade() {
     }
 
-    public Especialidade(int idEspecialidade, String tipoEspecialidade) {
+    public Especialidade(Integer idEspecialidade, String tipoEspecialidade) {
         this.idEspecialidade = idEspecialidade;
         this.tipoEspecialidade = tipoEspecialidade;
     }
 
-    public int getIdEspecialidade() {
+    public Integer getIdEspecialidade() {
         return idEspecialidade;
     }
 
-    public void setIdEspecialidade(int idEspecialidade) {
+    public void setIdEspecialidade(Integer idEspecialidade) {
         this.idEspecialidade = idEspecialidade;
     }
 
@@ -57,8 +57,8 @@ public class Especialidade implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idEspecialidade);
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.idEspecialidade);
         return hash;
     }
 
@@ -78,6 +78,6 @@ public class Especialidade implements Serializable {
             return false;
         }
         return true;
-    }
+    }    
     
 }

@@ -28,7 +28,7 @@ public class Pessoa implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_pessoa",unique=true, nullable=false)
-    private int idPessoa;
+    private Integer idPessoa;
     
     @Column(name = "nome")
     private String nome;
@@ -57,7 +57,7 @@ public class Pessoa implements Serializable{
     public Pessoa(){
     }
 
-    public Pessoa(int idPessoa, String nome, String genero, String cpf, Date dataNascimento, String numSus, Login login, Contato contato) {
+    public Pessoa(Integer idPessoa, String nome, String genero, String cpf, Date dataNascimento, String numSus, Login login, Contato contato) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.genero = genero;
@@ -68,11 +68,11 @@ public class Pessoa implements Serializable{
         this.contato = contato;
     }
 
-    public int getIdPessoa() {
+    public Integer getIdPessoa() {
         return idPessoa;
     }
 
-    public void setIdPessoa(int idPessoa) {
+    public void setIdPessoa(Integer idPessoa) {
         this.idPessoa = idPessoa;
     }
 
@@ -139,7 +139,7 @@ public class Pessoa implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        Integer hash = 7;
         hash = 37 * hash + Objects.hashCode(this.idPessoa);
         return hash;
     }
