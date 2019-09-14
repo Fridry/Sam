@@ -21,16 +21,15 @@
                     <p:outputLabel for="idEspecialidade" value="Especialidade: " />
                     <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
                         <f:selectItem itemLabel="Selecione a Especialidade" noSelectionOption="true" />
-                        <f:selectItems value="#{agendamentoBean.agendamento}" var="especialidade"
-                                       itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
+                        <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                       itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="id-local" value="Local:" />
-                    <p:selectOneMenu id="id-local" value="#{agendamentoBean.agendamento.local}" filter="true">
-                        <f:selectItem itemLabel="Selecione o Local" itemValue="" />
-                        <f:selectItem itemLabel="Local 1" itemValue="Local 1" />
-                        <f:selectItem itemLabel="Local 2" itemValue="Local 2" />
-                        <f:selectItem itemLabel="Local 3" itemValue="Local 3" />
+                    <p:outputLabel for="idLocal" value="Local:" />
+                    <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter">
+                        <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
+                        <f:selectItems value="#{agendamentoBean.locais}" var="local"
+                                       itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                     </p:selectOneMenu>
                     
                     <p:outputLabel for="id-data-evento" value="Data: " />
