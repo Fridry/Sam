@@ -169,7 +169,7 @@ public class PessoaBean implements Serializable {
         return listPessoa = pessoaDao.getListPessoa();
     }
 
-    public String carregaLoginId(int id) {
+    public String carregaPessoaId(int id) {
         this.pessoa = pessoaDao.getById(id);
         return "editar";
     }

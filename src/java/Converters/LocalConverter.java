@@ -19,7 +19,6 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "localConverter", forClass = Local.class)
 public class LocalConverter implements Converter{
-
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0){

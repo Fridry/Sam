@@ -17,12 +17,12 @@ import org.hibernate.Transaction;
  *
  * @author fridr
  */
-public class LocalDAO implements Serializable{
-    
+public class LocalDAO implements Serializable {
+
     private Session sessao;
     private Transaction trans;
     private List<Local> list;
-    
+
     public void createLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -35,7 +35,7 @@ public class LocalDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void deleteLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -48,7 +48,7 @@ public class LocalDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public void updateLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -61,22 +61,22 @@ public class LocalDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
     public List<Local> getListLocal() {
-        try{
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Local.class);
-        list = cri.list();
-        }catch(RuntimeException e){
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Criteria cri = sessao.createCriteria(Local.class);
+            list = cri.list();
+        } catch (RuntimeException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             sessao.close();
         }
         return list;
     }
-    
-        public Local getById(int id){
+
+    public Local getById(int id) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
@@ -84,13 +84,13 @@ public class LocalDAO implements Serializable{
             return local = (Local) sessao.get(Local.class, id);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             sessao.close();
         }
         return null;
     }
-    
-        public void mergeLocal(Local local) {
+
+    public void mergeLocal(Local local) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
@@ -102,5 +102,5 @@ public class LocalDAO implements Serializable{
             sessao.close();
         }
     }
-    
+
 }

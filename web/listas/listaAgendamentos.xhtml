@@ -11,6 +11,8 @@
 
     <h:body>
         <div>
+            <p:growl id="mensagemGrowl" />  
+            
             <h:form id="listaAgenda">
                 <h2 style="padding: 20px;">Agendamentos</h2>
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="10"
@@ -20,7 +22,7 @@
 
                     <f:facet name="header">
                         <p:commandButton value="Agendar consulta" onclick="PF('idModal').show();"
-                                         action="#{agendamentoBean.init()}"/>
+                                         action="#{agendamentoBean.init()}" update=":mensagemGrowl :cadAgendamento:inputAgendamento"/>
                     </f:facet>
                     <p:column headerText="Id">
                         <h:outputText value="#{agenda.idAgendamento}" />
@@ -54,7 +56,7 @@
 
                     <p:column headerText="Opções">
                         <p:commandButton icon="ui-icon-trash" action="#{agendamentoBean.deletaAgendamento(agendamento)}" 
-                                         update=":listaAgenda" alt="Remover" title="Remover" >
+                                         update=":mensagemGrowl :listaAgenda" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
@@ -80,13 +82,13 @@
 
 
             <p:dialog header="Agendamento médico" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
-                <h:form id="cadEvento">
+                <h:form id="cadAgendamento">
 
                     <h:panelGrid>
                         <p:messages id="mensagemAdd" showDetail="true" closable="true"/>
                     </h:panelGrid>
 
-                    <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
+                    <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
                         <p:outputLabel for="idUsuario" value="Usuário: " />
                         <p:selectOneMenu id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" filter="true" converter="pessoaConverter">
                             <f:selectItem itemLabel="Selecione o usuário" noSelectionOption="true" />

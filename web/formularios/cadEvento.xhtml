@@ -85,7 +85,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Cadastrar" action="#{localBean.fundirLocal(localBean.contato)}" update="mensagem :cadLocal:inputLocal"/>
+                    <p:commandButton value="Cadastrar" action="#{localBean.fundirLocal(localBean.contato)}" update="mensagem :cadLocal:inputLocal :formEvento:idLocalEvento"/>
                     <p:commandButton value="Fechar" oncomplete="PF('idModalLocal').hide();" update="mensagem"/>
                 </h:panelGrid>
             </h:form>

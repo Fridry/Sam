@@ -12,6 +12,7 @@ import Models.Pessoa;
 import Models.PessoaDAO;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -52,6 +53,7 @@ public class AgendamentoBean implements Serializable {
         this.pessoaDao = new PessoaDAO();
         this.horario = new Horario();
         this.horarioDao = new HorarioDAO();
+        init();
     }
 
     public Agendamento getAgendamento() {
@@ -184,6 +186,7 @@ public class AgendamentoBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
 
+    @PostConstruct
     public void init() {
         agendamento = new Agendamento();
         local = new Local();
@@ -191,13 +194,12 @@ public class AgendamentoBean implements Serializable {
         pessoa = new Pessoa();
         horario = new Horario();
         try {
-            agendamentos = agendamentoDao.getListAgendamento();
             locais = localDao.getListLocal();
             especialidades = especialidadeDao.getListEspecialidade();
             pessoas = pessoaDao.getListPessoa();
             horarios = horarioDao.getListHorario();
         } catch (RuntimeException e) {
-            erro("Ocorreu um erro ao listar os locais.", "");
+            erro("Ocorreu um erro ao listar.", "");
             e.printStackTrace();
         }
     }

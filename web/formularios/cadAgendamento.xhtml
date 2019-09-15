@@ -12,41 +12,51 @@
         <h:form>
             <p:panel id="panel" header="Agendamento de consulta médica">
 
-                <p:growl id="mensagem"/>
+                    <h:panelGrid>
+                        <p:messages id="mensagemAdd" showDetail="true" closable="true"/>
+                    </h:panelGrid>
 
-                <h:panelGrid columns="2" cellpadding="4">
-                    <p:outputLabel for="idUsuario" value="Usuário: " />
-                    <p:inputText id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" maxlength="30"/>
+                    <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
+                        <p:outputLabel for="idUsuario" value="Usuário: " />
+                        <p:selectOneMenu id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" filter="true" converter="pessoaConverter">
+                            <f:selectItem itemLabel="Selecione o usuário" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.pessoas}" var="pessoa"
+                                           itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.numSus}"/>
+                        </p:selectOneMenu>
 
-                    <p:outputLabel for="idEspecialidade" value="Especialidade: " />
-                    <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
-                        <f:selectItem itemLabel="Selecione a Especialidade" noSelectionOption="true" />
-                        <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
-                                       itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
-                    </p:selectOneMenu>
+                        <p:outputLabel for="idLocal" value="Local:" />
+                        <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter">
+                            <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.locais}" var="local"
+                                           itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="idEspecialidade" value="Especialidade:" />
+                        <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
+                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                        </p:selectOneMenu>
 
-                    <p:outputLabel for="idLocal" value="Local:" />
-                    <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter">
-                        <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
-                        <f:selectItems value="#{agendamentoBean.locais}" var="local"
-                                       itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
-                    </p:selectOneMenu>
-                    
-                    <p:outputLabel for="id-data-evento" value="Data: " />
-                    <p:calendar id="id-data-evento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy"/>
+                        <p:outputLabel for="id-data-evento" value="Data: " />
+                        <p:calendar id="id-data-evento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy"/>
 
-                    <p:outputLabel for="id-hora" value="Horário:" />
-                    <p:selectOneMenu id="id-hora" value="#{agendamentoBean.agendamento.horario}" filter="true">
-                        <f:selectItem itemLabel="Selecione o Local" itemValue="" />
-                        <f:selectItem itemLabel="Horário 1" itemValue="Horário 1" />
-                        <f:selectItem itemLabel="Horário 2" itemValue="Horário 2" />
-                        <f:selectItem itemLabel="Horário 3" itemValue="Horário 3" />
-                    </p:selectOneMenu>
+                        <p:outputLabel for="id-hora" value="Horário:" />
+                        <p:selectOneMenu id="id-hora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter">
+                            <f:selectItem itemLabel="Selecione o Horário" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
+                                           itemValue="#{horario}" itemLabel="#{horario.hora}"/>
+                        </p:selectOneMenu>
 
-                </h:panelGrid>
+                    </h:panelGrid>
+                
+                <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" 
+                                         action="#{agendamentoBean.fundirAgendamento(agendamentoBean.pessoa, agendamentoBean.local, agendamentoBean.especialidade, agendamentoBean.horario)}"
+                                         update="mensagemAdd"/>
+                    </h:panelGrid>
 
-                <p:commandButton value="Cadastrar" update="panel" action="#{agendamentoBean.salvaAgendamento()}" icon="pi pi-check" />
-
+                
             </p:panel>
         </h:form>
     </h:body>

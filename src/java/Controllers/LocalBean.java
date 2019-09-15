@@ -151,7 +151,7 @@ public class LocalBean implements Serializable {
         }
     }
 
-    public String carregaLoginId(int id) {
+    public String carregaLocalId(int id) {
         this.local = localDao.getById(id);
         return "editar";
     }
