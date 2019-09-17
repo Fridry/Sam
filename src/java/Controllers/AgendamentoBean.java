@@ -251,9 +251,26 @@ public class AgendamentoBean implements Serializable {
         return agendamentos = agendamentoDao.getListAgendamento();
     }
 
-    public String carregaLoginId(int id) {
+    public String carregaAgendamentoId(int id) {
         this.agendamento = agendamentoDao.getById(id);
         return "editar";
+    }
+    
+      public String salvaAgendamentoPessoa(Pessoa pessoa) {
+        try {
+            agendamento.setPessoa(pessoa);
+            agendamento.setStatus("Agendado");
+            agendamentoDao.createAgendamento(agendamento);
+            mensagem("Agendamento criado com Sucesso!", "");
+            init();
+            agendamento = new Agendamento();
+            return "listas/listaAgendamentos";
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao Realizar o agendamento.", "");
+            e.printStackTrace();
+        }
+        
+        return null;
     }
 
 }

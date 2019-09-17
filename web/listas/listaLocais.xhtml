@@ -11,8 +11,10 @@
 
     <h:body>
         <div>
+            <p:growl id="mensagemExcluir" />
+            
             <h:form id="listaLocais">
-                <p:growl id="mensagemExcluir" />
+                
                 <h2 style="padding: 20px;">Locais registrados</h2>
                 <p:dataTable id="tabelaLocais" var="local" value="#{localBean.listarLocal()}" rows="10"
                              paginator="true"  emptyMessage="Nenhum local encontrado."
@@ -38,7 +40,7 @@
 
                     <p:column headerText="Opções">
                         <p:commandButton icon="ui-icon-trash" actionListener="#{localBean.deletaLocal(local)}" 
-                                         update=":listaLocais:tabelaLocais" alt="Remover" title="Remover" >
+                                         update=":mensagemExcluir :listaLocais:tabelaLocais" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 

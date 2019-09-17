@@ -11,8 +11,11 @@
 
     <h:body>
         <div>
+            
+            <p:growl id="mensagemExcluir" />
+            
             <h:form id="listaEspecialidade">
-                <p:growl id="mensagemExcluir" />
+                
                 <h2 style="padding: 20px;">Especialidades registradas</h2>
                 <p:dataTable id="tabelaEspecialidade" var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
                              paginator="true"  emptyMessage="Nenhuma especialidade encontrada."
@@ -34,7 +37,7 @@
 
                     <p:column headerText="Opções">
                         <p:commandButton icon="ui-icon-trash" actionListener="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
-                                         update=":listaEspecialidade:tabelaEspecialidade" alt="Remover" title="Remover" >
+                                         update=":mensagemExcluir :listaEspecialidade:tabelaEspecialidade" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 

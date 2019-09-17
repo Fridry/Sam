@@ -22,7 +22,7 @@
 
                     <f:facet name="header">
                         <p:commandButton value="Agendar consulta" onclick="PF('idModal').show();"
-                                         action="#{agendamentoBean.init()}" update=":mensagemGrowl :cadAgendamento:inputAgendamento"/>
+                                         action="#{agendamentoBean.init()}" update=":mensagemGrowl :cadAgendamento:inputAgendamento :cadAgendamento:mensagemAdd"/>
                     </f:facet>
                     <p:column headerText="Id">
                         <h:outputText value="#{agenda.idAgendamento}" />
@@ -66,7 +66,7 @@
                         </p:confirmDialog>
 
                         <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" onclick="PF('idModalUpdate').show();"
-                                         action="#{loginBean.carregaLoginId(login.idLogin)}" update=":mensagemGrowl"/>
+                                          action="#{agendamentoBean.carregaAgendamento(agenda)}" update=":UpdateAgendamento:inputAgendamento"/>
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  /> 
                     </p:column>
 
