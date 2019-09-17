@@ -200,7 +200,6 @@ public class AgendamentoBean implements Serializable {
             horarios = horarioDao.getListHorario();
             pessoas = pessoaDao.getListPessoa();
             especialidades = especialidadeDao.getListEspecialidade();
-
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao listar.", "");
             e.printStackTrace();
@@ -214,6 +213,7 @@ public class AgendamentoBean implements Serializable {
 
     public void salvaAgendamento() {
         try {
+            agendamento.setStatus("Agendado");
             agendamentoDao.createAgendamento(agendamento);
             mensagem("Agendamento criado com Sucesso!", "");
             agendamento = new Agendamento();
