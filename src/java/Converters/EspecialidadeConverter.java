@@ -18,7 +18,7 @@ import javax.faces.convert.FacesConverter;
  */
 
 @FacesConverter(value = "especialidadeConverter", forClass = Especialidade.class)
-public class EspecialidadeConverter implements Converter{
+public class EspecialidadeConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {

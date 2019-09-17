@@ -12,7 +12,8 @@
         <h:form>
             <p:panel id="panel" header="Cadastro de especialidade">
 
-                <p:growl id="mensagem" autoUpdate="true"/>
+                <p:growl id="mensagem" showDetail="true" autoUpdate="true"/>
+                
                 <h:panelGrid columns="2" cellpadding="4">
                     <p:outputLabel for="idEspecialidade" value="Especialidade: " />
                     <p:inputText id="idEspecialidade" maxlength="30" size="50" value="#{especialidadeBean.especialidade.tipoEspecialidade}"/>

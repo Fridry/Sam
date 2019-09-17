@@ -18,6 +18,5 @@
     <mapping class="Models.Horario"/>
     <mapping class="Models.Evento"/>
     <mapping class="Models.Local"/>
-    <mapping class="Models.Teste"/>
   </session-factory>
 </hibernate-configuration>

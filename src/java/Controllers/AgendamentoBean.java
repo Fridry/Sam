@@ -53,6 +53,8 @@ public class AgendamentoBean implements Serializable {
         this.pessoaDao = new PessoaDAO();
         this.horario = new Horario();
         this.horarioDao = new HorarioDAO();
+        this.especialidade = new Especialidade();
+        this.especialidadeDao = new EspecialidadeDAO();
         init();
     }
 
@@ -195,9 +197,10 @@ public class AgendamentoBean implements Serializable {
         horario = new Horario();
         try {
             locais = localDao.getListLocal();
-            especialidades = especialidadeDao.getListEspecialidade();
-            pessoas = pessoaDao.getListPessoa();
             horarios = horarioDao.getListHorario();
+            pessoas = pessoaDao.getListPessoa();
+            especialidades = especialidadeDao.getListEspecialidade();
+
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao listar.", "");
             e.printStackTrace();
@@ -209,12 +212,8 @@ public class AgendamentoBean implements Serializable {
         return "editar";
     }
 
-    public void salvaAgendamento(Pessoa pessoa, Local local, Especialidade especialidade, Horario horario) {
+    public void salvaAgendamento() {
         try {
-            this.agendamento.setPessoa(pessoa);
-            this.agendamento.setLocal(local);
-            this.agendamento.setEspecialidade(especialidade);
-            this.agendamento.setPessoa(pessoa);
             agendamentoDao.createAgendamento(agendamento);
             mensagem("Agendamento criado com Sucesso!", "");
             agendamento = new Agendamento();
@@ -224,13 +223,10 @@ public class AgendamentoBean implements Serializable {
         }
     }
 
-    public void fundirAgendamento(Pessoa pessoa, Local local, Especialidade especialidade, Horario horario) {
+    public void fundirAgendamento() {
         try {
-            this.agendamento.setPessoa(pessoa);
-            this.agendamento.setLocal(local);
-            this.agendamento.setEspecialidade(especialidade);
-            this.agendamento.setPessoa(pessoa);
-            localDao.mergeLocal(local);
+            agendamento.setStatus("Agendado");
+            agendamentoDao.mergeAgendamento(agendamento);
             init();
             listarAgendamento();
             mensagem("Agendamento criado com sucesso!", "");

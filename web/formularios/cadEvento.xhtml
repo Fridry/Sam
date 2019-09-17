@@ -12,11 +12,8 @@
         <h:form id="formEvento">
             <p:panel header="Cadastro de eventos">
 
-                <p:growl id="mensagem"/>
+                <p:growl id="mensagemAdd" showDetail="true" sticky="true"/>
 
-                <h:panelGrid>
-                    <p:messages id="mensagemAdd" showDetail="true" closable="true"/>
-                </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
                     <p:outputLabel for="idNomeEvento" value="Nome do evento: " />

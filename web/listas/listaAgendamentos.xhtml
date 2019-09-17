@@ -55,7 +55,7 @@
                     </p:column>
 
                     <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" action="#{agendamentoBean.deletaAgendamento(agendamento)}" 
+                        <p:commandButton icon="ui-icon-trash" action="#{agendamentoBean.deletaAgendamento(agenda)}" 
                                          update=":mensagemGrowl :listaAgenda" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
@@ -123,9 +123,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Salvar" 
-                                         action="#{agendamentoBean.fundirAgendamento(agendamentoBean.pessoa, agendamentoBean.local, agendamentoBean.especialidade, agendamentoBean.horario)}"
-                                         update="mensagemAdd"/>
+                        <p:commandButton value="Salvar" action="#{agendamentoBean.fundirAgendamento()}"
+                                         update="mensagemAdd :listaAgenda"/>
                         <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();"/>
                     </h:panelGrid>
                 </h:form>

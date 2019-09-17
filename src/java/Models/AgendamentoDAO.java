@@ -31,6 +31,19 @@ public class AgendamentoDAO implements Serializable{
         }
     }
     
+     public void mergeAgendamento(Agendamento agendamento) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            sessao.merge(agendamento);
+            trans.commit();
+        } catch (PersistenceException e) {
+            trans.rollback();
+        } finally {
+            sessao.close();
+        }
+    }
+    
     public void deleteAgendamento(Agendamento agendamento) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
