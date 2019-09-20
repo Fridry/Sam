@@ -16,10 +16,9 @@
                 <p:outputLabel for="idDataEvento" value="Data: " />
                 <p:calendar id="idDataEvento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy"/>
                 
-                <p:outputLabel for="idHora" value="Clique para ver horários disponíveis:" />
-                <p:commandButton value="Ver horários disponíveis" action="#{agendamentoBean.carregaHoraByData(agendamentoBean.agendamento.data)}" process="@this" update=":mensagem idHora"/>
+                <p:outputLabel for="idHoraBotao" value="Clique para ver horários disponíveis:" />
+                <p:commandButton id="idHoraBotao" value="Ver horários disponíveis" action="#{agendamentoBean.carregaHoraByData(agendamentoBean.agendamento.data)}" process="@this" update=":mensagem idHora"/>
                 
-                <h:outputText value="#{agendamentoBean.agendamento.data}" />
                 <p:outputLabel for="idHora" value="Horário:" />
                 <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter">
                     <f:selectItem itemLabel="Selecione o Horário" noSelectionOption="true" />

@@ -278,11 +278,14 @@ public class AgendamentoBean implements Serializable {
         try {
             horarios = horarioDao.getListHorarioData(data);
             mensagem("Deu certo", "");
+            System.out.println(horarios);
+            
             return horarios;
         } catch (RuntimeException e) {
             erro("Ocorreu um erro.", "");
             e.printStackTrace();
         }
+        
         return null;
     }
 
