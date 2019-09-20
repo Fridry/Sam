@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -173,4 +174,8 @@ public class PessoaBean implements Serializable {
         this.pessoa = pessoaDao.getById(id);
         return "editar";
     }
+    
+    public String onFlowProcess(FlowEvent event) {
+            return event.getNewStep();
+        }
 }

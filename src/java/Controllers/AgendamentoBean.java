@@ -11,6 +11,7 @@ import Models.LocalDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -270,6 +271,18 @@ public class AgendamentoBean implements Serializable {
             e.printStackTrace();
         }
         
+        return null;
+    }
+      
+    public List carregaHoraByData(Date data) {
+        try {
+            horarios = horarioDao.getListHorarioData(data);
+            mensagem("Deu certo", "");
+            return horarios;
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro.", "");
+            e.printStackTrace();
+        }
         return null;
     }
 
