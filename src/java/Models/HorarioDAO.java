@@ -14,6 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 /**
  *
@@ -92,11 +93,14 @@ public class HorarioDAO implements Serializable {
         return null;
     }
 
-    public List<Horario> getListHorarioData(Date data) {
+    public List<Horario> getListHorarioData(String data) {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            SQLQuery sql = sessao.createSQLQuery("SELECT * FROM horario WHERE id_horario NOT IN (SELECT horario_id_horario FROM agendamento WHERE data = '" + data + "')");
+            SQLQuery sql = sessao.createSQLQuery("SELECT * FROM horario WHERE id_horario NOT IN (SELECT horario_id_horario FROM agendamento WHERE data = :data)");
+            sql.setParameter("data", data);
+            sql.setResultTransformer(Transformers.aliasToBean(Horario.class));
+            //q.setResultTransformer(Transformers.aliasToBean(Tributario.class));
             return sql.list();
         } catch (RuntimeException e) {
             e.printStackTrace();

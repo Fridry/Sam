@@ -11,6 +11,8 @@ import Models.LocalDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -256,8 +258,8 @@ public class AgendamentoBean implements Serializable {
         this.agendamento = agendamentoDao.getById(id);
         return "editar";
     }
-    
-      public String salvaAgendamentoPessoa(Pessoa pessoa) {
+
+    public String salvaAgendamentoPessoa(Pessoa pessoa) {
         try {
             agendamento.setPessoa(pessoa);
             agendamento.setStatus("Agendado");
@@ -270,23 +272,29 @@ public class AgendamentoBean implements Serializable {
             erro("Ocorreu um erro ao Realizar o agendamento.", "");
             e.printStackTrace();
         }
-        
+
         return null;
     }
-      
+
+    public void dataToString(Date data) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = dateFormat.format(data);
+        System.out.println(strDate);
+    }
+
     public List carregaHoraByData(Date data) {
         try {
-            horarios = horarioDao.getListHorarioData(data);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = dateFormat.format(data);
+            horarios = horarioDao.getListHorarioData(strDate);
             mensagem("Deu certo", "");
-            System.out.println(horarios);
-            
             return horarios;
         } catch (RuntimeException e) {
             erro("Ocorreu um erro.", "");
             e.printStackTrace();
         }
-        
-        return null;
+
+        return horarios;
     }
 
 }

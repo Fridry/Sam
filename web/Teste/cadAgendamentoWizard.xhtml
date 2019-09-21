@@ -56,17 +56,6 @@
                                 <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
                                                itemValue="#{horario}" itemLabel="#{horario.hora}"/>
                             </p:selectOneMenu>
-
-                            <h3>Grid</h3>
-                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                <p:outputLabel for="city" value="Hora: " />
-                                <p:selectOneRadio id="city" value="#{agendamentoBean.agendamento.horario}"  layout="grid" columns="4">
-                                    <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
-                                               itemValue="#{horario}" itemLabel="#{horario.hora}" />
-                                </p:selectOneRadio>
-                            </h:panelGrid>
-
-
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
@@ -77,19 +66,21 @@
                         <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Nome: " />
-                                <h:outputText value="#{agendamentoBean.agendamento.pessoa}" styleClass="outputLabel"/>
+                                <h:outputText value="#{agendamentoBean.agendamento.pessoa.nome}" styleClass="outputLabel"/>
 
                                 <h:outputText value="Local: " />
-                                <h:outputText value="#{agendamentoBean.agendamento.local}" styleClass="outputLabel"/>
+                                <h:outputText value="#{agendamentoBean.agendamento.local.nomeLocal}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Especialidade " />
-                                <h:outputText value="#{agendamentoBean.agendamento.especialidade}" styleClass="outputLabel"/>
+                                <h:outputText value="Especialidade: " />
+                                <h:outputText value="#{agendamentoBean.agendamento.especialidade.tipoEspecialidade}" styleClass="outputLabel"/>
 
                                 <h:outputText value="Data: " />
-                                <h:outputText value="#{agendamentoBean.agendamento.data}" styleClass="outputLabel"/>
+                                <h:outputText value="#{agendamentoBean.agendamento.data}" styleClass="outputLabel">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
 
                                 <h:outputText value="Hora: " />
-                                <h:outputText value="#{agendamentoBean.agendamento.horario}" styleClass="outputLabel"/>
+                                <h:outputText value="#{agendamentoBean.agendamento.horario.hora}" styleClass="outputLabel"/>
 
                             </h:panelGrid>
 

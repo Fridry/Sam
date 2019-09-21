@@ -23,7 +23,7 @@ public class Login implements Serializable{
     @Column(name = "id_login",unique = true, nullable = false)
     private int idLogin;
     
-    @Column(name = "usuario", nullable = false)
+    @Column(name = "usuario", nullable = false, unique = true)
     private String usuario;
     
     @Column(name = "senha", length = 32, nullable = false)

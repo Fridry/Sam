@@ -10,8 +10,10 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 /**
  *
