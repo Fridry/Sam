@@ -114,6 +114,7 @@ public class PessoaBean implements Serializable {
     }
 
     public String carregaPessoa(Pessoa pessoa, Contato contato, Login login) {
+        init();
         this.pessoa = pessoa;
         this.contato = contato;
         this.login = login;

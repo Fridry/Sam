@@ -58,7 +58,7 @@
                 </p:dataTable>
             </h:form>
 
-            <p:dialog header="Cadastro de testes" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
+            <p:dialog header="Cadastro de testes" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
                 <h:form id="cadLocal">
                     <h:panelGrid>
                         <p:messages id="mensagem" showDetail="true" closable="true"/>
@@ -67,28 +67,36 @@
                     <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
 
                         <p:outputLabel for="idLocal" value="Nome do local: " />
-                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="30"/>
+                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="30"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idEmail" value="E-mail: " />
-                        <p:inputText id="idEmail" value="#{localBean.contato.email}" maxlength="50"/>
+                        <p:inputText id="idEmail" value="#{localBean.contato.email}" maxlength="50"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idTelefone" value="Telefone: " />
-                        <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{localBean.contato.telefone}"/>
+                        <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{localBean.contato.telefone}"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idRua" value="Rua: " />
-                        <p:inputText id="idRua" value="#{localBean.contato.rua}" maxlength="50"/>
+                        <p:inputText id="idRua" value="#{localBean.contato.rua}" maxlength="50"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idRumero" value="Numero: " />
-                        <p:inputText id="idRumero" value="#{localBean.contato.numero}"  maxlength="6"/>
+                        <p:inputText id="idRumero" value="#{localBean.contato.numero}"  maxlength="6"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idBairro" value="Bairro: " />
-                        <p:inputText id="idBairro" value="#{localBean.contato.bairro}" maxlength="20"/>
+                        <p:inputText id="idBairro" value="#{localBean.contato.bairro}" maxlength="20"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idCep" value="CEP: " />
-                        <p:inputMask mask="99999-999" id="idCep" value="#{localBean.contato.cep}"/>
+                        <p:inputMask mask="99999-999" id="idCep" value="#{localBean.contato.cep}"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idCidade" value="Cidade: " />
-                        <p:inputText id="idCidade" value="#{localBean.contato.cidade}" maxlength="20"/>
+                        <p:inputText id="idCidade" value="#{localBean.contato.cidade}" maxlength="20"
+                                     required="true" requiredMessage="Campo obrigatório"/>
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">

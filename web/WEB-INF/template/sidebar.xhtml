@@ -5,17 +5,17 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <div class="list-group list-group-flush mx-auto">
+    <div class="list-group list-group-flush mx-auto position-sticky">
     
         <h:form>
             <p:panelMenu>
                 <p:submenu label="Agendamento">
-                    <p:menuitem value="Agendar" outcome="/formularios/cadAgendamento" />
+                    <p:menuitem value="Agendar" outcome="/formularios/cadAgendamento" action="#{agendamentoBean.init()}"/>
                     <p:menuitem value="Listar" outcome="/listas/listaAgendamentos" />
                 </p:submenu>
 
                 <p:submenu label="Usuários">
-                    <p:menuitem value="Cadastrar" outcome="/formularios/cadPessoa" />
+                    <p:menuitem value="Cadastrar" outcome="/formularios/cadPessoa"  action="#{pessoaBean.init()}"/>
                     <p:menuitem value="Listar" outcome="/listas/listaPessoas" />
                 </p:submenu>
 

@@ -13,7 +13,8 @@
 
                 <h:panelGrid columns="2" cellpadding="4">
                     <p:outputLabel for="idEspecialidade" value="Especialidade: " />
-                    <p:inputText id="idEspecialidade" maxlength="30" size="50" value="#{especialidadeBean.especialidade.tipoEspecialidade}"/>
+                    <p:inputText id="idEspecialidade" maxlength="30" size="50" value="#{especialidadeBean.especialidade.tipoEspecialidade}"
+                                 required="true" requiredMessage="Campo obrigatório"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="4">

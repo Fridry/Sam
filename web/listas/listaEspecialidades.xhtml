@@ -55,7 +55,7 @@
                 </p:dataTable>
             </h:form>
 
-            <p:dialog header="Cadastro de testes" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
+            <p:dialog header="Cadastro de especialidades" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
                 <h:form id="cadEspecialidade">
                     <h:panelGrid>
                         <p:messages id="mensagem" showDetail="true" closable="true"/>
@@ -64,7 +64,8 @@
                     <h:panelGrid columns="2" cellpadding="4" id="inputEspecialidade">
 
                         <p:outputLabel for="idEspecialidade" value="Especialidade: " />
-                        <p:inputText id="idEspecialidade" value="#{especialidadeBean.especialidade.tipoEspecialidade}" size="30" maxlength="30"/>
+                        <p:inputText id="idEspecialidade" value="#{especialidadeBean.especialidade.tipoEspecialidade}" size="30" maxlength="30"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                     </h:panelGrid>
 

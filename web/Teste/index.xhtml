@@ -10,63 +10,14 @@
     <h:body>
         <h:form>
 
-            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
 
-            <p:wizard flowListener="#{pessoaBean.onFlowProcess}">
-                <p:tab id="personal" title="Dados pessoais">
-                    <p:panel header="Personal Details">
-                        <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <p:outputLabel for="idNome" value="Nome: " />
-                            <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
+                <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" oncomplete="PF('eventDialog').show();" />
+                <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}"  oncomplete="PF('eventDialog').show();" />
+                <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" />
+                <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}"  />
 
-                            <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
-                            <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
-
-
-                        </h:panelGrid>
-                    </p:panel>
-                </p:tab>
-
-                <p:tab id="contact" title="Contato">
-                    <p:panel header="Contact Information">
-                        <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <p:outputLabel for="idCpf" value="CPF: " />
-                            <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"/>
-
-                            <p:outputLabel for="idNumSus" value="Número SUS: " />
-                            <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
-                        </h:panelGrid>
-                    </p:panel>
-                </p:tab>
-
-                <p:tab id="confirm" title="Confirmação">
-                    <p:panel header="Confirmation">
-                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Nome: " />
-                                <h:outputText value="#{pessoaBean.pessoa.nome}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Data de Nascimento: " />
-                                <h:outputText value="#{pessoaBean.pessoa.dataNascimento}" styleClass="outputLabel"/>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="CPF: " />
-                                <h:outputText value="#{pessoaBean.pessoa.cpf}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Número SUS: " />
-                                <h:outputText value="#{pessoaBean.pessoa.numSus}" styleClass="outputLabel"/>
-
-                            </h:panelGrid>
-                        </h:panelGrid>
-
-                        <p:commandButton value="Submit" action="#{pessoaBean.salvaPessoa()}" update="growl" process="@this"/>
-                    </p:panel>
-                </p:tab>
-            </p:wizard>
-
+            </p:schedule>
         </h:form>
     </h:body>
 </html>

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -111,6 +112,20 @@ public class PessoaDAO implements Serializable {
         } finally {
             sessao.close();
         }
+    }
+    
+        public List<Pessoa> searchByNumSus(String numSus) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Criteria cri = sessao.createCriteria(Pessoa.class);
+            cri.add(Restrictions.ilike("numSus", numSus, MatchMode.START));
+            return cri.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
     }
 
 }

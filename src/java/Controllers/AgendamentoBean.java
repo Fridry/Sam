@@ -21,6 +21,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 
 /**
  *
@@ -46,6 +48,8 @@ public class AgendamentoBean implements Serializable {
     private Horario horario;
     private HorarioDAO horarioDao;
     private List<Horario> horarios;
+    
+    private ScheduleModel eventModel;
 
     public AgendamentoBean() {
         this.agendamento = new Agendamento();
@@ -181,6 +185,15 @@ public class AgendamentoBean implements Serializable {
         this.horarios = horarios;
     }
 
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    public void setEventModel(ScheduleModel eventModel) {
+        this.eventModel = eventModel;
+    }
+    
+    
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -198,6 +211,7 @@ public class AgendamentoBean implements Serializable {
         especialidade = new Especialidade();
         pessoa = new Pessoa();
         horario = new Horario();
+        eventModel = new DefaultScheduleModel();
         try {
             locais = localDao.getListLocal();
             horarios = horarioDao.getListHorario();
@@ -210,6 +224,7 @@ public class AgendamentoBean implements Serializable {
     }
 
     public String carregaAgendamento(Agendamento agendamento) {
+        init();
         this.agendamento = agendamento;
         return "editar";
     }
@@ -298,6 +313,18 @@ public class AgendamentoBean implements Serializable {
         }
 
         return horarios;
+    }
+    
+    public List<Pessoa> carregaUsuariosOnComplete(String numSus) {
+        try {
+            pessoas = pessoaDao.searchByNumSus(numSus);
+            return pessoas;
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro.", "");
+            e.printStackTrace();
+        }
+
+        return pessoas;
     }
 
 }

@@ -17,11 +17,6 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
 
-                    <f:facet name="header">
-                        <p:commandButton value="Cadastrar usuário" onclick="PF('idModal').show();"
-                                         action="#{pessoaBean.init()}" update=":cadPessoa:inputPessoa"/>
-                    </f:facet>
-
                     <p:column headerText="Nome: " filterBy="#{pessoa.nome}" filterMatchMode="contains">
                         <h:outputText value="#{pessoa.nome}"/>
                     </p:column>
@@ -30,7 +25,7 @@
                         <h:outputText value="#{pessoa.genero}" />
                     </p:column>
 
-                    <p:column headerText="Número SUS: " filterBy="#{pessoa.numSus}" filterMatchMode="exact">
+                    <p:column headerText="Número SUS: " filterBy="#{pessoa.numSus}" filterMatchMode="contains">
                         <h:outputText value="#{pessoa.numSus}" />
                     </p:column>
 
@@ -63,7 +58,7 @@
                 </p:dataTable>
             </h:form>
 
-            <p:dialog header="Cadastro de usuários" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false">
+            <p:dialog header="Cadastro de usuários" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
                 <h:form id="cadPessoa">
 
                     <h:panelGrid>
@@ -72,60 +67,66 @@
 
                     <h:panelGrid columns="4" cellpadding="2" id="inputPessoa">
                         <p:outputLabel for="idNome" value="Nome: " />
-                        <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
+                        <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idGenero" value="Gênero: " />
-                        <p:selectOneRadio id="idGenero" value="#{pessoaBean.pessoa.genero}">
+                        <p:selectOneRadio id="idGenero" value="#{pessoaBean.pessoa.genero}" required="true" requiredMessage="Campo obrigatório">
                             <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
                             <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
                             <f:selectItem itemLabel="Outro" itemValue="Outro" />
                         </p:selectOneRadio>
 
                         <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
-                        <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
+                        <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"
+                                    required="true" requiredMessage="Campo obrigatório" locale="pt_BR"/>
 
                         <p:outputLabel for="idCpf" value="CPF: " />
-                        <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"/>
+                        <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idNumSus" value="Número SUS: " />
-                        <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
+                        <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idEmail" value="E-mail: " />
-                        <p:inputText id="idEmail" value="#{pessoaBean.contato.email}" maxlength="50"/>
+                        <p:inputText id="idEmail" value="#{pessoaBean.contato.email}" maxlength="50"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idTelefone" value="Telefone: " />
-                        <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{pessoaBean.contato.telefone}"/>
+                        <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{pessoaBean.contato.telefone}"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idRua" value="Rua: " />
-                        <p:inputText id="idRua" value="#{pessoaBean.contato.rua}" maxlength="50"/>
+                        <p:inputText id="idRua" value="#{pessoaBean.contato.rua}" maxlength="50"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idNumero" value="Numero: " />
-                        <p:inputText id="idNumero" value="#{pessoaBean.contato.numero}"  maxlength="6"/>
+                        <p:inputText id="idNumero" value="#{pessoaBean.contato.numero}"  maxlength="6"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idBairro" value="Bairro: " />
-                        <p:inputText id="idBairro" value="#{pessoaBean.contato.bairro}" maxlength="20"/>
+                        <p:inputText id="idBairro" value="#{pessoaBean.contato.bairro}" maxlength="20"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idCep" value="CEP: " />
-                        <p:inputMask mask="99999-999" id="idCep" value="#{pessoaBean.contato.cep}"/>
+                        <p:inputMask mask="99999-999" id="idCep" value="#{pessoaBean.contato.cep}"
+                                     required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idCidade" value="Cidade: " />
-                        <p:inputText id="idCidade" value="#{pessoaBean.contato.cidade}" maxlength="20"/>
-
-                        <p:outputLabel for="id-usuario" value="Usuário: " />
-                        <p:inputText id="id-usuario" value="#{pessoaBean.login.usuario}"/>
-                        <p:outputLabel for="id-senha" value="Senha: " />
-                        <p:password id="id-senha" value="#{pessoaBean.login.senha}"/>
+                        <p:inputText id="idCidade" value="#{pessoaBean.contato.cidade}" maxlength="20"
+                                     required="true" requiredMessage="Campo obrigatório"/>
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
                         <p:commandButton value="Salvar" action="#{pessoaBean.fundirPessoa(pessoaBean.contato, pessoaBean.login)}"
                                          update="mensagem :listaPessoas:tabelaPessoas :cadPessoa:inputPessoa"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="mensagem :listaPessoas:tabelaPessoas"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" action="#{pessoaBean.init()}" update="mensagem :listaPessoas:tabelaPessoas"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
 
-            <p:dialog header="Agendamento de consulta" widgetVar="idModalAgendar" modal="true" draggable="false" resizable="false" closable="false">
+            <p:dialog header="Agendamento de consulta" widgetVar="idModalAgendar" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
                 <h:form id="cadAgendamento">
 
                     <h:panelGrid>

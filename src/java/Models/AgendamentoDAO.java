@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 
 /**
  *
@@ -74,7 +75,7 @@ public class AgendamentoDAO implements Serializable{
         try{
         sessao = HibernateUtil.getSessionFactory().openSession();
         trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Agendamento.class);
+        Criteria cri = sessao.createCriteria(Agendamento.class).addOrder(Order.asc("data"));
         list = cri.list();
         }catch(RuntimeException e){
             e.printStackTrace();
