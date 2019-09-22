@@ -27,7 +27,7 @@
 
                             <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
                             <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"
-                                        required="true" requiredMessage="Campo obrigatório" locale="pt_BR"/>
+                                        required="true" requiredMessage="Campo obrigatório" locale="pt_BR" maxdate="today" mask="true"/>
 
                             <p:outputLabel for="idCpf" value="CPF: " />
                             <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"
@@ -92,7 +92,7 @@
 
                 <p:tab id="confirm" title="Confirmação">
                     <p:panel header="Confirmation">
-                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                        <h:panelGrid id="confirmation" columns="2" columnClasses="grid,grid,grid">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Nome: " />
                                 <h:outputText value="#{pessoaBean.pessoa.nome}" styleClass="outputLabel"/>

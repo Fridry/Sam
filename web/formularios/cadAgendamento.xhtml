@@ -15,7 +15,8 @@
                     <p:outputLabel for="idUsuario" value="Usuário: " />
                     <p:autoComplete id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" completeMethod="#{agendamentoBean.carregaUsuariosOnComplete}"
                                     var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.numSus}" converter="pessoaConverter" forceSelection="true"
-                                    emptyMessage="Nenhum usuário localizado" size="40" required="true" requiredMessage="Campo obrigatório">
+                                    emptyMessage="Nenhum usuário localizado" size="45" required="true" requiredMessage="Campo obrigatório"
+                                    placeholder="Insira o número do cadastro SUS do usuário">
 
                         <f:facet name="itemtip">
                             <h:panelGrid columns="2" cellpadding="5" style="width: 300px;">
@@ -45,7 +46,7 @@
 
                     <p:outputLabel for="idDataEvento" value="Data: " />
                     <p:calendar id="idDataEvento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy" size="33"
-                                required="true" requiredMessage="Campo obrigatório" locale="pt_BR"/>
+                                required="true" requiredMessage="Campo obrigatório" locale="pt_BR" mindate="today" mask="true"/>
 
                     <p:outputLabel for="idHora" value="Horário:" />
                     <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter" style="width: 300px;"

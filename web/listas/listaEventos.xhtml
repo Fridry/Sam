@@ -83,7 +83,7 @@
 
                         <p:outputLabel for="idDataEvento" value="Data do evento: " />
                         <p:calendar id="idDataEvento" value="#{eventoBean.evento.diaEvento}" navigator="true" pattern="dd/MM/yyyy"
-                                    required="true" requiredMessage="Campo obrigatório" locale="pt_BR"/>
+                                    required="true" requiredMessage="Campo obrigatório" locale="pt_BR" mindate="today" mask="true"/>
 
                         <p:outputLabel for="idHoraEvento" value="Hora do evento:" />
                         <p:calendar id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5" 

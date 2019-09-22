@@ -99,7 +99,8 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel for="id-data-evento" value="Data: " />
-                        <p:calendar id="id-data-evento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                        <p:calendar id="id-data-evento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy" locale="pt_BR"
+                                    mindate="today" mask="true"/>
 
                         <p:outputLabel for="id-hora" value="Horário:" />
                         <p:selectOneMenu id="id-hora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter">
