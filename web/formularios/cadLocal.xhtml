@@ -1,14 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
 
-    <h:head>
-        <title>Cadastro de local</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-
-    <h:body>
+    <ui:define name="conteudo">
         <h:form id="formLocal">
             <p:panel header="Cadastro de local">
 
@@ -20,22 +17,22 @@
 
                     <p:outputLabel for="id-email" value="E-mail: " />
                     <p:inputText id="id-email" value="#{localBean.contato.email}" maxlength="50"/>
-                    
+
                     <p:outputLabel for="id-telefone" value="Telefone: " />
                     <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{localBean.contato.telefone}"/>
-                    
+
                     <p:outputLabel for="id-rua" value="Rua: " />
                     <p:inputText id="id-rua" value="#{localBean.contato.rua}" maxlength="50"/>
-                    
+
                     <p:outputLabel for="id-numero" value="Numero: " />
                     <p:inputText id="id-numero" value="#{localBean.contato.numero}"  maxlength="6"/>
-                    
+
                     <p:outputLabel for="id-bairro" value="Bairro: " />
                     <p:inputText id="id-bairro" value="#{localBean.contato.bairro}" maxlength="20"/>
-                    
+
                     <p:outputLabel for="id-cep" value="CEP: " />
                     <p:inputMask mask="99999-999" id="id-cep" value="#{localBean.contato.cep}"/>
-                    
+
                     <p:outputLabel for="id-cidade" value="Cidade: " />
                     <p:inputText id="id-cidade" value="#{localBean.contato.cidade}" maxlength="20"/>
                 </h:panelGrid>
@@ -43,5 +40,5 @@
                 <p:commandButton value="Cadastrar" action="#{localBean.salvaLocal(localBean.contato)}" icon="pi pi-check" update="mensagemAdd :formLocal:inputLocal" />
             </p:panel>
         </h:form>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

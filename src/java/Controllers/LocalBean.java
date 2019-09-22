@@ -89,26 +89,24 @@ public class LocalBean implements Serializable {
         contato = new Contato();
     }
 
-    public String redireciona() {
-        return "listaLocais";
-    }
-
     public void carregaLocal(Local local, Contato contato) {
         this.local = local;
         this.contato = contato;
     }
 
-    public void salvaLocal(Contato contato) {
+    public String salvaLocal(Contato contato) {
         try {
             this.local.setContato(contato);
             localDao.createLocal(local);
             init();
             mensagem("Local criado com Sucesso!", "");
-            redireciona();
+            return "/listas/listaLocais";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar o local.", "");
             e.printStackTrace();
         }
+        
+        return null;
     }
 
     public void fundirLocal(Contato contato) {

@@ -83,13 +83,13 @@ public class EspecialidadeBean implements Serializable {
             init();
             listarEspecialidade();
             mensagem("Especialidade criada com Sucesso!", "");
-            return "../";
+            return "/listas/listaEspecialidades";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao salvar a Especialidade.", "");
             e.printStackTrace();
             
         }
-        return "../";
+        return null;
     }
     
     public void fundirEspecialidade() {

@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
 
-    <h:head>
-        <title>Listagem de especialidades</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-
-    <h:body>
+    <ui:define name="conteudo">
         <div>
-            
+
             <p:growl id="mensagemExcluir" />
-            
+
             <h:form id="listaEspecialidade">
-                
-                <h2 style="padding: 20px;">Especialidades registradas</h2>
+
+                <h4 style="padding: 10px;">Especialidades registradas</h4>
                 <p:dataTable id="tabelaEspecialidade" var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
                              paginator="true"  emptyMessage="Nenhuma especialidade encontrada."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -27,11 +23,7 @@
                                          action="#{especialidadeBean.init()}" update=":cadEspecialidade:inputEspecialidade"/>
                     </f:facet>
 
-                    <p:column headerText="Id"  sortBy="#{especialidade.idEspecialidade}" filterBy="#{especialidade.idEspecialidade}">
-                        <h:outputText value="#{especialidade.idEspecialidade}"/>
-                    </p:column>
-
-                    <p:column headerText="Especialidade" sortBy="#{especialidade.tipoEspecialidade}" filterBy="#{especialidade.tipoEspecialidade}" filterMatchMode="contains">
+                    <p:column headerText="Especialidade" filterBy="#{especialidade.tipoEspecialidade}" filterMatchMode="contains">
                         <h:outputText value="#{especialidade.tipoEspecialidade}" />
                     </p:column>
 
@@ -48,7 +40,7 @@
 
                         <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{especialidadeBean.carregaEspecialidade(especialidade)}"
                                           onclick="PF('idModal').show();" update=" :cadEspecialidade:inputEspecialidade"/>
-                        
+
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
 
@@ -84,5 +76,5 @@
             </p:dialog> 
         </div>
 
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

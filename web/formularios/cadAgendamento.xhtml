@@ -1,14 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
 
-    <h:head>
-        <title>Agendamento de consulta médica</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-
-    <h:body>
+    <ui:define name="conteudo">
         <h:form id="cadAgendamento">
             <p:panel id="panel" header="Agendamento de consulta médica">
 
@@ -16,21 +13,21 @@
 
                 <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
                     <p:outputLabel for="idUsuario" value="Usuário: " />
-                    <p:selectOneMenu id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" filter="true" converter="pessoaConverter">
+                    <p:selectOneMenu id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" filter="true" converter="pessoaConverter" style="width: 400px;">
                         <f:selectItem itemLabel="Selecione o usuário" noSelectionOption="true" />
                         <f:selectItems value="#{agendamentoBean.pessoas}" var="pessoa"
                                        itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.numSus}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="idLocal" value="Local:" />
-                    <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter">
+                    <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter" style="width: 400px;">
                         <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
                         <f:selectItems value="#{agendamentoBean.locais}" var="local"
                                        itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="idEspecialidade" value="Especialidade:" />
-                    <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
+                    <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter" style="width: 250px;">
                         <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
                         <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
                                        itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
@@ -40,7 +37,7 @@
                     <p:calendar id="idDataEvento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy"/>
 
                     <p:outputLabel for="idHora" value="Horário:" />
-                    <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter">
+                    <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter" style="width: 200px;">
                         <f:selectItem itemLabel="Selecione o Horário" noSelectionOption="true" />
                         <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
                                        itemValue="#{horario}" itemLabel="#{horario.hora}"/>
@@ -56,5 +53,6 @@
 
             </p:panel>
         </h:form>
-    </h:body>
-</html>
+
+    </ui:define>
+</ui:composition>

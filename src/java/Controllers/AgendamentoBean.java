@@ -214,16 +214,19 @@ public class AgendamentoBean implements Serializable {
         return "editar";
     }
 
-    public void salvaAgendamento() {
+    public String salvaAgendamento() {
         try {
             agendamento.setStatus("Agendado");
             agendamentoDao.createAgendamento(agendamento);
             mensagem("Agendamento criado com Sucesso!", "");
             agendamento = new Agendamento();
+            return "/listas/listaAgendamentos";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao Realizar o agendamento.", "");
             e.printStackTrace();
         }
+        
+        return null;
     }
 
     public void fundirAgendamento() {
@@ -267,7 +270,7 @@ public class AgendamentoBean implements Serializable {
             mensagem("Agendamento criado com Sucesso!", "");
             init();
             agendamento = new Agendamento();
-            return "listas/listaAgendamentos";
+            return "/listas/listaAgendamentos";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao Realizar o agendamento.", "");
             e.printStackTrace();

@@ -1,70 +1,133 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
 
-    <h:head>
-        <title>Cadastro de usuários</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-
-    <h:body>
+    <ui:define name="conteudo">
         <h:form id="cadPessoa">
-            <p:panel id="panel" header="Cadastro de usuários">
+            <p:growl id="mensagemAdd" showDetail="true" autoUpdate="true"/>
 
-                <p:growl id="mensagemAdd" showDetail="true" autoUpdate="true"/>
 
-                <h:panelGrid columns="2" cellpadding="4">
-                    <p:outputLabel for="idNome" value="Nome: " />
-                    <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
-                    
-                    <p:outputLabel for="idGenero" value="Gênero: " />
-                    <p:selectOneRadio id="idGenero" value="#{pessoaBean.pessoa.genero}">
-                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
-                        <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
-                        <f:selectItem itemLabel="Outro" itemValue="Outro" />
-                    </p:selectOneRadio>
+            <p:wizard flowListener="#{pessoaBean.onFlowProcess}">
+                <p:tab id="personal" title="Dados pessoais">
+                    <p:panel header="Personal Details">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value">
+                            <p:outputLabel for="idNome" value="Nome: " />
+                            <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"/>
 
-                    <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
-                    <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
-                    
-                    <p:outputLabel for="idCpf" value="CPF: " />
-                    <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"/>
-                    
-                    <p:outputLabel for="idNumSus" value="Número SUS: " />
-                    <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
+                            <p:outputLabel for="idGenero" value="Gênero: " />
+                            <p:selectOneRadio id="idGenero" value="#{pessoaBean.pessoa.genero}">
+                                <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                                <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                                <f:selectItem itemLabel="Outro" itemValue="Outro" />
+                            </p:selectOneRadio>
 
-                    <p:outputLabel for="idEmail" value="E-mail: " />
-                    <p:inputText id="idEmail" value="#{pessoaBean.contato.email}" maxlength="50"/>
-                    
-                    <p:outputLabel for="idTelefone" value="Telefone: " />
-                    <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{pessoaBean.contato.telefone}"/>
-                    
-                    <p:outputLabel for="idRua" value="Rua: " />
-                    <p:inputText id="idRua" value="#{pessoaBean.contato.rua}" maxlength="50"/>
-                    
-                    <p:outputLabel for="idNumero" value="Numero: " />
-                    <p:inputText id="idNumero" value="#{pessoaBean.contato.numero}"  maxlength="6"/>
-                    
-                    <p:outputLabel for="idBairro" value="Bairro: " />
-                    <p:inputText id="idBairro" value="#{pessoaBean.contato.bairro}" maxlength="20"/>
-                    
-                    <p:outputLabel for="idCep" value="CEP: " />
-                    <p:inputMask mask="99999-999" id="idCep" value="#{pessoaBean.contato.cep}"/>
-                    
-                    <p:outputLabel for="idCidade" value="Cidade: " />
-                    <p:inputText id="idCidade" value="#{pessoaBean.contato.cidade}" maxlength="20"/>
+                            <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
+                            <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"/>
 
-                    <p:outputLabel for="idUsuario" value="Usuário: " />
-                    <p:inputText id="idUsuario" value="#{pessoaBean.login.usuario}"/>
-                    
-                    <p:outputLabel for="idSenha" value="Senha: " />
-                    <p:password id="idSenha" value="#{pessoaBean.login.senha}" maxlength="10"/>
-                </h:panelGrid>
+                            <p:outputLabel for="idCpf" value="CPF: " />
+                            <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"/>
 
-                <p:commandButton value="Cadastrar" action="#{pessoaBean.salvaPessoa(pessoaBean.contato, pessoaBean.login)}" icon="pi pi-check"
-                                 update="mensagemAdd :cadPessoa"/>
-            </p:panel>
+                            <p:outputLabel for="idNumSus" value="Número SUS: " />
+                            <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="contact" title="Contato">
+                    <p:panel header="Contact Information">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value">
+                            <p:outputLabel for="idEmail" value="E-mail: " />
+                            <p:inputText id="idEmail" value="#{pessoaBean.contato.email}" maxlength="50"/>
+
+                            <p:outputLabel for="idTelefone" value="Telefone: " />
+                            <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{pessoaBean.contato.telefone}"/>
+
+                            <p:outputLabel for="idRua" value="Rua: " />
+                            <p:inputText id="idRua" value="#{pessoaBean.contato.rua}" maxlength="50"/>
+
+                            <p:outputLabel for="idNumero" value="Numero: " />
+                            <p:inputText id="idNumero" value="#{pessoaBean.contato.numero}"  maxlength="6"/>
+
+                            <p:outputLabel for="idBairro" value="Bairro: " />
+                            <p:inputText id="idBairro" value="#{pessoaBean.contato.bairro}" maxlength="20"/>
+
+                            <p:outputLabel for="idCep" value="CEP: " />
+                            <p:inputMask mask="99999-999" id="idCep" value="#{pessoaBean.contato.cep}"/>
+
+                            <p:outputLabel for="idCidade" value="Cidade: " />
+                            <p:inputText id="idCidade" value="#{pessoaBean.contato.cidade}" maxlength="20"/>
+                        </h:panelGrid>
+
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="login" title="Dados de login">
+                    <p:panel header="Personal Details">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value">
+                            <p:outputLabel for="idUsuario" value="Usuário: " />
+                            <p:inputText id="idUsuario" value="#{pessoaBean.login.usuario}"/>
+
+                            <p:outputLabel for="idSenha" value="Senha: " />
+                            <p:password id="idSenha" value="#{pessoaBean.login.senha}" maxlength="10"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="confirm" title="Confirmação">
+                    <p:panel header="Confirmation">
+                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Nome: " />
+                                <h:outputText value="#{pessoaBean.pessoa.nome}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Genêro: " />
+                                <h:outputText value="#{pessoaBean.pessoa.genero}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Data de Nascimento: " />
+                                <h:outputText value="#{pessoaBean.pessoa.dataNascimento}" styleClass="outputLabel">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="CPF: " />
+                                <h:outputText value="#{pessoaBean.pessoa.cpf}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Número SUS: " />
+                                <h:outputText value="#{pessoaBean.pessoa.numSus}" styleClass="outputLabel"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="E-mail: " />
+                                <h:outputText value="#{pessoaBean.contato.email}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Telefone: " />
+                                <h:outputText value="#{pessoaBean.contato.telefone}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Rua: " />
+                                <h:outputText value="#{pessoaBean.contato.rua}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Número: " />
+                                <h:outputText value="#{pessoaBean.contato.numero}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Bairro: " />
+                                <h:outputText value="#{pessoaBean.contato.bairro}" styleClass="outputLabel"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <p:commandButton value="Cadastrar" action="#{pessoaBean.salvaPessoa(pessoaBean.contato, pessoaBean.login)}"
+                                                 update="mensagemAdd :cadPessoa"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
         </h:form>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

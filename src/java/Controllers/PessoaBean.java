@@ -120,7 +120,7 @@ public class PessoaBean implements Serializable {
         return "editar";
     }
 
-    public void salvaPessoa(Contato contato, Login login) {
+    public String salvaPessoa(Contato contato, Login login) {
         try {
             this.pessoa.setLogin(login);
             this.pessoa.setContato(contato);
@@ -129,10 +129,13 @@ public class PessoaBean implements Serializable {
             this.pessoa = new Pessoa();
             this.contato = new Contato();
             this.login = new Login();
+            return "/listas/listaPessoas";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao cadastra o usuário.", "");
             e.printStackTrace();
         }
+        
+        return null;
     }
 
     public void salvaPessoa() {

@@ -110,15 +110,18 @@ public class EventoBean implements Serializable {
         return "editar";
     }
 
-    public void salvaEvento() {
+    public String salvaEvento() {
         try {
             eventoDao.createEvento(evento);
             mensagem("Evento criado com Sucesso!", "");
             evento = new Evento();
+            return "/listas/listaEventos";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao agendar o evento.", "");
             e.printStackTrace();
         }
+        
+        return null;
     }
 
     public void fundirEvento() {
