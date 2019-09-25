@@ -97,10 +97,8 @@ public class HorarioDAO implements Serializable {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            SQLQuery sql = sessao.createSQLQuery("SELECT * FROM horario WHERE id_horario NOT IN (SELECT horario_id_horario FROM agendamento WHERE data = :data)");
-            sql.setParameter("data", data);
-            sql.setResultTransformer(Transformers.aliasToBean(Horario.class));
-            //q.setResultTransformer(Transformers.aliasToBean(Tributario.class));
+            SQLQuery sql = sessao.createSQLQuery("SELECT * FROM horario WHERE id_horario NOT IN (SELECT horario_id_horario FROM agendamento WHERE data = '"+ data +
+             "')");
             return sql.list();
         } catch (RuntimeException e) {
             e.printStackTrace();

@@ -78,11 +78,7 @@
 
                     <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
                         <p:outputLabel for="idUsuario" value="Usuário: " />
-                        <p:selectOneMenu id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" filter="true" converter="pessoaConverter">
-                            <f:selectItem itemLabel="Selecione o usuário" noSelectionOption="true" />
-                            <f:selectItems value="#{agendamentoBean.pessoas}" var="pessoa"
-                                           itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.numSus}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="idUsuario" value="#{agendamentoBean.agendamento.pessoa.nome}" readonly="true"/>
 
                         <p:outputLabel for="idLocal" value="Local:" />
                         <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter">

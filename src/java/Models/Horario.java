@@ -1,6 +1,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -24,14 +27,8 @@ public class Horario implements Serializable {
     private Integer idHorario;
     
     @Column(name="hora")
-    private String hora;
-
-    public Horario() {
-    }
-
-    public Horario(String hora) {
-        this.hora = hora;
-    }
+    @Temporal(TemporalType.TIME)
+    private Date hora;
 
     public Integer getIdHorario() {
         return idHorario;
@@ -41,11 +38,11 @@ public class Horario implements Serializable {
         this.idHorario = idHorario;
     }
 
-    public String getHora() {
+    public Date getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(Date hora) {
         this.hora = hora;
     }
 

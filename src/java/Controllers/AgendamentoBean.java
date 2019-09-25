@@ -228,7 +228,8 @@ public class AgendamentoBean implements Serializable {
         this.agendamento = agendamento;
         return "editar";
     }
-
+    
+    //Salva os dados no banco
     public String salvaAgendamento() {
         try {
             agendamento.setStatus("Agendado");
@@ -244,6 +245,7 @@ public class AgendamentoBean implements Serializable {
         return null;
     }
 
+    //Salva ou atualiza os dados no banco
     public void fundirAgendamento() {
         try {
             agendamento.setStatus("Agendado");
@@ -256,13 +258,8 @@ public class AgendamentoBean implements Serializable {
             e.printStackTrace();
         }
     }
-
-    public void atualizaAgendamento() {
-        agendamentoDao.updateAgendamento(agendamento);
-        mensagem("Agendamento atualizado com sucesso!", "");
-        agendamento = new Agendamento();
-    }
-
+    
+    //Exclui os dados
     public void deletaAgendamento(Agendamento agendamento) {
         agendamentoDao.deleteAgendamento(agendamento);
         mensagem("Excluído com sucesso", "");
@@ -277,6 +274,7 @@ public class AgendamentoBean implements Serializable {
         return "editar";
     }
 
+    //Salva agendamentos - função usada no modal *Agendar* na listagem de usuarios
     public String salvaAgendamentoPessoa(Pessoa pessoa) {
         try {
             agendamento.setPessoa(pessoa);
@@ -293,15 +291,12 @@ public class AgendamentoBean implements Serializable {
 
         return null;
     }
-
-    public void dataToString(Date data) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = dateFormat.format(data);
-        System.out.println(strDate);
-    }
-
+    
+    
+    //Carrega uma lista de horários disponíveis baseados na data selecionada
     public List carregaHoraByData(Date data) {
         try {
+            horario = new Horario();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = dateFormat.format(data);
             horarios = horarioDao.getListHorarioData(strDate);
