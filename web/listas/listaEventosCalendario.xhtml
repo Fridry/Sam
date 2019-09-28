@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="conteudo">
+        <div>
+            <h:form>
+                <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule"
+                            locale="pt_BR" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
+
+                    <p:ajax event="dateSelect" listener="#{eventoBean.onDateSelect}" update=":formEvento:inputEvento" oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventSelect" listener="#{eventoBean.onEventSelect}" update=":formEvento:inputEvento"  oncomplete="PF('eventDialog').show();" />
+
+                </p:schedule>
+            </h:form>
+
+            <p:dialog widgetVar="eventDialog" header="Agendar" showEffect="clip" hideEffect="clip">
+                <h:form id="formEvento">
+                    <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
+                        <p:outputLabel for="idNomeEvento" value="Nome do evento: " />
+                        <p:inputText id="idNomeEvento" value="#{eventoBean.evento.nomeEvento}" size="33"
+                                     required="true" requiredMessage="Campo obrigatório"/>
+
+                        <p:outputLabel for="idDataEvento" value="Data: " />
+                        <p:inputText id="idDataEvento" value="#{eventoBean.evento.diaEvento}" required="true" requiredMessage="Campo obrigatório" size="33" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="idHoraEvento" value="Hora do evento:" />
+                        <p:calendar id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5" 
+                                    required="true" requiredMessage="Campo obrigatório"/>
+
+                        <p:outputLabel for="idLocal" value="Local:" />
+                        <p:selectOneMenu id="idLocal" value="#{eventoBean.evento.local}" filter="true" converter="localConverter" style="width: 240px;"
+                                         required="true" requiredMessage="Campo obrigatório">
+                            <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
+                            <f:selectItems value="#{eventoBean.locais}" var="local"
+                                           itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="idInfoEvento" value="Informações do evento:" />
+                        <p:inputTextarea rows="5" cols="30" value="#{eventoBean.evento.informacoes}" counter="idInfoEvento" maxlength="50" counterTemplate="{0} caracteres restantes." autoResize="false" />
+                        <br />
+                        <h:outputText id="idInfoEvento" />
+
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="Salvar" action="#{eventoBean.salvaEvento()}" oncomplete="PF('eventDialog').hide();"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('eventDialog').hide();"/>
+                    </h:panelGrid>
+
+                </h:form>
+            </p:dialog>  
+        </div>
+
+    </ui:define>
+</ui:composition>

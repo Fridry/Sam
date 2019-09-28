@@ -5,12 +5,16 @@ import Models.EventoDAO;
 import Models.Local;
 import Models.LocalDAO;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 
 /**
  *
@@ -27,12 +31,14 @@ public class EventoBean implements Serializable {
     private Local local;
     private LocalDAO localDao;
     private List<Local> locais;
+    private ScheduleModel eventModel;
 
     public EventoBean() {
         this.evento = new Evento();
         this.eventoDao = new EventoDAO();
         this.local = new Local();
         this.localDao = new LocalDAO();
+        this.eventModel = new DefaultScheduleModel();
         init();
     }
 
@@ -84,6 +90,14 @@ public class EventoBean implements Serializable {
         this.locais = locais;
     }
 
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    public void setEventModel(ScheduleModel eventModel) {
+        this.eventModel = eventModel;
+    }
+
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -97,6 +111,7 @@ public class EventoBean implements Serializable {
     public void init() {
         evento = new Evento();
         local = new Local();
+        eventModel = new DefaultScheduleModel();
         try {
             locais = localDao.getListLocal();
         } catch (RuntimeException e) {
@@ -104,7 +119,17 @@ public class EventoBean implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
+    public void onDateSelect(SelectEvent selectEvent) {
+        evento = new Evento();
+        evento.setDiaEvento((Date) selectEvent.getObject());
+    }
+    
+    public void onEventSelect(SelectEvent selectEvent) {
+        evento = new Evento();
+        evento.setDiaEvento((Date) selectEvent.getObject());
+    }
+    
     public String carregaEvento(Evento evento) {
         this.evento = evento;
         return "editar";

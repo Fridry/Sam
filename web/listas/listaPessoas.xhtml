@@ -43,8 +43,10 @@
                         <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" onclick="PF('idModal').show();"
                                           action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" update=":cadPessoa:inputPessoa"/>
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />                        
-                        <p:commandButton  icon="ui-icon-list" value="Agendar" alt="Agendar" title="Agendar" action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" 
+                        <p:commandButton  icon="ui-icon-list" alt="Agendar" title="Agendar" action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" 
                                           onclick="PF('idModalAgendar').show();" update=":cadAgendamento:inputAgendamento"/>
+                        
+                        
                     </p:column>
 
                     <f:facet name="paginatorTopLeft">
