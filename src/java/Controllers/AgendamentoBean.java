@@ -21,6 +21,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
@@ -62,6 +63,7 @@ public class AgendamentoBean implements Serializable {
         this.horarioDao = new HorarioDAO();
         this.especialidade = new Especialidade();
         this.especialidadeDao = new EspecialidadeDAO();
+        this.eventModel = new DefaultScheduleModel();
         init();
     }
 
@@ -213,6 +215,7 @@ public class AgendamentoBean implements Serializable {
         horario = new Horario();
         eventModel = new DefaultScheduleModel();
         try {
+            agendamentos = agendamentoDao.getListAgendamento();
             locais = localDao.getListLocal();
             horarios = horarioDao.getListHorario();
             pessoas = pessoaDao.getListPessoa();
@@ -222,7 +225,17 @@ public class AgendamentoBean implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
+    public void onDateSelect(SelectEvent selectEvent) {
+        agendamento = new Agendamento();
+        agendamento.setData((Date) selectEvent.getObject());
+    }
+    
+    public void onEventSelect(SelectEvent selectEvent) {
+        agendamento = new Agendamento();
+        agendamento.setData((Date) selectEvent.getObject());
+    }
+    
     public String carregaAgendamento(Agendamento agendamento) {
         init();
         this.agendamento = agendamento;
@@ -265,7 +278,7 @@ public class AgendamentoBean implements Serializable {
         mensagem("Excluído com sucesso", "");
     }
 
-    public List listarAgendamento() {
+    public List<Agendamento> listarAgendamento() {
         return agendamentos = agendamentoDao.getListAgendamento();
     }
 

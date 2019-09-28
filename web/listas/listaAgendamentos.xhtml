@@ -6,17 +6,17 @@
                 template="/WEB-INF/template/layout.xhtml">
 
     <ui:define name="conteudo">
-        <div>
+        <div class="ui-g">
             <p:growl id="mensagemGrowl" />  
 
             <h:form id="listaAgenda">
                 <h4 style="padding: 10px;">Consultas médicas agendadadas</h4>
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="10"
-                             paginator="true"
+                             paginator="true" widgetVar="tabelaAgenda"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
 
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome" filterBy="#{agenda.pessoa.nome}" filterMatchMode="contains">
                         <h:outputText value="#{agenda.pessoa.nome}" />
                     </p:column>
 
@@ -35,7 +35,9 @@
                     </p:column>
 
                     <p:column headerText="Hora">
-                        <h:outputText value="#{agenda.horario.hora}" />
+                        <h:outputText value="#{agenda.horario.hora}" >
+                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
+                        </h:outputText>
                     </p:column>
 
                     <p:column headerText="Status">
