@@ -18,7 +18,7 @@
 
                 <p:outputLabel for="idHoraBotao" value="Clique para ver horários disponíveis:" />
                 <p:commandButton id="idHoraBotao" value="Ver horários disponíveis" action="#{agendamentoBean.carregaHoraByData(agendamentoBean.agendamento.data)}"
-                                 update="idHora" onchange=""/>
+                                 update="form:idHora :mensagem" />
 
                 <p:outputLabel for="idHora" value="Horário:" />
                 <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter">

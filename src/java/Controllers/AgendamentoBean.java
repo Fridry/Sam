@@ -307,20 +307,20 @@ public class AgendamentoBean implements Serializable {
     
     
     //Carrega uma lista de horários disponíveis baseados na data selecionada
-    public List carregaHoraByData(Date data) {
+    public List<Horario> carregaHoraByData(Date data) {
         try {
             horario = new Horario();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = dateFormat.format(data);
-            horarios = horarioDao.getListHorarioData(strDate);
+            List<Horario> dataHoras = horarioDao.getListHorarioData(strDate);
             mensagem("Deu certo", "");
-            return horarios;
+            return dataHoras;
         } catch (RuntimeException e) {
             erro("Ocorreu um erro.", "");
             e.printStackTrace();
         }
 
-        return horarios;
+        return null;
     }
     
     public List<Pessoa> carregaUsuariosOnComplete(String numSus) {
