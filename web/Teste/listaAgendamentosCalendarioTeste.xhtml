@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="conteudo">
+        <div>
+            <h:form>
+                <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule"
+                            locale="pt_BR" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
+
+                    <p:ajax event="dateSelect" listener="#{agendamentoBean.onDateSelect}" update=":formAgenda:inputAgendamento" oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventSelect" listener="#{agendamentoBean.onEventSelect}" update=":formAgenda:inputAgendamento"  oncomplete="PF('eventDialog').show();" />
+
+                </p:schedule>
+            </h:form>
+
+            <p:dialog widgetVar="eventDialog" header="Agendar" showEffect="clip" hideEffect="clip">
+                <h:form id="formAgenda">
+                    <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
+                        <p:outputLabel for="idUsuario" value="Usuário: " />
+                        <p:autoComplete id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" completeMethod="#{agendamentoBean.carregaUsuariosOnComplete}"
+                                        var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.numSus}" converter="pessoaConverter" forceSelection="true"
+                                        emptyMessage="Nenhum usuário localizado" size="45" required="true" requiredMessage="Campo obrigatório"
+                                        placeholder="Insira o número do cadastro SUS do usuário">
+
+                            <f:facet name="itemtip">
+                                <h:panelGrid columns="2" cellpadding="5" style="width: 300px;">
+
+                                    <h:outputText value="Display:" />
+                                    <h:outputText value="#{pessoa.nome}"/>
+
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:autoComplete>
+
+                        <p:outputLabel for="idLocal" value="Local:" />
+                        <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter" style="width: 300px;"
+                                         required="true" requiredMessage="Campo obrigatório">
+                            <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.locais}" var="local"
+                                           itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="idEspecialidade" value="Especialidade:" />
+                        <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter" style="width: 300px;"
+                                         required="true" requiredMessage="Campo obrigatório">
+                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="idDataEvento" value="Data: " />
+                        <p:inputText id="idDataEvento" value="#{agendamentoBean.agendamento.data}" required="true" requiredMessage="Campo obrigatório" size="33" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="idHora" value="Horário:" />
+                        <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter" style="width: 300px;"
+                                         required="true" requiredMessage="Campo obrigatório">
+                            <f:selectItem itemLabel="Selecione o Horário" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
+                                           itemValue="#{horario}" itemLabel="#{horario.hora}"/>
+                        </p:selectOneMenu>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="Salvar" action="#{agendamentoBean.salvaAgendamento()}" oncomplete="PF('eventDialog').hide();"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('eventDialog').hide();"/>
+                        <p:commandButton value="Excluir"/>
+                    </h:panelGrid>
+
+                </h:form>
+            </p:dialog>  
+        </div>
+
+    </ui:define>
+</ui:composition>

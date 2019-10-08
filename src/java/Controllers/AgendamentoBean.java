@@ -334,5 +334,18 @@ public class AgendamentoBean implements Serializable {
 
         return pessoas;
     }
+    
+    public List<Horario> carregaHorarioOnComplete(Date data) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = dateFormat.format(data);
+            horarios = horarioDao.getListHorarioData(strDate);
+            return horarios;
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro.", "");
+            e.printStackTrace();
+        }
 
+        return horarios;
+    }
 }
