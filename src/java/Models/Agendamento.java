@@ -41,11 +41,7 @@ public class Agendamento implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(nullable = false)
     private Especialidade especialidade;
-    
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(nullable = false)
-    private Horario horario;
-    
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(nullable = false)
     private Local local;
@@ -53,19 +49,23 @@ public class Agendamento implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date data;
     
+    @Temporal(TemporalType.TIME)
+    private Date hora;
+    
     @Column(name="status")
     private String status;
     
     public Agendamento() {
     }
 
-    public Agendamento(Especialidade especialidade, Horario horario, Local local, Pessoa pessoa, Date data, String status) {
-       this.especialidade = especialidade;
-       this.horario = horario;
-       this.local = local;
-       this.pessoa = pessoa;
-       this.data = data;
-       this.status = status;
+    public Agendamento(Integer idAgendamento, Pessoa pessoa, Especialidade especialidade, Local local, Date data, Date hora, String status) {
+        this.idAgendamento = idAgendamento;
+        this.pessoa = pessoa;
+        this.especialidade = especialidade;
+        this.local = local;
+        this.data = data;
+        this.hora = hora;
+        this.status = status;
     }
 
     public Integer getIdAgendamento() {
@@ -92,14 +92,6 @@ public class Agendamento implements Serializable {
         this.especialidade = especialidade;
     }
 
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
-
     public Local getLocal() {
         return local;
     }
@@ -116,6 +108,14 @@ public class Agendamento implements Serializable {
         this.data = data;
     }
 
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -126,9 +126,10 @@ public class Agendamento implements Serializable {
 
     @Override
     public String toString() {
-        return "Agendamento{" + "idAgendamento=" + idAgendamento + ", pessoa=" + pessoa + ", especialidade=" + especialidade + ", horario=" + horario + ", local=" + local + ", data=" + data + ", status=" + status + '}';
+        return "Agendamento{" + "idAgendamento=" + idAgendamento + ", pessoa=" + pessoa + ", especialidade=" + especialidade + ", local=" + local + ", data=" + data + ", hora=" + hora + ", status=" + status + '}';
     }
 
+    
     @Override
     public int hashCode() {
         Integer hash = 7;

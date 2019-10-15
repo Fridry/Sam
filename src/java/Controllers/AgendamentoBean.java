@@ -4,15 +4,11 @@ import Models.Agendamento;
 import Models.AgendamentoDAO;
 import Models.Especialidade;
 import Models.EspecialidadeDAO;
-import Models.Horario;
-import Models.HorarioDAO;
 import Models.Local;
 import Models.LocalDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -46,9 +42,6 @@ public class AgendamentoBean implements Serializable {
     private Pessoa pessoa;
     private PessoaDAO pessoaDao;
     private List<Pessoa> pessoas;
-    private Horario horario;
-    private HorarioDAO horarioDao;
-    private List<Horario> horarios;
     
     private ScheduleModel eventModel;
 
@@ -59,8 +52,6 @@ public class AgendamentoBean implements Serializable {
         this.localDao = new LocalDAO();
         this.pessoa = new Pessoa();
         this.pessoaDao = new PessoaDAO();
-        this.horario = new Horario();
-        this.horarioDao = new HorarioDAO();
         this.especialidade = new Especialidade();
         this.especialidadeDao = new EspecialidadeDAO();
         this.eventModel = new DefaultScheduleModel();
@@ -163,30 +154,6 @@ public class AgendamentoBean implements Serializable {
         this.pessoas = pessoas;
     }
 
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
-
-    public HorarioDAO getHorarioDao() {
-        return horarioDao;
-    }
-
-    public void setHorarioDao(HorarioDAO horarioDao) {
-        this.horarioDao = horarioDao;
-    }
-
-    public List<Horario> getHorarios() {
-        return horarios;
-    }
-
-    public void setHorarios(List<Horario> horarios) {
-        this.horarios = horarios;
-    }
-
     public ScheduleModel getEventModel() {
         return eventModel;
     }
@@ -212,12 +179,10 @@ public class AgendamentoBean implements Serializable {
         local = new Local();
         especialidade = new Especialidade();
         pessoa = new Pessoa();
-        horario = new Horario();
         eventModel = new DefaultScheduleModel();
         try {
             agendamentos = agendamentoDao.getListAgendamento();
             locais = localDao.getListLocal();
-            horarios = horarioDao.getListHorario();
             pessoas = pessoaDao.getListPessoa();
             especialidades = especialidadeDao.getListEspecialidade();
         } catch (RuntimeException e) {
@@ -229,11 +194,13 @@ public class AgendamentoBean implements Serializable {
     public void onDateSelect(SelectEvent selectEvent) {
         agendamento = new Agendamento();
         agendamento.setData((Date) selectEvent.getObject());
+        agendamento.setHora((Date) selectEvent.getObject());
     }
     
     public void onEventSelect(SelectEvent selectEvent) {
         agendamento = new Agendamento();
         agendamento.setData((Date) selectEvent.getObject());
+        agendamento.setHora((Date) selectEvent.getObject());
     }
     
     public String carregaAgendamento(Agendamento agendamento) {
@@ -307,7 +274,7 @@ public class AgendamentoBean implements Serializable {
     
     
     //Carrega uma lista de horários disponíveis baseados na data selecionada
-    public List<Horario> carregaHoraByData(Date data) {
+    /*public List<Horario> carregaHoraByData(Date data) {
         try {
             horario = new Horario();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -321,7 +288,7 @@ public class AgendamentoBean implements Serializable {
         }
 
         return null;
-    }
+    }*/
     
     public List<Pessoa> carregaUsuariosOnComplete(String numSus) {
         try {
@@ -335,7 +302,7 @@ public class AgendamentoBean implements Serializable {
         return pessoas;
     }
     
-    public List<Horario> carregaHorarioOnComplete(Date data) {
+   /* public List<Horario> carregaHorarioOnComplete(Date data) {
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = dateFormat.format(data);
@@ -347,5 +314,5 @@ public class AgendamentoBean implements Serializable {
         }
 
         return horarios;
-    }
+    }*/
 }

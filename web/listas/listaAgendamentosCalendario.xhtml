@@ -9,7 +9,7 @@
         <div>
             <h:form>
                 <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule"
-                            locale="pt_BR" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
+                            locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
 
                     <p:ajax event="dateSelect" listener="#{agendamentoBean.onDateSelect}" update=":formAgenda:inputAgendamento" oncomplete="PF('eventDialog').show();" />
                     <p:ajax event="eventSelect" listener="#{agendamentoBean.onEventSelect}" update=":formAgenda:inputAgendamento"  oncomplete="PF('eventDialog').show();" />
@@ -58,12 +58,9 @@
                         </p:inputText>
 
                         <p:outputLabel for="idHora" value="Horário:" />
-                        <p:selectOneMenu id="idHora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter" style="width: 300px;"
-                                         required="true" requiredMessage="Campo obrigatório">
-                            <f:selectItem itemLabel="Selecione o Horário" noSelectionOption="true" />
-                            <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
-                                           itemValue="#{horario}" itemLabel="#{horario.hora}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="idHora" value="#{agendamentoBean.agendamento.hora}" size="33" readonly="true">
+                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
+                        </p:inputText>
 
                     </h:panelGrid>
 

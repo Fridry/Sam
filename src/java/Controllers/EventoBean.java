@@ -123,11 +123,13 @@ public class EventoBean implements Serializable {
     public void onDateSelect(SelectEvent selectEvent) {
         evento = new Evento();
         evento.setDiaEvento((Date) selectEvent.getObject());
+        evento.setHoraEvento((Date) selectEvent.getObject());
     }
     
     public void onEventSelect(SelectEvent selectEvent) {
         evento = new Evento();
         evento.setDiaEvento((Date) selectEvent.getObject());
+        evento.setHoraEvento((Date) selectEvent.getObject());
     }
     
     public String carregaEvento(Evento evento) {

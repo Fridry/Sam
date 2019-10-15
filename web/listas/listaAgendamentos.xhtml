@@ -35,7 +35,7 @@
                     </p:column>
 
                     <p:column headerText="Hora">
-                        <h:outputText value="#{agenda.horario.hora}" >
+                        <h:outputText value="#{agenda.hora}" >
                             <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
                         </h:outputText>
                     </p:column>
@@ -100,12 +100,8 @@
                         <p:calendar id="id-data-evento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy" locale="pt_BR"
                                     mindate="today" mask="true"/>
 
-                        <p:outputLabel for="id-hora" value="Horário:" />
-                        <p:selectOneMenu id="id-hora" value="#{agendamentoBean.agendamento.horario}" filter="true" converter="horarioConverter">
-                            <f:selectItem itemLabel="Selecione o Horário" noSelectionOption="true" />
-                            <f:selectItems value="#{agendamentoBean.horarios}" var="horario"
-                                           itemValue="#{horario}" itemLabel="#{horario.hora}"/>
-                        </p:selectOneMenu>
+                        <p:outputLabel for="idHora" value="Horário:" />
+                        <p:calendar id="idHora" value="#{agendamentoBean.agendamento.hora}" timeZone="GMT-3" pattern="HH:mm" timeOnly="true"/>
 
                     </h:panelGrid>
 

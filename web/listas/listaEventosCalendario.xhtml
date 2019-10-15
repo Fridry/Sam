@@ -9,7 +9,7 @@
         <div>
             <h:form>
                 <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule"
-                            locale="pt_BR" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
+                            locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
 
                     <p:ajax event="dateSelect" listener="#{eventoBean.onDateSelect}" update=":formEvento:inputEvento" oncomplete="PF('eventDialog').show();" />
                     <p:ajax event="eventSelect" listener="#{eventoBean.onEventSelect}" update=":formEvento:inputEvento"  oncomplete="PF('eventDialog').show();" />
@@ -30,8 +30,9 @@
                         </p:inputText>
 
                         <p:outputLabel for="idHoraEvento" value="Hora do evento:" />
-                        <p:calendar id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5" 
-                                    required="true" requiredMessage="Campo obrigatório"/>
+                        <p:inputText id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" size="33" readonly="true">
+                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
+                        </p:inputText>
 
                         <p:outputLabel for="idLocal" value="Local:" />
                         <p:selectOneMenu id="idLocal" value="#{eventoBean.evento.local}" filter="true" converter="localConverter" style="width: 240px;"
