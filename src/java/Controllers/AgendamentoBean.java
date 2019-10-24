@@ -9,8 +9,15 @@ import Models.LocalDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -18,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
@@ -42,7 +50,7 @@ public class AgendamentoBean implements Serializable {
     private Pessoa pessoa;
     private PessoaDAO pessoaDao;
     private List<Pessoa> pessoas;
-    
+
     private ScheduleModel eventModel;
 
     public AgendamentoBean() {
@@ -161,8 +169,7 @@ public class AgendamentoBean implements Serializable {
     public void setEventModel(ScheduleModel eventModel) {
         this.eventModel = eventModel;
     }
-    
-    
+
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -185,16 +192,47 @@ public class AgendamentoBean implements Serializable {
             locais = localDao.getListLocal();
             pessoas = pessoaDao.getListPessoa();
             especialidades = especialidadeDao.getListEspecialidade();
-        } catch (RuntimeException e) {
-            erro("Ocorreu um erro ao listar.", "");
-            e.printStackTrace();
+
+            for (Agendamento obj : agendamentos) {
+                String nome = obj.getPessoa().getNome();
+                Date dia = obj.getData();
+                Date hora = obj.getHora();
+                String datahora = dia + " " + hora;
+                
+                //Date dataAgenda = dataHoraConversor(datahora);
+                
+                Date dataAgenda = dataHoraConversor(datahora);
+                
+            eventModel.addEvent(new DefaultScheduleEvent(nome, dataAgenda, dataAgenda));
+
+            //Parametros String, Data inicial, Data final, *Boolean - Dia Todo*
+            // Data inicial e final devem ser iguais os horários devem ser diferentes - ÓBVIO
+
         }
     }
+    catch (RuntimeException e) {
+            erro("Ocorreu um erro ao listar.", "");
+        e.printStackTrace();
+    }
+}
     
+    public Date dataHoraConversor(String dataHora) {
+        try {
+            SimpleDateFormat  data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+            Date dataAgenda = data.parse(dataHora);
+            System.out.println(dataAgenda);
+            return dataAgenda;
+        } catch (ParseException ex) {
+            Logger.getLogger(AgendamentoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+
     public void onDateSelect(SelectEvent selectEvent) {
         agendamento = new Agendamento();
         agendamento.setData((Date) selectEvent.getObject());
-        agendamento.setHora((Date) selectEvent.getObject());
+        agendamento.setHora((Date) selectEvent.getObject());        
     }
     
     public void onEventSelect(SelectEvent selectEvent) {
