@@ -75,7 +75,7 @@ public class AgendamentoDAO implements Serializable{
         try{
         sessao = HibernateUtil.getSessionFactory().openSession();
         trans = sessao.beginTransaction();
-        Criteria cri = sessao.createCriteria(Agendamento.class).addOrder(Order.asc("data"));
+        Criteria cri = sessao.createCriteria(Agendamento.class);
         list = cri.list();
         }catch(RuntimeException e){
             e.printStackTrace();

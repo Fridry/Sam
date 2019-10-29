@@ -7,18 +7,18 @@
 
     <ui:define name="conteudo">
         <div>
-            <h:form>
-                <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule"
-                            locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
+            <h:form id="formSchedule">
+                <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule" 
+                            locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3" draggable="false" resizable="false">
 
                     <p:ajax event="dateSelect" listener="#{agendamentoBean.onDateSelect}" update=":formAgenda:inputAgendamento" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect" listener="#{agendamentoBean.onEventSelect}" update=":formAgenda:inputAgendamento"  oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventSelect" listener="#{agendamentoBean.onEventSelect}" update=":formAgendaEvent:inputAgendamentoEvent"  oncomplete="PF('eventDialogEvent').show();" />
 
                 </p:schedule>
             </h:form>
 
-            <p:dialog widgetVar="eventDialog" header="Agendar" showEffect="clip" hideEffect="clip">
-                <h:form id="formAgenda">
+            <h:form id="formAgenda">
+                <p:dialog widgetVar="eventDialog" header="Agendar" showEffect="clip" hideEffect="clip" draggable="false" resizable="false" modal="true">
                     <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
                         <p:outputLabel for="idUsuario" value="Usuário: " />
                         <p:autoComplete id="idUsuario" value="#{agendamentoBean.agendamento.pessoa}" completeMethod="#{agendamentoBean.carregaUsuariosOnComplete}"
@@ -52,26 +52,54 @@
                                            itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="idDataEvento" value="Data: " />
-                        <p:inputText id="idDataEvento" value="#{agendamentoBean.agendamento.data}" required="true" requiredMessage="Campo obrigatório" size="33" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputText>
-
-                        <p:outputLabel for="idHora" value="Horário:" />
-                        <p:inputText id="idHora" value="#{agendamentoBean.agendamento.hora}" size="33" readonly="true">
-                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
-                        </p:inputText>
-
+                        <p:outputLabel for="idDataHora" value="Data e Hora: " />
+                        <p:calendar id="idDataHora" value="#{agendamentoBean.agendamento.dataHora}" navigator="true" locale="pt_BR"
+                                    timeZone="GMT-3" mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora"/>
                     </h:panelGrid>
 
                     <h:panelGrid columns="3">
-                        <p:commandButton value="Salvar" action="#{agendamentoBean.salvaAgendamento()}" oncomplete="PF('eventDialog').hide();"/>
+                        <p:commandButton value="Salvar" action="#{agendamentoBean.salvaAgendamento()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update=":formAgenda:inputAgendamento"/>
                         <p:commandButton value="Fechar" oncomplete="PF('eventDialog').hide();"/>
-                        <p:commandButton value="Excluir"/>
+                    </h:panelGrid>
+                </p:dialog>  
+            </h:form>
+
+            <h:form id="formAgendaEvent">
+                <p:dialog widgetVar="eventDialogEvent" header="Agendar" showEffect="clip" hideEffect="clip" draggable="false" resizable="false" modal="true">
+                    <h:panelGrid columns="2" cellpadding="4" id="inputAgendamentoEvent">
+                        <p:outputLabel for="idUsuarioEvent" value="Usuário: " />
+                        <p:inputText id="idUsuarioEvent" value="#{agendamentoBean.eventoDefault.title}" size="33"
+                                     required="true" requiredMessage="Campo obrigatório" />
+
+                        <p:outputLabel for="idLocalEvent" value="Local:" />
+                        <p:selectOneMenu id="idLocalEvent" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter" style="width: 300px;"
+                                         required="true" requiredMessage="Campo obrigatório">
+                            <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.locais}" var="local"
+                                           itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="idEspecialidadeEvent" value="Especialidade:" />
+                        <p:selectOneMenu id="idEspecialidadeEvent" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter" style="width: 300px;"
+                                         required="true" requiredMessage="Campo obrigatório">
+                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="idDataHoraEvent" value="Data e Hora: " />
+                        <p:calendar id="idDataHoraEvent" value="#{agendamentoBean.eventoDefault.startDate}" navigator="true" locale="pt_BR"
+                                    timeZone="GMT-3" mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora"/>
                     </h:panelGrid>
 
-                </h:form>
-            </p:dialog>  
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="Atualizar" action="#{agendamentoBean.fundirAgendamento()}" oncomplete="PF('myschedule').update();PF('eventDialogEvent').hide();" update=":formAgendaEvent:inputAgendamentoEvent"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('eventDialogEvent').hide();"/>
+                        <p:commandButton value="Excluir" action="#{agendamentoBean.removerEvento()}"/>
+                    </h:panelGrid>
+
+                </p:dialog>  
+            </h:form>
         </div>
 
     </ui:define>

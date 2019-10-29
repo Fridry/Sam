@@ -7,32 +7,26 @@
 
     <ui:define name="conteudo">
         <div>
-            <h:form>
-                <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule"
+            <h:form id="idSchedule">
+                <p:schedule id="schedule" value="#{eventoBean.eventModel}" widgetVar="myschedule"
                             locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3">
 
                     <p:ajax event="dateSelect" listener="#{eventoBean.onDateSelect}" update=":formEvento:inputEvento" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect" listener="#{eventoBean.onEventSelect}" update=":formEvento:inputEvento"  oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventSelect" listener="#{eventoBean.onEventSelect}" update=":formEventoEdit:inputEventoEdit"  oncomplete="PF('eventDialogEdit').show();" />
 
                 </p:schedule>
             </h:form>
 
-            <p:dialog widgetVar="eventDialog" header="Agendar" showEffect="clip" hideEffect="clip">
-                <h:form id="formEvento">
+            <h:form id="formEvento">
+                <p:dialog widgetVar="eventDialog" header="Agendar" showEffect="clip" hideEffect="clip">
                     <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
                         <p:outputLabel for="idNomeEvento" value="Nome do evento: " />
                         <p:inputText id="idNomeEvento" value="#{eventoBean.evento.nomeEvento}" size="33"
                                      required="true" requiredMessage="Campo obrigatório"/>
 
-                        <p:outputLabel for="idDataEvento" value="Data: " />
-                        <p:inputText id="idDataEvento" value="#{eventoBean.evento.diaEvento}" required="true" requiredMessage="Campo obrigatório" size="33" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputText>
-
-                        <p:outputLabel for="idHoraEvento" value="Hora do evento:" />
-                        <p:inputText id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" size="33" readonly="true">
-                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
-                        </p:inputText>
+                        <p:outputLabel for="idDataHoraEvento" value="Data e Hora: " />
+                        <p:calendar id="idDataHoraEvento" value="#{eventoBean.evento.dataHoraEvento}" navigator="true" locale="pt_BR"
+                                    mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3"/>
 
                         <p:outputLabel for="idLocal" value="Local:" />
                         <p:selectOneMenu id="idLocal" value="#{eventoBean.evento.local}" filter="true" converter="localConverter" style="width: 240px;"
@@ -51,12 +45,36 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="3">
-                        <p:commandButton value="Salvar" action="#{eventoBean.salvaEvento()}" oncomplete="PF('eventDialog').hide();"/>
+                        <p:commandButton value="Salvar" action="#{eventoBean.salvaEvento()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update=":idSchedule:schedule"/>
                         <p:commandButton value="Fechar" oncomplete="PF('eventDialog').hide();"/>
                     </h:panelGrid>
 
-                </h:form>
-            </p:dialog>  
+                </p:dialog>
+            </h:form>
+
+            <h:form id="formEventoEdit">
+                <p:dialog widgetVar="eventDialogEdit" header="Editar" showEffect="clip" hideEffect="clip">
+                    <h:panelGrid columns="2" cellpadding="4" id="inputEventoEdit">
+                        <p:outputLabel for="idNomeEventoEdit" value="Nome do evento: " />
+                        <p:inputText id="idNomeEventoEdit" value="#{eventoBean.eventoDefault.title}" size="33"
+                                     required="true" requiredMessage="Campo obrigatório"/>
+
+                        <p:outputLabel for="idDataHoraEventoEdit" value="Data e Hora: " />
+                        <p:calendar id="idDataHoraEventoEdit" value="#{eventoBean.eventoDefault.startDate}" navigator="true" locale="pt_BR"
+                                    mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3"/>
+
+
+
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="Atualizar" action="#{eventoBean.fundirEvento()}" oncomplete="PF('myschedule').update();PF('eventDialogEdit').hide();"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('eventDialogEdit').hide();"/>
+                        <p:commandButton value="Excluir" action="#{eventoBean.removerEvento()}" oncomplete="PF('eventDialogEdit').hide();"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </h:form>
         </div>
 
     </ui:define>

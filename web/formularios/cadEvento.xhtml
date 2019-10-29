@@ -16,14 +16,10 @@
                     <p:inputText id="idNomeEvento" value="#{eventoBean.evento.nomeEvento}" maxlength="30"
                                  required="true" requiredMessage="Campo obrigatório"/>
 
-                    <p:outputLabel for="idDataEvento" value="Data do evento: " />
-                    <p:calendar id="idDataEvento" value="#{eventoBean.evento.diaEvento}" navigator="true" pattern="dd/MM/yyyy"
-                                required="true" requiredMessage="Campo obrigatório" locale="pt" mindate="today"/>
-
-                    <p:outputLabel for="idHoraEvento" value="Hora do evento:" />
-                    <p:calendar id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5"
-                                required="true" requiredMessage="Campo obrigatório"/>
-
+                    <p:outputLabel for="idDataHoraEvento" value="Data e Hora: " />
+                    <p:calendar id="idDataHoraEvento" value="#{eventoBean.evento.dataHoraEvento}" navigator="true" locale="pt_BR"
+                                   mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3"/>
+                        
                     <p:outputLabel for="idLocalEvento" value="Local do evento:" />
                     <p:selectOneMenu id="idLocalEvento" value="#{eventoBean.evento.local}" filter="true" converter="localConverter"
                                      required="true" requiredMessage="Campo obrigatório">

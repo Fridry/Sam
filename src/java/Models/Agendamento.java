@@ -46,11 +46,9 @@ public class Agendamento implements Serializable {
     @JoinColumn(nullable = false)
     private Local local;
     
-    @Temporal(TemporalType.DATE)
-    private Date data;
-    
-    @Temporal(TemporalType.TIME)
-    private Date hora;
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHora;
     
     @Column(name="status")
     private String status;
@@ -58,13 +56,12 @@ public class Agendamento implements Serializable {
     public Agendamento() {
     }
 
-    public Agendamento(Integer idAgendamento, Pessoa pessoa, Especialidade especialidade, Local local, Date data, Date hora, String status) {
+    public Agendamento(Integer idAgendamento, Pessoa pessoa, Especialidade especialidade, Local local, Date dataHora, String status) {
         this.idAgendamento = idAgendamento;
         this.pessoa = pessoa;
         this.especialidade = especialidade;
         this.local = local;
-        this.data = data;
-        this.hora = hora;
+        this.dataHora = dataHora;
         this.status = status;
     }
 
@@ -100,20 +97,12 @@ public class Agendamento implements Serializable {
         this.local = local;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDataHora() {
+        return dataHora;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
     }
 
     public String getStatus() {
@@ -126,9 +115,9 @@ public class Agendamento implements Serializable {
 
     @Override
     public String toString() {
-        return "Agendamento{" + "idAgendamento=" + idAgendamento + ", pessoa=" + pessoa + ", especialidade=" + especialidade + ", local=" + local + ", data=" + data + ", hora=" + hora + ", status=" + status + '}';
+        return "Agendamento{" + "idAgendamento=" + idAgendamento + ", pessoa=" + pessoa + ", especialidade=" + especialidade + ", local=" + local + ", dataHora=" + dataHora + ", status=" + status + '}';
     }
-
+        
     
     @Override
     public int hashCode() {

@@ -5,15 +5,19 @@ import Models.EventoDAO;
 import Models.Local;
 import Models.LocalDAO;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 /**
@@ -32,6 +36,7 @@ public class EventoBean implements Serializable {
     private LocalDAO localDao;
     private List<Local> locais;
     private ScheduleModel eventModel;
+    private ScheduleEvent eventoDefault;
 
     public EventoBean() {
         this.evento = new Evento();
@@ -39,6 +44,7 @@ public class EventoBean implements Serializable {
         this.local = new Local();
         this.localDao = new LocalDAO();
         this.eventModel = new DefaultScheduleModel();
+        this.eventoDefault = new DefaultScheduleEvent();
         init();
     }
 
@@ -98,6 +104,15 @@ public class EventoBean implements Serializable {
         this.eventModel = eventModel;
     }
 
+    public ScheduleEvent getEventoDefault() {
+        return eventoDefault;
+    }
+
+    public void setEventoDefault(ScheduleEvent eventoDefault) {
+        this.eventoDefault = eventoDefault;
+    }
+    
+
     public void mensagem(String summary, String detail) {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -107,31 +122,45 @@ public class EventoBean implements Serializable {
         FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
-
+    
+    @PostConstruct
     public void init() {
         evento = new Evento();
         local = new Local();
         eventModel = new DefaultScheduleModel();
+        eventoDefault = new DefaultScheduleEvent();
         try {
             locais = localDao.getListLocal();
+            List<Evento> eventos = eventoDao.getListEvento();
+
+            for (Evento obj : eventos) {
+                String nomeEvento = obj.getNomeEvento();
+                Date dataHoraEvento = obj.getDataHoraEvento();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dataHoraEvento);
+                //calendar.add(Calendar.MINUTE, 30);
+                calendar.add(Calendar.HOUR, 2);
+                Date dataHoraFim = calendar.getTime();
+
+                eventModel.addEvent(new DefaultScheduleEvent(nomeEvento, dataHoraEvento, dataHoraFim));
+            }
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao listar os locais.", "");
             e.printStackTrace();
         }
     }
-    
+
     public void onDateSelect(SelectEvent selectEvent) {
         evento = new Evento();
-        evento.setDiaEvento((Date) selectEvent.getObject());
-        evento.setHoraEvento((Date) selectEvent.getObject());
+        evento.setDataHoraEvento((Date) selectEvent.getObject());
     }
-    
+
     public void onEventSelect(SelectEvent selectEvent) {
-        evento = new Evento();
-        evento.setDiaEvento((Date) selectEvent.getObject());
-        evento.setHoraEvento((Date) selectEvent.getObject());
+        eventoDefault = (DefaultScheduleEvent) selectEvent.getObject();
+        evento = (Evento) eventoDefault.getData();
     }
-    
+
     public String carregaEvento(Evento evento) {
         this.evento = evento;
         return "editar";
@@ -140,14 +169,15 @@ public class EventoBean implements Serializable {
     public String salvaEvento() {
         try {
             eventoDao.createEvento(evento);
-            mensagem("Evento criado com Sucesso!", "");
-            evento = new Evento();
-            return "/listas/listaEventos";
+            eventModel.updateEvent(eventoDefault);
+            mensagem("Evento criado com Sucesso!", "");           
+            init();
+            return "";
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao agendar o evento.", "");
             e.printStackTrace();
         }
-        
+
         return null;
     }
 
@@ -188,4 +218,13 @@ public class EventoBean implements Serializable {
         this.evento = eventoDao.getById(id);
         return "editar";
     }
+    
+    public void removerEvento() {
+        eventModel.deleteEvent(eventoDefault);
+        eventoDao.deleteEvento(evento);
+        mensagem("Excluído com sucesso", "");
+        evento = new Evento();
+        eventModel = new DefaultScheduleModel();
+    }
+    
 }

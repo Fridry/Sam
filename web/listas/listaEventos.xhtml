@@ -8,7 +8,7 @@
     <ui:define name="conteudo">
         <div>
             <p:growl id="mensagemGrowl" />  
-            
+
             <h:form id="listaEventos">
                 <h4 style="padding: 10px;">Eventos registrados</h4>
                 <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="10"
@@ -24,20 +24,14 @@
                     <p:column headerText="Nome" filterBy="#{evento.nomeEvento}" filterMatchMode="contains">
                         <h:outputText value="#{evento.nomeEvento}"/>
                     </p:column>
-                    
+
                     <p:column headerText="Local" filterBy="#{evento.local.nomeLocal}" filterMatchMode="contains">
                         <h:outputText value="#{evento.local.nomeLocal}"/>
                     </p:column>
 
-                    <p:column headerText="Data" sortBy="#{evento.diaEvento}" filterBy="#{evento.diaEvento}" filterMatchMode="contains">
-                        <h:outputText value="#{evento.diaEvento}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column headerText="Hora">
-                        <h:outputText value="#{evento.horaEvento}">
-                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
+                    <p:column headerText="Data e Hora">
+                        <h:outputText value="#{evento.dataHoraEvento}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
                         </h:outputText>
                     </p:column>
 
@@ -54,7 +48,7 @@
 
                         <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{eventoBean.carregaEvento(evento)}"
                                           onclick="PF('idModal').show();" update=":cadEvento:inputEvento"/>
-                        
+
                         <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
 
@@ -71,23 +65,19 @@
 
             <p:dialog header="Cadastro de eventos" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
                 <h:form id="cadEvento">
-                    
+
                     <h:panelGrid>
                         <p:messages id="mensagemAdd" showDetail="true" closable="true"/>
                     </h:panelGrid>
-                    
+
                     <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
                         <p:outputLabel for="idNomeEvento" value="Nome do evento: " />
                         <p:inputText id="idNomeEvento" value="#{eventoBean.evento.nomeEvento}" maxlength="30"
                                      required="true" requiredMessage="Campo obrigatório"/>
 
-                        <p:outputLabel for="idDataEvento" value="Data do evento: " />
-                        <p:calendar id="idDataEvento" value="#{eventoBean.evento.diaEvento}" navigator="true" pattern="dd/MM/yyyy"
-                                    required="true" requiredMessage="Campo obrigatório" locale="pt" mindate="today" mask="true"/>
-
-                        <p:outputLabel for="idHoraEvento" value="Hora do evento:" />
-                        <p:calendar id="idHoraEvento" value="#{eventoBean.evento.horaEvento}" pattern="HH:mm" timeOnly="true" maxlength="5" 
-                                    required="true" requiredMessage="Campo obrigatório"/>
+                        <p:outputLabel for="idDataHoraEvento" value="Data e Hora: " />
+                        <p:calendar id="idDataHoraEvento" value="#{eventoBean.evento.dataHoraEvento}" navigator="true" locale="pt_BR"
+                                    mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3"/>
 
                         <p:outputLabel for="idLocalEvento" value="Local do evento:" />
                         <p:selectOneMenu id="idLocalEvento" value="#{eventoBean.evento.local}" filter="true" converter="localConverter"
@@ -122,7 +112,7 @@
 
                     <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
 
-                       <p:outputLabel for="idLocal" value="Nome do local: " />
+                        <p:outputLabel for="idLocal" value="Nome do local: " />
                         <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="30"
                                      required="true" requiredMessage="Campo obrigatório"/>
 

@@ -28,15 +28,9 @@
                         <h:outputText value="#{agenda.especialidade.tipoEspecialidade}" />
                     </p:column>
 
-                    <p:column headerText="Data">
-                        <h:outputText value="#{agenda.data}" >
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column headerText="Hora">
-                        <h:outputText value="#{agenda.hora}" >
-                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-3"/>
+                    <p:column headerText="Data e Hora">
+                        <h:outputText value="#{agenda.dataHora}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
                         </h:outputText>
                     </p:column>
 
@@ -96,12 +90,10 @@
                                            itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="id-data-evento" value="Data: " />
-                        <p:calendar id="id-data-evento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy" locale="pt_BR"
-                                    mindate="today" mask="true"/>
+                        <p:outputLabel for="idDataHora" value="Data e Hora: " />
+                        <p:calendar id="idDataHora" value="#{agendamentoBean.agendamento.dataHora}" navigator="true" locale="pt_BR"
+                                    timeZone="GMT-3" mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora"/>
 
-                        <p:outputLabel for="idHora" value="Horário:" />
-                        <p:calendar id="idHora" value="#{agendamentoBean.agendamento.hora}" timeZone="GMT-3" pattern="HH:mm" timeOnly="true"/>
 
                     </h:panelGrid>
 

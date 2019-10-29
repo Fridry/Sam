@@ -44,13 +44,10 @@
                                        itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="idDataEvento" value="Data: " />
-                    <p:calendar id="idDataEvento" value="#{agendamentoBean.agendamento.data}" navigator="true" pattern="dd/MM/yyyy" size="33"
-                                required="true" requiredMessage="Campo obrigatório" locale="pt" mindate="today" mask="true"/>
-
-                    <p:outputLabel for="idHora" value="Horário:" />
-                    <p:calendar id="idHora" value="#{agendamentoBean.agendamento.hora}" timeZone="GMT-3" pattern="HH:mm" timeOnly="true" size="33"/>
-                    
+                    <p:outputLabel for="idDataHora" value="Data e Hora: " />
+                        <p:calendar id="idDataHora" value="#{agendamentoBean.agendamento.dataHora}" navigator="true" locale="pt_BR"
+                                   mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3"/>
+                        
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">

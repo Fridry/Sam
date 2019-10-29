@@ -37,13 +37,9 @@ public class Evento implements Serializable {
     @Column(name = "nome_evento")
     private String nomeEvento;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "dia_evento")
-    private Date diaEvento;
-    
-    @Column(name = "hora_evento")
-    @Temporal(TemporalType.TIME)
-    private Date horaEvento;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dataHoraEvento")
+    private Date dataHoraEvento;
     
     @Column(name = "informacoes")
     private String informacoes;
@@ -55,14 +51,14 @@ public class Evento implements Serializable {
     public Evento() {
     }
 
-    public Evento(Integer idEvento, String nomeEvento, Date diaEvento, Date horaEvento, String informacoes, Local local) {
+    public Evento(Integer idEvento, String nomeEvento, Date dataHoraEvento, String informacoes, Local local) {
+        this.idEvento = idEvento;
         this.nomeEvento = nomeEvento;
-        this.diaEvento = diaEvento;
-        this.horaEvento = horaEvento;
+        this.dataHoraEvento = dataHoraEvento;
         this.informacoes = informacoes;
         this.local = local;
     }
-
+    
     public Integer getIdEvento() {
         return idEvento;
     }
@@ -79,20 +75,12 @@ public class Evento implements Serializable {
         this.nomeEvento = nomeEvento;
     }
 
-    public Date getDiaEvento() {
-        return diaEvento;
+    public Date getDataHoraEvento() {
+        return dataHoraEvento;
     }
 
-    public void setDiaEvento(Date diaEvento) {
-        this.diaEvento = diaEvento;
-    }
-
-    public Date getHoraEvento() {
-        return horaEvento;
-    }
-
-    public void setHoraEvento(Date horaEvento) {
-        this.horaEvento = horaEvento;
+    public void setDataHoraEvento(Date dataHoraEvento) {
+        this.dataHoraEvento = dataHoraEvento;
     }
 
     public String getInformacoes() {
@@ -110,10 +98,12 @@ public class Evento implements Serializable {
     public void setLocal(Local local) {
         this.local = local;
     }
+    
+    
 
     @Override
     public String toString() {
-        return "Evento{" + "idEvento=" + idEvento + ", nomeEvento=" + nomeEvento + ", diaEvento=" + diaEvento + ", horaEvento=" + horaEvento + ", informacoes=" + informacoes + ", local=" + local + '}';
+        return "Evento{" + "idEvento=" + idEvento + ", nomeEvento=" + nomeEvento + ", dataHoraEvento=" + dataHoraEvento + ", informacoes=" + informacoes + ", local=" + local + '}';
     }
 
     @Override
