@@ -7,6 +7,21 @@
 
     <ui:define name="conteudo">
         <div>
+            <div>
+                <h:form>
+                    <h:panelGrid  columns="3" cellpadding="4">
+                        <p:outputLabel for="idEspecialidade" value="Especialidade:" />
+                        <p:selectOneMenu id="idEspecialidade" value="#{especialidadeBean.especialidade}" 
+                                         filter="true" converter="especialidadeConverter" style="width: 300px;">
+                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
+                            <f:selectItems value="#{especialidadeBean.listEspecialidade}" var="especialidade"
+                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:commandButton value="Buscar" action="#{agendamentoBean.carregaAgendaEspecialidade(especialidade)}" oncomplete="PF('myschedule').update();" update=":formSchedule:schedule textoTeste"/>
+                    </h:panelGrid>
+                </h:form>
+            </div>
             <h:form id="formSchedule">
                 <p:schedule id="schedule" value="#{agendamentoBean.eventModel}" widgetVar="myschedule" 
                             locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3" draggable="false" resizable="false">

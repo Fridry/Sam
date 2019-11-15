@@ -4,6 +4,7 @@ import Models.Especialidade;
 import Models.EspecialidadeDAO;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -149,5 +150,32 @@ public class EspecialidadeBean implements Serializable {
         this.especialidade = especialidadeDao.getById(id);
         return "editar";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.listEspecialidades);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EspecialidadeBean other = (EspecialidadeBean) obj;
+        if (!Objects.equals(this.listEspecialidades, other.listEspecialidades)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }

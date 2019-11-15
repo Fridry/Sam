@@ -6,11 +6,32 @@ import Models.Login;
 import Models.LoginDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
+import com.itextpdf.text.Element;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.Header;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.GrayColor;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfTable;
+import com.lowagie.text.pdf.draw.LineSeparator;
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.event.FlowEvent;
@@ -135,7 +156,7 @@ public class PessoaBean implements Serializable {
             erro("Ocorreu um erro ao cadastra o usuário.", "");
             e.printStackTrace();
         }
-        
+
         return null;
     }
 
@@ -144,7 +165,7 @@ public class PessoaBean implements Serializable {
         mensagem("Pessoa criada com Sucesso!", "");
         this.pessoa = new Pessoa();
     }
-    
+
     public void fundirPessoa(Contato contato, Login login) {
         try {
             this.pessoa.setLogin(login);
@@ -178,8 +199,48 @@ public class PessoaBean implements Serializable {
         this.pessoa = pessoaDao.getById(id);
         return "editar";
     }
-    
+
     public String onFlowProcess(FlowEvent event) {
-            return event.getNewStep();
+        return event.getNewStep();
+    }
+
+    public int contador() {
+        int total = 0;
+        for (Pessoa obj : listPessoa) {
+            total++;
         }
+        return total;
+    }
+
+    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+        Document pdf = (Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.A4);
+
+        
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "samlogo.png";
+
+        Image logoSam = Image.getInstance(logo);
+        logoSam.scaleToFit(70, 70);
+        logoSam.setAlignment(Element.ALIGN_CENTER);
+        pdf.add(logoSam);
+
+        Paragraph titulo = new Paragraph("SAM - Sistema de agendamento médico");
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        pdf.add(titulo);
+
+        LineSeparator line = new LineSeparator();
+        line.setOffset(-5);
+        line.setLineColor(Color.BLACK);
+        pdf.add(line);
+        pdf.add(Chunk.NEWLINE);
+
+        Paragraph p = new Paragraph("Relatório de usuários registrados no sistema");
+        p.setAlignment(Element.ALIGN_CENTER);
+        pdf.add(p);
+        pdf.add(Chunk.NEWLINE);
+
+    }
+
 }

@@ -22,7 +22,7 @@ public class EspecialidadeConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if(value != null && value.trim().length() > 0){
+        if(value != null && equals(value)){
             Integer id = Integer.valueOf(value);
             EspecialidadeDAO especialidadeDao = new EspecialidadeDAO();
             return especialidadeDao.getById(id);
@@ -32,7 +32,7 @@ public class EspecialidadeConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if(value != null){
+        if(value != null && equals(value)){
             Especialidade especialidade = (Especialidade) value;
             return especialidade.getIdEspecialidade().toString();
         }

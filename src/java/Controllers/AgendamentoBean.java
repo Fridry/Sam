@@ -8,6 +8,19 @@ import Models.Local;
 import Models.LocalDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
+import Models.Relatorio;
+import com.itextpdf.text.Element;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.draw.LineSeparator;
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
@@ -306,7 +320,7 @@ public class AgendamentoBean implements Serializable {
 
         return pessoas;
     }
-    
+
     public void removerEvento() {
         eventModel.deleteEvent(eventoDefault);
         agendamentoDao.deleteAgendamento(agendamento);
@@ -314,4 +328,65 @@ public class AgendamentoBean implements Serializable {
         agendamento = new Agendamento();
         eventModel = new DefaultScheduleModel();
     }
+
+    public void carregaAgendaEspecialidade(Especialidade especialidade) {
+        //System.out.println(especialidade);
+        agendamentos = agendamentoDao.getListAgendamentoEspecialidade(especialidade);
+
+        for (Agendamento obj : agendamentos) {
+            String nome = obj.getPessoa().getNome();
+            Date dataHora = obj.getDataHora();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dataHora);
+            calendar.add(Calendar.MINUTE, 30);
+            Date dataHoraFim = calendar.getTime();
+
+            eventModel.addEvent(new DefaultScheduleEvent(nome, dataHora, dataHoraFim));
+        }
+    }
+
+    public int contador() {
+        int total = 0;
+        for (Agendamento obj : agendamentos) {
+            total++;
+        }
+        return total;
+    }
+    
+    /*public void gerarRelatório() {
+        Relatorio relatorio = new Relatorio();
+    }*/
+    
+    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+        Document pdf = (Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.A4);
+
+        
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "samlogo.png";
+
+        Image logoSam = Image.getInstance(logo);
+        logoSam.scaleToFit(70, 70);
+        logoSam.setAlignment(Element.ALIGN_CENTER);
+        pdf.add(logoSam);
+
+        Paragraph titulo = new Paragraph("SAM - Sistema de agendamento médico");
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        pdf.add(titulo);
+
+        LineSeparator line = new LineSeparator();
+        line.setOffset(-5);
+        line.setLineColor(Color.BLACK);
+        pdf.add(line);
+        pdf.add(Chunk.NEWLINE);
+
+        Paragraph p = new Paragraph("Relatório de consultas agendadas");
+        p.setAlignment(Element.ALIGN_CENTER);
+        pdf.add(p);
+        pdf.add(Chunk.NEWLINE);
+
+    }
+
 }
