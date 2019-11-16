@@ -18,7 +18,7 @@
                                            itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
                         </p:selectOneMenu>
                         
-                        <p:commandButton value="Buscar" action="#{agendamentoBean.carregaAgendaEspecialidade(especialidade)}" oncomplete="PF('myschedule').update();" update=":formSchedule:schedule textoTeste"/>
+                        <p:commandButton value="Buscar" action="#{agendamentoBean.carregaAgendaEspecialidade(especialidade)}" oncomplete="PF('myschedule').update();" update=":formSchedule:schedule"/>
                     </h:panelGrid>
                 </h:form>
             </div>

@@ -6,22 +6,15 @@ import Models.Login;
 import Models.LoginDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
+import Relatorios.Relatorio;
 import com.itextpdf.text.Element;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.Header;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.GrayColor;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.draw.LineSeparator;
 import java.awt.Color;
 import java.io.File;
@@ -52,6 +45,7 @@ public class PessoaBean implements Serializable {
     private Login login;
     private LoginDAO loginDao;
     private List<Pessoa> listPessoa;
+    private Relatorio relatorio;
 
     public PessoaBean() {
         this.pessoa = new Pessoa();
@@ -60,6 +54,7 @@ public class PessoaBean implements Serializable {
         this.contatoDao = new ContatoDAO();
         this.login = new Login();
         this.loginDao = new LoginDAO();
+        this.relatorio = new Relatorio();
     }
 
     public Pessoa getPessoa() {
@@ -116,6 +111,14 @@ public class PessoaBean implements Serializable {
 
     public void setLoginDao(LoginDAO loginDao) {
         this.loginDao = loginDao;
+    }
+
+    public Relatorio getRelatorio() {
+        return relatorio;
+    }
+
+    public void setRelatorio(Relatorio relatorio) {
+        this.relatorio = relatorio;
     }
 
     public void mensagem(String summary, String detail) {
@@ -241,6 +244,10 @@ public class PessoaBean implements Serializable {
         pdf.add(p);
         pdf.add(Chunk.NEWLINE);
 
+    }
+    
+    public void gerarRelatorio() {
+        relatorio.getRelatorio();
     }
 
 }

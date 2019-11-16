@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package Relatorios;
 
+import Util.HibernateUtil;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,15 +45,19 @@ public class Relatorio {
         this.response = (HttpServletResponse) context.getExternalContext().getResponse();
     }
     
+    //Adicionar duas propriedades
+    //1 - Caminho/arquivo .jasper
+    //2 - Nome do relatório
     public void getRelatorio() {
-        stream = this.getClass().getResourceAsStream("/MyReports/pessoasRelatorio.jasper");
+        stream = this.getClass().getResourceAsStream("relatorioPessoas.jasper");
         Map<String, Object> params = new HashMap<String, Object>();
         baos = new ByteArrayOutputStream();
         try {
-            JasperReport report = (JasperReport) JRLoader.loadObject(stream);
-            JasperPrint print = JasperFillManager.fillReport(report, params, getConexao());
+            JasperReport report = (JasperReport) JRLoader.loadObject(stream);            
+            Connection conexao = HibernateUtil.getConexao();
+            JasperPrint print = JasperFillManager.fillReport(report, params, conexao);
             JasperExportManager.exportReportToPdfStream(print, baos);
-            
+
             response.reset();
             response.setContentType("application/pdf");
             response.setContentLength(baos.size());
@@ -60,11 +65,9 @@ public class Relatorio {
             response.getOutputStream().write(baos.toByteArray());
             response.getOutputStream().flush();
             response.getOutputStream().close();
-            
+
             context.responseComplete();
-            fecharConexao();
-            
-            
+
         } catch (JRException ex) {
             Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -72,27 +75,6 @@ public class Relatorio {
         }
     }
     
-    public Connection getConexao(){        
-        try {            
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sam", "root", "");
-            return con;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return con;
-    }
-    
-    public void fecharConexao(){
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
     
 }

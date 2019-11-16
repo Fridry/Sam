@@ -8,7 +8,7 @@ import Models.Local;
 import Models.LocalDAO;
 import Models.Pessoa;
 import Models.PessoaDAO;
-import Models.Relatorio;
+import Relatorios.Relatorio;
 import com.itextpdf.text.Element;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;

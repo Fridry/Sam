@@ -13,6 +13,11 @@
             <h:form id="listaPessoas">
                 
                 <div style="float:right;padding-top: 5px;">
+                    
+                    <p:commandButton icon="ui-icon-print" action="#{pessoaBean.gerarRelatorio()}" 
+                                     ajax="false" onclick="this.form.target='_blank'" />
+                    
+                    
                     <h:commandLink>
                         <p:graphicImage name="/images/excel.png" width="24"/>
                         <p:dataExporter type="xls" target="tabelaPessoas" fileName="RelatorioDeAgendamentos" />

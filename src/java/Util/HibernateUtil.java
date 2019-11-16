@@ -5,8 +5,12 @@
  */
 package Util;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import org.hibernate.Session;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import org.hibernate.jdbc.ReturningWork;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -17,6 +21,18 @@ import org.hibernate.SessionFactory;
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
+    
+    public static Connection getConexao(){
+        Session sessao = sessionFactory.openSession();
+        Connection conexao = sessao.doReturningWork(new ReturningWork<Connection>(){
+            @Override
+            public Connection execute(Connection conn) throws SQLException {
+                return conn;
+            }
+            
+        });
+        return conexao;
+    }
     
     static {
         try {
