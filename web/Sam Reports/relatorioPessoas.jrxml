@@ -70,7 +70,7 @@
 				<text><![CDATA[Gênero]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="290" y="0" width="150" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e090ef23-3eb9-48d3-81bf-3eaabf44f9da">
+				<reportElement mode="Opaque" x="290" y="0" width="140" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e090ef23-3eb9-48d3-81bf-3eaabf44f9da">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8ac9ab4d-d5c1-49a0-b503-275e15b6b9a7"/>
 				</reportElement>
 				<textElement textAlignment="Justified">
@@ -79,7 +79,7 @@
 				<text><![CDATA[Data de Nascimento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="440" y="0" width="115" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="479b502a-b3aa-4b2c-ba4d-8d102284ee71">
+				<reportElement mode="Opaque" x="430" y="0" width="125" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="479b502a-b3aa-4b2c-ba4d-8d102284ee71">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9facd126-8b92-4f14-8e7a-f3e8ee338c3c"/>
 				</reportElement>
 				<textElement textAlignment="Justified">
@@ -110,7 +110,7 @@
 				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="290" y="0" width="150" height="20" uuid="5a94f257-e8b2-4659-9746-b6c6959a4c83">
+				<reportElement x="290" y="0" width="140" height="20" uuid="5a94f257-e8b2-4659-9746-b6c6959a4c83">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8ac9ab4d-d5c1-49a0-b503-275e15b6b9a7"/>
 				</reportElement>
 				<textElement textAlignment="Left">
@@ -120,7 +120,7 @@
 				<patternExpression><![CDATA[$F{nome}.format( "dd/MM/yyyy")]]></patternExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="440" y="0" width="115" height="20" uuid="6a36c38b-7463-4119-a282-d8366b773bad">
+				<reportElement x="430" y="0" width="125" height="20" uuid="6a36c38b-7463-4119-a282-d8366b773bad">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9facd126-8b92-4f14-8e7a-f3e8ee338c3c"/>
 				</reportElement>
 				<textElement textAlignment="Left">

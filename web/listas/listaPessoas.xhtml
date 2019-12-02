@@ -15,7 +15,7 @@
                 <p:dataTable var="pessoa" value="#{pessoaBean.listarPessoa()}" rows="20"
                              paginator="true" id="tabelaPessoas" emptyMessage="Nenhum usuário encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50">
+                             rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <p:column headerText="Nome: " filterBy="#{pessoa.nome}" filterMatchMode="contains">
                         <h:outputText value="#{pessoa.nome}"/>
@@ -42,21 +42,11 @@
 
                         <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" onclick="PF('idModal').show();"
                                           action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" update=":cadPessoa:inputPessoa"/>
-                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />                        
+                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#{pessoaBean.carregaPessoaId(pessoa.idPessoa, pessoa.contato)}" />                        
                         <p:commandButton  icon="ui-icon-list" alt="Agendar" title="Agendar" action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" 
                                           onclick="PF('idModalAgendar').show();" update=":cadAgendamento:inputAgendamento"/>
-                        
-                        
+                                              
                     </p:column>
-
-                    <f:facet name="paginatorTopLeft">
-                        <p:commandButton type="button" icon="pi pi-refresh" />
-                    </f:facet>
-
-                    <f:facet name="paginatorBottomRight">
-                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
-                    </f:facet>
-
                 </p:dataTable>
             </h:form>
 

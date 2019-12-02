@@ -13,10 +13,10 @@
                 <p:tab id="personal" title="Dados pessoais">
                     <p:panel header="Personal Details">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idNome" value="Nome: " />
                             <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"
-                                         required="true" requiredMessage="Campo obrigatório"/>
+                                         required="true" requiredMessage="Campo obrigatório" size="100"/>
 
                             <p:outputLabel for="idGenero" value="Gênero: " />
                             <p:selectOneRadio id="idGenero" value="#{pessoaBean.pessoa.genero}" required="true" requiredMessage="Campo obrigatório">
@@ -43,10 +43,10 @@
                 <p:tab id="contact" title="Contato">
                     <p:panel header="Contact Information">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="4" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idEmail" value="E-mail: " />
                             <p:inputText id="idEmail" value="#{pessoaBean.contato.email}" maxlength="50"
-                                         required="true" requiredMessage="Campo obrigatório"/>
+                                         required="true" requiredMessage="Campo obrigatório" size="50"/>
 
                             <p:outputLabel for="idTelefone" value="Telefone: " />
                             <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{pessoaBean.contato.telefone}"
@@ -54,7 +54,7 @@
 
                             <p:outputLabel for="idRua" value="Rua: " />
                             <p:inputText id="idRua" value="#{pessoaBean.contato.rua}" maxlength="50"
-                                         required="true" requiredMessage="Campo obrigatório"/>
+                                         required="true" requiredMessage="Campo obrigatório" size="50"/>
 
                             <p:outputLabel for="idNumero" value="Numero: " />
                             <p:inputText id="idNumero" value="#{pessoaBean.contato.numero}"  maxlength="6"
@@ -62,7 +62,7 @@
 
                             <p:outputLabel for="idBairro" value="Bairro: " />
                             <p:inputText id="idBairro" value="#{pessoaBean.contato.bairro}" maxlength="20"
-                                         required="true" requiredMessage="Campo obrigatório"/>
+                                         required="true" requiredMessage="Campo obrigatório" size="50"/>
 
                             <p:outputLabel for="idCep" value="CEP: " />
                             <p:inputMask mask="99999-999" id="idCep" value="#{pessoaBean.contato.cep}"
@@ -70,7 +70,7 @@
 
                             <p:outputLabel for="idCidade" value="Cidade: " />
                             <p:inputText id="idCidade" value="#{pessoaBean.contato.cidade}" maxlength="20"
-                                         required="true" requiredMessage="Campo obrigatório"/>
+                                         required="true" requiredMessage="Campo obrigatório" size="50"/>
                         </h:panelGrid>
 
                     </p:panel>
@@ -79,12 +79,13 @@
                 <p:tab id="login" title="Dados de login">
                     <p:panel header="Personal Details">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idUsuario" value="Usuário: " />
                             <p:inputText id="idUsuario" value="#{pessoaBean.login.usuario}"/>
 
                             <p:outputLabel for="idSenha" value="Senha: " />
-                            <p:password id="idSenha" value="#{pessoaBean.login.senha}" maxlength="10"/>
+                            <p:password id="idSenha" value="#{pessoaBean.login.senha}" maxlength="10" 
+                                        required="true" requiredMessage="Campo obrigatório"/>
 
                         </h:panelGrid>
                     </p:panel>
@@ -92,10 +93,10 @@
 
                 <p:tab id="confirm" title="Confirmação">
                     <p:panel header="Confirmation">
-                        <h:panelGrid id="confirmation" columns="2" columnClasses="grid,grid,grid">
+                        <h:panelGrid id="confirmation" columns="1" columnClasses="grid,grid,grid" cellpadding="10" cellspacing="5">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Nome: " />
-                                <h:outputText value="#{pessoaBean.pessoa.nome}" styleClass="outputLabel"/>
+                                <h:outputText value="#{pessoaBean.pessoa.nome}" styleClass="outputLabel" />
 
                                 <h:outputText value="Genêro: " />
                                 <h:outputText value="#{pessoaBean.pessoa.genero}" styleClass="outputLabel"/>
@@ -110,9 +111,7 @@
 
                                 <h:outputText value="Número SUS: " />
                                 <h:outputText value="#{pessoaBean.pessoa.numSus}" styleClass="outputLabel"/>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" columnClasses="label, value">
+                            
                                 <h:outputText value="E-mail: " />
                                 <h:outputText value="#{pessoaBean.contato.email}" styleClass="outputLabel"/>
 
@@ -129,7 +128,7 @@
                                 <h:outputText value="#{pessoaBean.contato.bairro}" styleClass="outputLabel"/>
                             </h:panelGrid>
 
-                            <h:panelGrid columns="2" columnClasses="label, value">
+                            <h:panelGrid columns="2" columnClasses="label, value" >
                                 <p:commandButton value="Cadastrar" action="#{pessoaBean.salvaPessoa(pessoaBean.contato, pessoaBean.login)}"
                                                  update="mensagemAdd :cadPessoa"/>
                             </h:panelGrid>

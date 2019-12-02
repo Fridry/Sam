@@ -11,15 +11,14 @@
 
             <h:form id="listaAgenda">
                 <div style="float:right;padding-top: 5px;">
-                    <h:commandLink>
-                        <p:graphicImage name="/images/excel.png" width="24"/>
-                        <p:dataExporter type="xls" target="agenda" fileName="RelatorioDeAgendamentos" />
+      
+                    <h:commandLink action="#{agendamentoBean.gerarRelatorio()}">
+                        <h:graphicImage name="/images/pdf.png"  width="24"/>
                     </h:commandLink>
 
                     <h:commandLink>
-                        <p:graphicImage name="/images/pdf.png" width="24"/>
-                        <p:dataExporter type="pdf" target="agenda" fileName="RelatorioDeAgendamentos"
-                                        preProcessor="#{pessoaBean.preProcessPDF}" encoding="ISO-8859-1"/>
+                        <p:graphicImage name="/images/excel.png" width="24"/>
+                        <p:dataExporter type="xls" target="agenda" fileName="RelatorioDeAgendamentos" />
                     </h:commandLink>
 
                     <h:commandLink>
@@ -31,21 +30,21 @@
                         <p:graphicImage name="/images/xml.png" width="24"/>
                         <p:dataExporter type="xml" target="agenda" fileName="RelatorioDeAgendamentos" />
                     </h:commandLink>
-                     
+
                 </div>
 
 
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="10"
                              paginator="true" widgetVar="tabelaAgenda" id="agenda"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50">
+                             rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <f:facet name="header">
                         <h4 style="padding: 10px;">Consultas médicas agendadadas</h4>
                     </f:facet>
 
-                    <p:column headerText="Nome">
-                        <h:outputText value="#{agenda.pessoa.nome}" />
+                    <p:column headerText="Número SUS">
+                        <h:outputText value="#{agenda.pessoa.numSus}" />
                     </p:column>
 
                     <p:column headerText="Local">

@@ -48,8 +48,8 @@ public class Relatorio {
     //Adicionar duas propriedades
     //1 - Caminho/arquivo .jasper
     //2 - Nome do relatório
-    public void getRelatorio() {
-        stream = this.getClass().getResourceAsStream("relatorioPessoas.jasper");
+    public void getRelatorio(String arquivoJasper, String nomeRelatorio) {
+        stream = this.getClass().getResourceAsStream(arquivoJasper);
         Map<String, Object> params = new HashMap<String, Object>();
         baos = new ByteArrayOutputStream();
         try {
@@ -61,7 +61,7 @@ public class Relatorio {
             response.reset();
             response.setContentType("application/pdf");
             response.setContentLength(baos.size());
-            response.setHeader("Content-disposition", "inline; filename=relatorio.pdf");
+            response.setHeader("Content-disposition", "inline; filename=" + nomeRelatorio);
             response.getOutputStream().write(baos.toByteArray());
             response.getOutputStream().flush();
             response.getOutputStream().close();

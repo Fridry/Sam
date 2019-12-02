@@ -55,6 +55,7 @@ public class PessoaBean implements Serializable {
         this.login = new Login();
         this.loginDao = new LoginDAO();
         this.relatorio = new Relatorio();
+        init();
     }
 
     public Pessoa getPessoa() {
@@ -198,9 +199,11 @@ public class PessoaBean implements Serializable {
         return listPessoa = pessoaDao.getListPessoa();
     }
 
-    public String carregaPessoaId(int id) {
+    public String carregaPessoaId(int id, Contato contato) {
+        init();
         this.pessoa = pessoaDao.getById(id);
-        return "editar";
+        this.contato = contato;
+        return "/informacoes/pessoaInfo";
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -247,7 +250,14 @@ public class PessoaBean implements Serializable {
     }
     
     public void gerarRelatorio() {
-        relatorio.getRelatorio();
+        relatorio = new Relatorio();
+        String arquivoJasper = "relatorioPessoas.jasper";
+        String nomeRelatorio = "relatorioPessoas.pdf";
+        relatorio.getRelatorio(arquivoJasper, nomeRelatorio);
     }
-
+    
+    public String voltar() {
+        init();
+        return "/listas/listaPessoas";
+    }
 }

@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="conteudo">
+        <h:form id="infoPessoa">
+            <p:panel id="basic" header="Detalhes" footer="Informações" style="margin-bottom:20px">
+
+                <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                    <p:outputLabel for="idNome" value="Nome: " />
+                    <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50" size="50" readonly="true"/>
+
+                    <p:outputLabel for="idGenero" value="Gênero: " />
+                    <p:inputText id="idGenero" value="#{pessoaBean.pessoa.genero}" maxlength="50" size="50" readonly="true"/>
+
+                    <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
+                    <p:inputText id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" readonly="true" size="50">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:inputText>
+
+                    <p:outputLabel for="idCpf" value="CPF: " />
+                    <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idNumSus" value="Número SUS: " />
+                    <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idEmail" value="E-mail: " />
+                    <p:inputText id="idEmail" value="#{pessoaBean.contato.email}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idTelefone" value="Telefone: " />
+                    <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{pessoaBean.contato.telefone}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idRua" value="Rua: " />
+                    <p:inputText id="idRua" value="#{pessoaBean.contato.rua}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idNumero" value="Numero: " />
+                    <p:inputText id="idNumero" value="#{pessoaBean.contato.numero}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idBairro" value="Bairro: " />
+                    <p:inputText id="idBairro" value="#{pessoaBean.contato.bairro}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idCep" value="CEP: " />
+                    <p:inputMask mask="99999-999" id="idCep" value="#{pessoaBean.contato.cep}" readonly="true" size="50"/>
+
+                    <p:outputLabel for="idCidade" value="Cidade: " />
+                    <p:inputText id="idCidade" value="#{pessoaBean.contato.cidade}" readonly="true" size="50"/>
+
+                    <p:commandButton value="Voltar" style="margin-right:20px;" styleClass="ui-priority-danger" action="#{pessoaBean.voltar()}"/>
+
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+
+      <!--  <h:form> 
+            <p:dataScroller var="agenda" value="#{agendamentoBean.carregaAgendamentoId(pessoaBean.pessoa.idPessoa)}" chunkSize="10" mode="inline" scrollHeight="300">
+                <f:facet name="header">
+                    Agendamentos e consultas
+                </f:facet>
+                
+                <f:facet name="footer">
+                    Agendamentos e consultas
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Local: " />
+                            <h:outputText value="#{agenda.local.nomeLocal}" />
+
+                            <h:outputText value="Especialidade: " />
+                            <h:outputText value="#{agenda.especialidade.tipoEspecialidade}" />
+
+                            <h:outputText value="Data e Hora: " />
+                            <h:outputText value="#{agenda.dataHora}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
+                            </h:outputText>
+                            
+                            <h:outputText value="Status: " />
+                            <h:outputText value="#{agenda.status}" />
+                        </h:panelGrid>
+                        
+                        <p:separator />
+                        
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>   -->
+    </ui:define>
+</ui:composition>

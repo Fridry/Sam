@@ -61,6 +61,7 @@ public class AgendamentoBean implements Serializable {
     private List<Pessoa> pessoas;
     private ScheduleModel eventModel;
     private ScheduleEvent eventoDefault;
+    private Relatorio relatorio;
 
     public AgendamentoBean() {
         this.agendamento = new Agendamento();
@@ -73,6 +74,7 @@ public class AgendamentoBean implements Serializable {
         this.especialidadeDao = new EspecialidadeDAO();
         this.eventModel = new DefaultScheduleModel();
         this.eventoDefault = new DefaultScheduleEvent();
+        this.relatorio = new Relatorio();
         init();
     }
 
@@ -214,7 +216,12 @@ public class AgendamentoBean implements Serializable {
             for (Agendamento obj : agendamentos) {
                 String nome = obj.getPessoa().getNome();
                 Date dataHora = obj.getDataHora();
-
+                String status = obj.getStatus();
+                Local local = obj.getLocal();
+                Especialidade especialidade = obj.getEspecialidade();
+                
+                //System.out.println(status + " " + local.getNomeLocal() + " " + especialidade.getTipoEspecialidade());
+                
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(dataHora);
                 calendar.add(Calendar.MINUTE, 30);
@@ -236,6 +243,7 @@ public class AgendamentoBean implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         eventoDefault = (DefaultScheduleEvent) selectEvent.getObject();
         agendamento = (Agendamento) eventoDefault.getData();
+        
     }
 
     public String carregaAgendamento(Agendamento agendamento) {
@@ -264,12 +272,11 @@ public class AgendamentoBean implements Serializable {
     //Salva ou atualiza os dados no banco
     public void fundirAgendamento() {
         try {
-            agendamento.setStatus("Agendado");
             agendamentoDao.mergeAgendamento(agendamento);
             eventModel.updateEvent(eventoDefault);
             init();
             listarAgendamento();
-            mensagem("Agendamento criado com sucesso!", "");
+            mensagem("Agendamento atualizado com sucesso!", "");
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao agendar.", "");
             e.printStackTrace();
@@ -387,6 +394,13 @@ public class AgendamentoBean implements Serializable {
         pdf.add(p);
         pdf.add(Chunk.NEWLINE);
 
+    }
+    
+    public void gerarRelatorio() {
+        relatorio = new Relatorio();
+        String arquivoJasper = "relatorioAgenda.jasper";
+        String nomeRelatorio = "relatorioAgenda.pdf";
+        relatorio.getRelatorio(arquivoJasper, nomeRelatorio);
     }
 
 }

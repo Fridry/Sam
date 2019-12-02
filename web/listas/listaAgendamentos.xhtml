@@ -14,7 +14,7 @@
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="10"
                              paginator="true" widgetVar="tabelaAgenda"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50">
+                             rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <p:column headerText="Nome" filterBy="#{agenda.pessoa.nome}" filterMatchMode="contains">
                         <h:outputText value="#{agenda.pessoa.nome}" />
@@ -51,16 +51,7 @@
 
                         <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" onclick="PF('idModalUpdate').show();"
                                           action="#{agendamentoBean.carregaAgendamento(agenda)}" update=":UpdateAgendamento:inputAgendamento"/>
-                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  /> 
                     </p:column>
-
-                    <f:facet name="paginatorTopLeft">
-                        <p:commandButton type="button" icon="pi pi-refresh" />
-                    </f:facet>
-
-                    <f:facet name="paginatorBottomRight">
-                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
-                    </f:facet>
 
                 </p:dataTable>
             </h:form>
@@ -94,7 +85,12 @@
                         <p:calendar id="idDataHora" value="#{agendamentoBean.agendamento.dataHora}" navigator="true" locale="pt_BR"
                                     timeZone="GMT-3" mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora"/>
 
-
+                        <h:outputText value="Status:" />
+                        <p:selectOneButton value="#{agendamentoBean.agendamento.status}">
+                            <f:selectItem itemLabel="Agendado" itemValue="Agendado" />
+                            <f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+                        </p:selectOneButton>
+                        
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">

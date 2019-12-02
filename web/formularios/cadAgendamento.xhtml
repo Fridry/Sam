@@ -35,8 +35,8 @@
                         <f:selectItems value="#{agendamentoBean.locais}" var="local"
                                        itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                     </p:selectOneMenu>
-
-                    <p:outputLabel for="idEspecialidade" value="Especialidade:" />
+                    
+                    <p:outputLabel for="idEspecialidade" value="Especialidade: " />
                     <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter" style="width: 300px;"
                                      required="true" requiredMessage="Campo obrigatório">
                         <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />

@@ -11,22 +11,16 @@
             <p:growl id="mensagemExcluir" />
 
             <h:form id="listaPessoas">
-                
+
                 <div style="float:right;padding-top: 5px;">
                     
-                    <p:commandButton icon="ui-icon-print" action="#{pessoaBean.gerarRelatorio()}" 
-                                     ajax="false" onclick="this.form.target='_blank'" />
-                    
-                    
+                    <h:commandLink action="#{pessoaBean.gerarRelatorio()}">
+                        <h:graphicImage name="/images/pdf.png"  width="24"/>
+                    </h:commandLink>
+                        
                     <h:commandLink>
                         <p:graphicImage name="/images/excel.png" width="24"/>
                         <p:dataExporter type="xls" target="tabelaPessoas" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/pdf.png" width="24"/>
-                        <p:dataExporter type="pdf" target="tabelaPessoas" fileName="RelatorioDeAgendamentos"
-                                        preProcessor="#{pessoaBean.preProcessPDF}" encoding="ISO-8859-1"/>
                     </h:commandLink>
 
                     <h:commandLink>
@@ -38,13 +32,13 @@
                         <p:graphicImage name="/images/xml.png" width="24"/>
                         <p:dataExporter type="xml" target="tabelaPessoas" fileName="RelatorioDeAgendamentos" />
                     </h:commandLink>
-                     
+
                 </div>
 
                 <p:dataTable var="pessoa" value="#{pessoaBean.listarPessoa()}" rows="20"
                              paginator="true" id="tabelaPessoas" emptyMessage="Nenhum usuário encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50">
+                             rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <f:facet name="header">
                         <h4 style="padding: 10px;">Usuários registrados</h4>

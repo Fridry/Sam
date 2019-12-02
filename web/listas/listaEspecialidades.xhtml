@@ -16,7 +16,7 @@
                 <p:dataTable id="tabelaEspecialidade" var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
                              paginator="true"  emptyMessage="Nenhuma especialidade encontrada."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="15,25,50">
+                             rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <f:facet name="header">
                         <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
