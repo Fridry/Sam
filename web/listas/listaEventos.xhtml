@@ -10,13 +10,13 @@
             <p:growl id="mensagemGrowl" />  
 
             <h:form id="listaEventos">
-                <h4 style="padding: 10px;">Eventos registrados</h4>
-                <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="10"
+                <p:dataTable var="evento" value="#{eventoBean.listarEvento()}" rows="15"
                              paginator="true" id="tabelaEventos" emptyMessage="Nenhum evento encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
-                    <f:facet name="header">
+                    <f:facet name="header">                        
+                        <h4 style="padding: 10px;">Eventos registrados</h4>
                         <p:commandButton value="Cadastrar evento" onclick="PF('idModal').show();"
                                          action="#{eventoBean.init()}" update=":mensagemGrowl :cadEvento:inputEvento :cadEvento:mensagemAdd"/>
                     </f:facet>
@@ -35,30 +35,22 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" action="#{eventoBean.deletaEvento(evento)}" 
+                    <p:column headerText="Opções" styleClass="text-center">
+                        <p:commandButton icon="pi pi-trash" action="#{eventoBean.deletaEvento(evento)}" 
                                          update=":mensagemGrowl :listaEventos:tabelaEventos" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":mensagemGrowl :listaEventos:tabelaEventos"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" update=":listaEventos:tabelaEventos"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" update=":mensagemGrowl :listaEventos:tabelaEventos"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":listaEventos:tabelaEventos"/>
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{eventoBean.carregaEvento(evento)}"
+                        <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" action="#{eventoBean.carregaEvento(evento)}"
                                           onclick="PF('idModal').show();" update=":cadEvento:inputEvento"/>
 
-                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
+                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
-
-                    <f:facet name="paginatorTopLeft">
-                        <p:commandButton type="button" icon="pi pi-refresh" />
-                    </f:facet>
-
-                    <f:facet name="paginatorBottomRight">
-                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
-                    </f:facet>
 
                 </p:dataTable>
             </h:form>

@@ -14,48 +14,50 @@ and open the template in the editor.
         <title>SAM Template</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-
-        <!-- Simple Template -->
-        <h:outputStylesheet library="css" name="simple-sidebar.css"/>
         
         <!-- Tradução dos calendários -->
         <h:outputScript library="js" name="locale.js"/>
 
     </h:head>
     <h:body>
-        <!-- Menu -->
-        <div id="header">
-            <ui:insert name="header">
-                <ui:include src="header.xhtml"/>
-            </ui:insert>
-        </div>
-        <!-- /#Menu -->
-
-        <div class="d-flex" id="wrapper">
-            <!-- Sidebar -->
-            <div class="bg-light border-right" id="sidebar-wrapper">
-                <div id="sidebar">
-                    <ui:insert name="sidebar">
-                        <ui:include src="sidebar.xhtml"/>
+      
+        <div class="container-fluid">
+            <div class="row" style="margin-bottom: 60px">
+                <div id="header" class="col-sm-12">
+                    <ui:insert name="header">
+                        <ui:include src="top-menu.xhtml"/>
                     </ui:insert>
                 </div>
             </div>
-            <!-- /#sidebar-wrapper -->
-
-            <!-- Page Content -->
-            <div id="page-content-wrapper" style="margin-top: 10px;">
-                <div class="container-fluid">
-                    <div id="conteudo">
-                        <ui:insert name="conteudo"/>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div id="sidebar">
+                        <ui:insert name="sidebar">
+                            <ui:include src="sidebar.xhtml"/>
+                        </ui:insert>
+                    </div>
+                </div>
+                <div class="col-sm-9 mb-5">
+                    <div class="container-fluid">
+                        <div id="conteudo">
+                            <ui:insert name="conteudo"/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /#Page Content -->
+            
+            <div class="row">
+                <div id="footer" class="col-sm-12 fixed-bottom bg-dark" style="color: #FFF; height: 25px;">
+                    <ui:insert name="header">
+                        <ui:include src="footer.xhtml"/>
+                    </ui:insert>
+                </div>
+            </div>
         </div>
+
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
-        <h:outputScript library="js" name="toggle.js"/>
     </h:body>
 
 </html>

@@ -7,7 +7,9 @@
 
     <ui:define name="conteudo">
         <h:form id="cadPessoa">
-            <p:growl id="mensagemAdd" showDetail="true" autoUpdate="true"/>
+            <p:growl id="mensagemAdd" showDetail="true">
+                <p:autoUpdate/>
+            </p:growl>
             <p:wizard flowListener="#{pessoaBean.onFlowProcess}">
                 
                 <p:tab id="personal" title="Dados pessoais">
@@ -16,7 +18,7 @@
                         <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idNome" value="Nome: " />
                             <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50"
-                                         required="true" requiredMessage="Campo obrigatório" size="100"/>
+                                         required="true" requiredMessage="Campo obrigatório" size="80"/>
 
                             <p:outputLabel for="idGenero" value="Gênero: " />
                             <p:selectOneRadio id="idGenero" value="#{pessoaBean.pessoa.genero}" required="true" requiredMessage="Campo obrigatório">

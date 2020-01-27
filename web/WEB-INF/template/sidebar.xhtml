@@ -4,48 +4,46 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
 
+    <h:form>  
+        <p:panelMenu style="width: 100%; margin: 0;">
+            <p:submenu label="Agendamentos">
+                <p:menuitem icon="pi pi-calendar-plus" value="Agendar" outcome="/formularios/cadAgendamento" action="#{agendamentoBean.init()}"/>
+                <p:menuitem icon="pi pi-calendar" value="Calendário" outcome="/listas/listaAgendamentosCalendario" />
 
-    <div class="list-group list-group-flush mx-auto position-sticky">
-    
-        <h:form>
-            <p:panelMenu>
-                <p:submenu label="Agendamento">
-                    <p:menuitem value="Agendar" outcome="/formularios/cadAgendamento" action="#{agendamentoBean.init()}"/>
-                    <p:menuitem value="Calendário" outcome="/listas/listaAgendamentosCalendario" />
-                    <p:menuitem value="Listar" outcome="/listas/listaAgendamentos" />
+                <p:submenu label="Listas de Agendamentos">
+                    <p:menuitem icon="pi pi-list" value="Todos os agendamentos" outcome="/listas/listaAgendamentos" />
+                    <p:menuitem icon="pi pi-list" value="Diário" outcome="/listas/listaAgendamentosHoje" />
+                    <p:menuitem icon="pi pi-list" value="Agendados" outcome="/listas/listaAgendamentosConfirmados" />
+                    <p:menuitem icon="pi pi-list" value="Por especialidade" outcome="/listas/listaAgendamentosEspecialidade" />
                 </p:submenu>
+            </p:submenu>
 
-                <p:submenu label="Usuários">
-                    <p:menuitem value="Cadastrar" outcome="/formularios/cadPessoa"  action="#{pessoaBean.init()}"/>
-                    <p:menuitem value="Listar" outcome="/listas/listaPessoas" />
-                </p:submenu>
+            <p:submenu label="Usuários">
+                <p:menuitem icon="pi pi-user-plus" value="Cadastrar" outcome="/formularios/cadPessoa" action="#{pessoaBean.init()}"/>
+                <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaPessoas" />
+            </p:submenu>
 
-                <p:submenu label="Eventos">
-                    <p:menuitem value="Agendar" outcome="/formularios/cadEvento" />
-                    <p:menuitem value="Calendário" outcome="/listas/listaEventosCalendario" />
-                    <p:menuitem value="Listar" outcome="/listas/listaEventos" />
-                </p:submenu>
+            <p:submenu label="Eventos">
+                <p:menuitem icon="pi pi-calendar-plus" value="Agendar" outcome="/formularios/cadEvento" />
+                <p:menuitem icon="pi pi-calendar" value="Calendário" outcome="/listas/listaEventosCalendario" />
+                <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaEventos" />
+            </p:submenu>
 
-                <p:submenu label="Locais">
-                    <p:menuitem value="Cadastrar" outcome="/formularios/cadLocal" />
-                    <p:menuitem value="Listar" outcome="/listas/listaLocais" />
-                </p:submenu>
+            <p:submenu label="Locais">
+                <p:menuitem icon="pi pi-map-marker" value="Cadastrar" outcome="/formularios/cadLocal" />
+                <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaLocais" />
+            </p:submenu>
 
-                <p:submenu label="Especialidades">
-                    <p:menuitem value="Cadastrar" outcome="/formularios/cadEspecialidade" />
-                    <p:menuitem value="Listar" outcome="/listas/listaEspecialidades" />
-                </p:submenu>
+            <p:submenu label="Especialidades">
+                <p:menuitem icon="pi pi-tag" value="Cadastrar" outcome="/formularios/cadEspecialidade" />
+                <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaEspecialidades" />
+            </p:submenu>
 
-                <p:submenu label="Mensagens">
-                    <p:menuitem value="Agendar" outcome="/formularios/cadAgendamento" />
-                    <p:menuitem value="Lista" outcome="/listas/listaAgendamentos" />
-                </p:submenu>
+            <p:submenu label="Relatórios">
+                <p:menuitem icon="pi pi-file" value="Relatório de agendamentos" outcome="/relatoriosListas/listaAgendamentosRelatorio" />
+                <p:menuitem icon="pi pi-file" value="Relatório de usuários" outcome="/relatoriosListas/listaPessoasRelatorio" />
+            </p:submenu>
+        </p:panelMenu>
+    </h:form>
 
-                <p:submenu label="Relatórios">
-                    <p:menuitem value="Relatório de agendamentos" outcome="/relatoriosListas/listaAgendamentosRelatorio" />
-                    <p:menuitem value="Relatório de usuários" outcome="/relatoriosListas/listaPessoasRelatorio" />
-                </p:submenu>
-            </p:panelMenu>
-        </h:form>
-    </div>
 </ui:composition>

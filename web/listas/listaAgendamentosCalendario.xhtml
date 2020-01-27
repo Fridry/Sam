@@ -12,7 +12,7 @@
                             locale="pt" timeFormat="HH:mm" axisFormat="HH:mm" minTime="6:00" maxTime="20:00" timeZone="GMT-3" draggable="false" resizable="false">
 
                     <p:ajax event="dateSelect" listener="#{agendamentoBean.onDateSelect}" update=":formAgenda:inputAgendamento" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect" listener="#{agendamentoBean.carregaAgendamento(agendamento)}" update=":formAgendaEvent:inputAgendamentoEvent"  oncomplete="PF('eventDialogEvent').show();" />
+                    <p:ajax event="eventSelect" listener="#{agendamentoBean.onEventSelect}" update=":formAgendaEvent:inputAgendamentoEvent"  oncomplete="PF('eventDialogEvent').show();" />
 
                 </p:schedule>
             </h:form>

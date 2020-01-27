@@ -12,13 +12,13 @@
 
             <h:form id="listaEspecialidade">
 
-                <h4 style="padding: 10px;">Especialidades registradas</h4>
-                <p:dataTable id="tabelaEspecialidade" var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="10"
+                <p:dataTable id="tabelaEspecialidade" var="especialidade" value="#{especialidadeBean.listarEspecialidade()}" rows="15"
                              paginator="true"  emptyMessage="Nenhuma especialidade encontrada."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <f:facet name="header">
+                        <h4 style="padding: 10px;">Especialidades registradas</h4>
                         <p:commandButton value="Cadastrar especialidade" onclick="PF('idModal').show();"
                                          action="#{especialidadeBean.init()}" update=":cadEspecialidade:inputEspecialidade"/>
                     </f:facet>
@@ -27,30 +27,20 @@
                         <h:outputText value="#{especialidade.tipoEspecialidade}" />
                     </p:column>
 
-                    <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" actionListener="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
+                    <p:column headerText="Opções" styleClass="text-center">
+                        <p:commandButton icon="pi pi-trash" actionListener="#{especialidadeBean.deletaEspecialidade(especialidade)}" 
                                          update=":mensagemExcluir :listaEspecialidade:tabelaEspecialidade" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaEspecialidade"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" update=":listaEspecialidade"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{especialidadeBean.carregaEspecialidade(especialidade)}"
+                        <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" action="#{especialidadeBean.carregaEspecialidade(especialidade)}"
                                           onclick="PF('idModal').show();" update=" :cadEspecialidade:inputEspecialidade"/>
-
-                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
-
-                    <f:facet name="paginatorTopLeft">
-                        <p:commandButton type="button" icon="pi pi-refresh" />
-                    </f:facet>
-
-                    <f:facet name="paginatorBottomRight">
-                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
-                    </f:facet>
 
                 </p:dataTable>
             </h:form>

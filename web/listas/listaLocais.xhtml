@@ -11,13 +11,13 @@
 
             <h:form id="listaLocais">
 
-                <h4 style="padding: 10px;">Locais registrados</h4>
-                <p:dataTable id="tabelaLocais" var="local" value="#{localBean.listarLocal()}" rows="10"
+                <p:dataTable id="tabelaLocais" var="local" value="#{localBean.listarLocal()}" rows="15"
                              paginator="true"  emptyMessage="Nenhum local encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
 
                     <f:facet name="header">
+                        <h4 style="padding: 10px;">Locais registrados</h4>
                         <p:commandButton value="Cadastrar local" onclick="PF('idModal').show();"
                                          action="#{localBean.init()}" update=":cadLocal:inputLocal"/>
                     </f:facet>
@@ -30,30 +30,22 @@
                         <h:outputText value="#{local.contato.telefone}" />
                     </p:column>
 
-                    <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" actionListener="#{localBean.deletaLocal(local)}" 
+                    <p:column headerText="Opções" styleClass="text-center">
+                        <p:commandButton icon="pi pi-trash" actionListener="#{localBean.deletaLocal(local)}"
                                          update=":mensagemExcluir :listaLocais:tabelaLocais" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaLocais"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" update=":listaLocais"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" action="#{localBean.carregaLocal(local, local.contato)}"
+                        <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" action="#{localBean.carregaLocal(local, local.contato)}"
                                           onclick="PF('idModal').show();" update=":cadLocal:inputLocal"/>
 
-                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#"  />  
+                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#"  />  
                     </p:column>
-
-                    <f:facet name="paginatorTopLeft">
-                        <p:commandButton type="button" icon="pi pi-refresh" />
-                    </f:facet>
-
-                    <f:facet name="paginatorBottomRight">
-                        <p:commandButton type="button" icon="pi pi-cloud-upload" />
-                    </f:facet>
 
                 </p:dataTable>
             </h:form>

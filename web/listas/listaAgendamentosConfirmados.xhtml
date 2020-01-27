@@ -10,13 +10,13 @@
             <p:growl id="mensagemGrowl" />  
 
             <h:form id="listaAgenda">
-                <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="15"
+                <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamentoConfirmados()}" rows="15"
                              paginator="true" widgetVar="tabelaAgenda"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50" tableStyle="width:auto">
 
                     <f:facet name="header">
-                        <h4 style="padding: 10px;">Consultas médicas agendadadas</h4>
+                        <h4 style="padding: 10px;">Consultas médicas agendadadas confirmadas</h4>
                         <p:linkButton href="../formularios/cadAgendamento.xhtml" value="Agendar #{agendamentoBean.init()}"/>
                     </f:facet>
 

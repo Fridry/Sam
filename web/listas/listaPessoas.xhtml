@@ -11,11 +11,16 @@
             <p:growl id="mensagemExcluir" />
 
             <h:form id="listaPessoas">
-                <h4 style="padding: 10px;">Usuários registrados</h4>
-                <p:dataTable var="pessoa" value="#{pessoaBean.listarPessoa()}" rows="20"
+                
+                <p:dataTable var="pessoa" value="#{pessoaBean.listarPessoa()}" rows="15"
                              paginator="true" id="tabelaPessoas" emptyMessage="Nenhum usuário encontrado."
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50" tableStyle="table-layout: auto;">
+
+                    <f:facet name="header">
+                        <h4 style="padding: 10px;">Usuários registrados</h4>
+                        <p:linkButton href="../formularios/cadPessoa.xhtml" value="Novo usuário #{pessoaBean.init()}"/>
+                    </f:facet>
 
                     <p:column headerText="Nome: " filterBy="#{pessoa.nome}" filterMatchMode="contains">
                         <h:outputText value="#{pessoa.nome}"/>
@@ -29,23 +34,21 @@
                         <h:outputText value="#{pessoa.numSus}" />
                     </p:column>
 
-                    <p:column headerText="Opções">
-                        <p:commandButton icon="ui-icon-trash" action="#{pessoaBean.deletaPessoa(pessoa)}" 
+                    <p:column headerText="Opções" styleClass="text-center" width="auto">
+                        <p:commandButton icon="pi pi-trash" action="#{pessoaBean.deletaPessoa(pessoa)}" 
                                          update=":mensagemExcluir :listaPessoas" alt="Remover" title="Remover" >
                             <p:confirm header="Confirmação" message="Você tem certeza que deseja excluir?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":listaPessoas:tabelaPessoas"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" update=":listaPessoas:tabelaPessoas"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" update=":listaPessoas:tabelaPessoas"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":listaPessoas:tabelaPessoas"/>
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="ui-icon-pencil" alt="Editar" title="Editar" onclick="PF('idModal').show();"
+                        <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" onclick="PF('idModal').show();"
                                           action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" update=":cadPessoa:inputPessoa"/>
-                        <p:commandButton  icon="ui-icon-plus" alt="Detalhes" title="Detalhes" action="#{pessoaBean.carregaPessoaId(pessoa.idPessoa, pessoa.contato)}" />                        
-                        <p:commandButton  icon="ui-icon-list" alt="Agendar" title="Agendar" action="#{pessoaBean.carregaPessoa(pessoa, pessoa.contato, pessoa.login)}" 
-                                          onclick="PF('idModalAgendar').show();" update=":cadAgendamento:inputAgendamento"/>
-                                              
+                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#{pessoaBean.carregaPessoaId(pessoa.idPessoa, pessoa.contato)}" />
+
                     </p:column>
                 </p:dataTable>
             </h:form>
@@ -70,7 +73,7 @@
 
                         <p:outputLabel for="idDataNasc" value="Data de Nascimento " />
                         <p:calendar id="idDataNasc" value="#{pessoaBean.pessoa.dataNascimento}" navigator="true" pattern="dd/MM/yyyy"
-                                      locale="pt_BR" maxdate="today" mask="true"/>
+                                    locale="pt_BR" maxdate="today" mask="true"/>
 
                         <p:outputLabel for="idCpf" value="CPF: " />
                         <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"/>
@@ -107,49 +110,6 @@
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
-
-            <p:dialog header="Agendamento de consulta" widgetVar="idModalAgendar" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
-                <h:form id="cadAgendamento">
-
-                    <h:panelGrid>
-                        <p:messages id="mensagemAdd" showDetail="true" closable="true"/>
-                    </h:panelGrid>
-
-                    <h:panelGrid columns="2" cellpadding="4" id="inputAgendamento">
-                        
-                        <p:outputLabel for="idNome" value="Nome: " />
-                        <p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50" readonly="true"/>
-
-                        <p:outputLabel for="idLocal" value="Local:" />
-                        <p:selectOneMenu id="idLocal" value="#{agendamentoBean.agendamento.local}" filter="true" converter="localConverter"
-                                         required="true" requiredMessage="Campo obrigatório">
-                            <f:selectItem itemLabel="Selecione o Local" noSelectionOption="true" />
-                            <f:selectItems value="#{agendamentoBean.locais}" var="local"
-                                           itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
-                        </p:selectOneMenu>
-
-                        <p:outputLabel for="idEspecialidade" value="Especialidade:" />
-                        <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter"
-                                         required="true" requiredMessage="Campo obrigatório">
-                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
-                            <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
-                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
-                        </p:selectOneMenu>
-
-                        <p:outputLabel for="idDataHora" value="Data e Hora: " />
-                        <p:calendar id="idDataHora" value="#{agendamentoBean.agendamento.dataHora}" navigator="true" locale="pt_BR"
-                                    timeZone="GMT-3" mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora"/>
-
-                    </h:panelGrid>
-
-                    <h:panelGrid columns="2">
-                        <p:commandButton value="Salvar" action="#{agendamentoBean.salvaAgendamentoPessoa(pessoaBean.pessoa)}"
-                                         update="mensagemAdd :cadAgendamento:inputAgendamento"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('idModalAgendar').hide();"/>
-                    </h:panelGrid>
-                </h:form>
-
-            </p:dialog>   
 
         </div>
 

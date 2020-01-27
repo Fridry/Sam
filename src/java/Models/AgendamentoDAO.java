@@ -2,9 +2,12 @@ package Models;
 
 import Util.HibernateUtil;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -77,7 +80,36 @@ public class AgendamentoDAO implements Serializable {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             trans = sessao.beginTransaction();
-            Criteria cri = sessao.createCriteria(Agendamento.class);
+            Criteria cri = sessao.createCriteria(Agendamento.class).addOrder(Order.desc("dataHora"));
+            list = cri.list();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return list;
+    }
+    
+    public List<Agendamento> getListAgendamentoHoje(Date inicio, Date fim) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Criteria cri = sessao.createCriteria(Agendamento.class).add(Restrictions.between("dataHora", inicio, fim));
+            cri.add(Restrictions.like("status", "Agendado")).addOrder(Order.asc("dataHora"));
+            list = cri.list();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return list;
+    }
+    
+    public List<Agendamento> getListAgendamentoConfirmados() {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Criteria cri = sessao.createCriteria(Agendamento.class).add(Restrictions.like("status", "Agendado")).addOrder(Order.desc("dataHora"));
             list = cri.list();
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -113,6 +145,32 @@ public class AgendamentoDAO implements Serializable {
             sessao.close();
         }
         return list;
+    }
+
+    public Boolean horarioLivre(String dataHora, int especialidade) {
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            trans = sessao.beginTransaction();
+            Query query = sessao.createSQLQuery("SELECT COUNT(*) FROM agendamento WHERE dataHora = '" + dataHora + "' AND especialidade_id_especialidade = " + especialidade);
+            
+            BigInteger bi = (BigInteger) query.list().get(0);
+            
+            Integer hora = new Integer(bi.intValue());
+            
+            System.out.println(hora);
+            
+            if (hora > 0) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
     }
 
 }

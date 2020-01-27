@@ -22,6 +22,9 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -219,9 +222,7 @@ public class AgendamentoBean implements Serializable {
                 String status = obj.getStatus();
                 Local local = obj.getLocal();
                 Especialidade especialidade = obj.getEspecialidade();
-                
-                //System.out.println(status + " " + local.getNomeLocal() + " " + especialidade.getTipoEspecialidade());
-                
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(dataHora);
                 calendar.add(Calendar.MINUTE, 30);
@@ -243,7 +244,7 @@ public class AgendamentoBean implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         eventoDefault = (DefaultScheduleEvent) selectEvent.getObject();
         agendamento = (Agendamento) eventoDefault.getData();
-        
+
     }
 
     public String carregaAgendamento(Agendamento agendamento) {
@@ -254,18 +255,29 @@ public class AgendamentoBean implements Serializable {
 
     //Salva os dados no banco
     public String salvaAgendamento() {
-        try {
-            agendamento.setStatus("Agendado");
-            agendamentoDao.createAgendamento(agendamento);
-            eventModel.updateEvent(eventoDefault);
-            mensagem("Agendamento criado com Sucesso!", "");
-            init();
-            return "";
-        } catch (RuntimeException e) {
-            erro("Ocorreu um erro ao Realizar o agendamento.", "");
-            e.printStackTrace();
-        }
 
+        Date data = agendamento.getDataHora();
+        int especialidade = agendamento.getEspecialidade().getIdEspecialidade();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strData = dateFormat.format(data);
+
+        boolean livre = agendamentoDao.horarioLivre(strData, especialidade);
+
+        if (livre) {
+            try {
+                agendamento.setStatus("Agendado");
+                agendamentoDao.createAgendamento(agendamento);
+                eventModel.updateEvent(eventoDefault);
+                mensagem("Agendamento criado com Sucesso!", "");
+                init();
+                return "";
+            } catch (RuntimeException e) {
+                erro("Ocorreu um erro ao Realizar o agendamento.", "");
+                e.printStackTrace();
+            }
+        } else {
+            erro("O horário selecionado já está reservado!", "");
+        }
         return null;
     }
 
@@ -291,6 +303,29 @@ public class AgendamentoBean implements Serializable {
 
     public List<Agendamento> listarAgendamento() {
         return agendamentos = agendamentoDao.getListAgendamento();
+    }
+
+    public List<Agendamento> listarAgendamentoHoje() throws ParseException {
+        Date data = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String strData = dateFormat.format(data);
+
+        String restInicio = strData + " 00:00:00";
+        String restFim = strData + " 23:59:59";
+        
+        DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        Date dataFormatadaIni = dateTimeFormat.parse(restInicio);
+        Date dataFormatadaFim = dateTimeFormat.parse(restFim);
+        
+        System.out.println(dataFormatadaIni);
+        System.out.println(dataFormatadaFim);
+
+        return agendamentos = agendamentoDao.getListAgendamentoHoje(dataFormatadaIni, dataFormatadaFim);
+    }
+
+    public List<Agendamento> listarAgendamentoConfirmados() {
+        return agendamentos = agendamentoDao.getListAgendamentoConfirmados();
     }
 
     public String carregaAgendamentoId(int id) {
@@ -360,17 +395,15 @@ public class AgendamentoBean implements Serializable {
         }
         return total;
     }
-    
+
     /*public void gerarRelatório() {
         Relatorio relatorio = new Relatorio();
     }*/
-    
     public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
         Document pdf = (Document) document;
         pdf.open();
         pdf.setPageSize(PageSize.A4);
 
-        
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "samlogo.png";
 
@@ -395,7 +428,7 @@ public class AgendamentoBean implements Serializable {
         pdf.add(Chunk.NEWLINE);
 
     }
-    
+
     public void gerarRelatorio() {
         relatorio = new Relatorio();
         String arquivoJasper = "relatorioAgenda.jasper";

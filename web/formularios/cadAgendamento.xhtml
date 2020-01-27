@@ -46,12 +46,11 @@
 
                     <p:outputLabel for="idDataHora" value="Data e Hora: " />
                         <p:calendar id="idDataHora" value="#{agendamentoBean.agendamento.dataHora}" navigator="true" locale="pt_BR"
-                                   mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3"/>
-                        
+                                    mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora" timeZone="GMT-3" required=""/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Salvar" action="#{agendamentoBean.salvaAgendamento()}"
+                    <p:commandButton value="Agendar" action="#{agendamentoBean.salvaAgendamento()}"
                                      update="mensagemAdd :cadAgendamento"/>
                 </h:panelGrid>
 
