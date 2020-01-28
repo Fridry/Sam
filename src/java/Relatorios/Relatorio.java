@@ -75,6 +75,33 @@ public class Relatorio {
         }
     }
     
+    public void getRelatorioEspecialidade(String arquivoJasper, String nomeRelatorio, int idEspecialidade) {
+        stream = this.getClass().getResourceAsStream(arquivoJasper);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("idEspecialidade", idEspecialidade);
+        baos = new ByteArrayOutputStream();
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObject(stream);            
+            Connection conexao = HibernateUtil.getConexao();
+            JasperPrint print = JasperFillManager.fillReport(report, params, conexao);
+            JasperExportManager.exportReportToPdfStream(print, baos);
+
+            response.reset();
+            response.setContentType("application/pdf");
+            response.setContentLength(baos.size());
+            response.setHeader("Content-disposition", "inline; filename=" + nomeRelatorio);
+            response.getOutputStream().write(baos.toByteArray());
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+
+            context.responseComplete();
+
+        } catch (JRException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     
 }

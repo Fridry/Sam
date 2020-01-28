@@ -11,13 +11,21 @@
 
             <h:form id="listaAgenda">
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="15"
-                             paginator="true" widgetVar="tabelaAgenda"
+                             paginator="true" widgetVar="tabelaAgenda" id="agendaEspec"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50" tableStyle="width:auto">
 
                     <f:facet name="header">
                         <h4 style="padding: 10px;">Consultas médicas agendadadas</h4>
-                        <p:linkButton href="../formularios/cadAgendamento.xhtml" value="Agendar #{agendamentoBean.init()}"/>
+                        <p>Selecione a especialidade:</p>
+                        <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
+                            <p:ajax listener="#{agendamentoBean.listarAgendamentoEspecialidade(especialidade)}" update="listaAgenda:agendaEspec"/>
+                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                        </p:selectOneMenu>
+                        
+                        
                     </f:facet>
 
                     <p:column headerText="Nome" filterBy="#{agenda.pessoa.nome}" filterMatchMode="contains">

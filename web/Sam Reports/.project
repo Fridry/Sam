@@ -20,4 +20,41 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sf.jasperreports.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>LevantamentoUnidade.jasper</name>
+			<type>1</type>
+			<location>D:/Documentos/Code/tcc-master/tcc-master/src/java/Model/LevantamentoUnidade.jasper</location>
+		</link>
+		<link>
+			<name>LevantamentoUnidade_1.jasper</name>
+			<type>1</type>
+			<location>D:/Documentos/Code/tcc-master/tcc-master/src/java/Model/LevantamentoUnidade.jasper</location>
+		</link>
+		<link>
+			<name>LevantamentoUnidade_1.jrxml</name>
+			<type>1</type>
+			<location>D:/Documentos/Code/tcc-master/tcc-master/src/java/Model/LevantamentoUnidade.jrxml</location>
+		</link>
+		<link>
+			<name>relatorioAgenda_1.jasper</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioAgenda.jasper</location>
+		</link>
+		<link>
+			<name>relatorioAgenda_2.jasper</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioAgenda.jasper</location>
+		</link>
+		<link>
+			<name>relatorioAgenda_2.jrxml</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioAgenda.jrxml</location>
+		</link>
+		<link>
+			<name>relatorioPessoas_1.jasper</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioPessoas.jasper</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -40,8 +40,14 @@
             </p:submenu>
 
             <p:submenu label="Relatórios">
-                <p:menuitem icon="pi pi-file" value="Relatório de agendamentos" outcome="/relatoriosListas/listaAgendamentosRelatorio" />
-                <p:menuitem icon="pi pi-file" value="Relatório de usuários" outcome="/relatoriosListas/listaPessoasRelatorio" />
+                <p:menuitem icon="pi pi-file" value="Relatório geral" outcome="/relatoriosListas/listaPessoasRelatorio" />
+
+                <p:submenu label="Relatórios de agendamentos">
+                    <p:menuitem icon="pi pi-file" value="Relatório geral" outcome="/relatoriosListas/listaAgendamentosRelatorio" />
+                    <p:menuitem icon="pi pi-file" value="Relatório por período" outcome="/relatoriosListas/listaAgendamentosRelatorioPeriodo" />
+                    <p:menuitem icon="pi pi-file" value="Relatório por especialidade" outcome="/relatoriosListas/listaAgendamentosRelatorioEspecialidade" />
+                </p:submenu>
+
             </p:submenu>
         </p:panelMenu>
     </h:form>

@@ -10,29 +10,6 @@
             <p:growl id="mensagemGrowl" />  
 
             <h:form id="listaAgenda">
-                <div style="float:right;padding-top: 5px;">
-      
-                    <h:commandLink action="#{agendamentoBean.gerarRelatorio()}">
-                        <h:graphicImage name="/images/pdf.png"  width="24"/>
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/excel.png" width="24"/>
-                        <p:dataExporter type="xls" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/csv.png" width="24"/>
-                        <p:dataExporter type="csv" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/xml.png" width="24"/>
-                        <p:dataExporter type="xml" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                </div>
-
 
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="15"
                              paginator="true" widgetVar="tabelaAgenda" id="agenda"
@@ -40,7 +17,15 @@
                              rowsPerPageTemplate="15,25,50" tableStyle="width:100%">
 
                     <f:facet name="header">
-                        <h4 style="padding: 10px;">Relatório geral de consultas médicas</h4>
+                        <h4 style="padding: 10px;">Relatório de médicas por especialidade</h4>
+                        <p>Selecione a especialidade:</p>
+                        <p:selectOneMenu id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" filter="true" converter="especialidadeConverter">
+                            <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
+                            <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                           itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton action="#{agendamentoBean.gerarRelatorioEspecialidade(agendamentoBean.agendamento.especialidade)}" icon="pi pi-file"/>
+
                     </f:facet>
 
                     <p:column headerText="Número SUS">

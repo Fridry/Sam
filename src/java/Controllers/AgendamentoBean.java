@@ -312,12 +312,12 @@ public class AgendamentoBean implements Serializable {
 
         String restInicio = strData + " 00:00:00";
         String restFim = strData + " 23:59:59";
-        
+
         DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
+
         Date dataFormatadaIni = dateTimeFormat.parse(restInicio);
         Date dataFormatadaFim = dateTimeFormat.parse(restFim);
-        
+
         System.out.println(dataFormatadaIni);
         System.out.println(dataFormatadaFim);
 
@@ -326,6 +326,10 @@ public class AgendamentoBean implements Serializable {
 
     public List<Agendamento> listarAgendamentoConfirmados() {
         return agendamentos = agendamentoDao.getListAgendamentoConfirmados();
+    }
+
+    public List<Agendamento> listarAgendamentoEspecialidade(Especialidade especialidade) {
+        return agendamentos = agendamentoDao.getListAgendamentoEspecialidade(especialidade);
     }
 
     public String carregaAgendamentoId(int id) {
@@ -434,6 +438,15 @@ public class AgendamentoBean implements Serializable {
         String arquivoJasper = "relatorioAgenda.jasper";
         String nomeRelatorio = "relatorioAgenda.pdf";
         relatorio.getRelatorio(arquivoJasper, nomeRelatorio);
+    }
+
+    public void gerarRelatorioEspecialidade(Especialidade especialidade) {
+        int idEspecialidade = especialidade.getIdEspecialidade();
+        System.out.println(idEspecialidade);
+        relatorio = new Relatorio();
+        String arquivoJasper = "Simple_Blue.jasper";
+        String nomeRelatorio = "relatorioEspecialidade.pdf";
+        relatorio.getRelatorioEspecialidade(arquivoJasper, nomeRelatorio, idEspecialidade);
     }
 
 }
