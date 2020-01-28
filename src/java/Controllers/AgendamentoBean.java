@@ -211,7 +211,7 @@ public class AgendamentoBean implements Serializable {
         pessoa = new Pessoa();
         eventModel = new DefaultScheduleModel();
         try {
-            agendamentos = agendamentoDao.getListAgendamento();
+            agendamentos = agendamentoDao.getListAgendamentoConfirmados();
             locais = localDao.getListLocal();
             pessoas = pessoaDao.getListPessoa();
             especialidades = especialidadeDao.getListEspecialidade();

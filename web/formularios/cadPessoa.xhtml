@@ -11,9 +11,9 @@
                 <p:autoUpdate/>
             </p:growl>
             <p:wizard flowListener="#{pessoaBean.onFlowProcess}">
-                
+
                 <p:tab id="personal" title="Dados pessoais">
-                    <p:panel header="Personal Details">
+                    <p:panel header="Informações pessoais">
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idNome" value="Nome: " />
@@ -33,17 +33,20 @@
 
                             <p:outputLabel for="idCpf" value="CPF: " />
                             <p:inputMask mask="999.999.999-99" id="idCpf" value="#{pessoaBean.pessoa.cpf}"
-                                         required="true" requiredMessage="Campo obrigatório"/>
+                                         required="true" requiredMessage="Campo obrigatório">
+                                <f:validator validatorId="validacaoCpf"/>
+
+                            </p:inputMask>
 
                             <p:outputLabel for="idNumSus" value="Número SUS: " />
-                            <p:inputText id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="15"
+                            <p:inputMask mask="999 9999 9999 9999" id="idNumSus" value="#{pessoaBean.pessoa.numSus}" maxlength="18"
                                          required="true" requiredMessage="Campo obrigatório"/>
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
 
                 <p:tab id="contact" title="Contato">
-                    <p:panel header="Contact Information">
+                    <p:panel header="Informações de contato">
                         <p:messages />
                         <h:panelGrid columns="4" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idEmail" value="E-mail: " />
@@ -79,7 +82,7 @@
                 </p:tab>
 
                 <p:tab id="login" title="Dados de login">
-                    <p:panel header="Personal Details">
+                    <p:panel header="Informações de Login">
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
                             <p:outputLabel for="idUsuario" value="Usuário: " />
@@ -94,7 +97,7 @@
                 </p:tab>
 
                 <p:tab id="confirm" title="Confirmação">
-                    <p:panel header="Confirmation">
+                    <p:panel header="Confirmação">
                         <h:panelGrid id="confirmation" columns="1" columnClasses="grid,grid,grid" cellpadding="10" cellspacing="5">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Nome: " />
@@ -113,7 +116,7 @@
 
                                 <h:outputText value="Número SUS: " />
                                 <h:outputText value="#{pessoaBean.pessoa.numSus}" styleClass="outputLabel"/>
-                            
+
                                 <h:outputText value="E-mail: " />
                                 <h:outputText value="#{pessoaBean.contato.email}" styleClass="outputLabel"/>
 

@@ -7,7 +7,7 @@
 
     <ui:define name="conteudo">
         <h:form id="infoPessoa">
-            <p:panel id="basic" header="Detalhes" footer="Informações" style="margin-bottom:20px">
+            <p:panel id="basic" header="Detalhes" style="margin-bottom:20px">
 
                 <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
                     <p:outputLabel for="idNome" value="Nome: " />
@@ -53,41 +53,5 @@
                 </h:panelGrid>
             </p:panel>
         </h:form>
-
-      <!--  <h:form> 
-            <p:dataScroller var="agenda" value="#{agendamentoBean.carregaAgendamentoId(pessoaBean.pessoa.idPessoa)}" chunkSize="10" mode="inline" scrollHeight="300">
-                <f:facet name="header">
-                    Agendamentos e consultas
-                </f:facet>
-                
-                <f:facet name="footer">
-                    Agendamentos e consultas
-                </f:facet>
-
-                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-
-                    <p:outputPanel>
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputText value="Local: " />
-                            <h:outputText value="#{agenda.local.nomeLocal}" />
-
-                            <h:outputText value="Especialidade: " />
-                            <h:outputText value="#{agenda.especialidade.tipoEspecialidade}" />
-
-                            <h:outputText value="Data e Hora: " />
-                            <h:outputText value="#{agenda.dataHora}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
-                            </h:outputText>
-                            
-                            <h:outputText value="Status: " />
-                            <h:outputText value="#{agenda.status}" />
-                        </h:panelGrid>
-                        
-                        <p:separator />
-                        
-                    </p:outputPanel>
-                </h:panelGrid>
-            </p:dataScroller>
-        </h:form>   -->
     </ui:define>
 </ui:composition>

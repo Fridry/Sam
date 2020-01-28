@@ -151,7 +151,7 @@ public class PessoaBean implements Serializable {
             this.pessoa.setLogin(login);
             this.pessoa.setContato(contato);
             pessoaDao.createPessoa(pessoa);
-            mensagem("usuário cadastrado com Sucesso!", "");
+            mensagem("Usuário cadastrado com sucesso!", "");
             this.pessoa = new Pessoa();
             this.contato = new Contato();
             this.login = new Login();
@@ -166,7 +166,7 @@ public class PessoaBean implements Serializable {
 
     public void salvaPessoa() {
         pessoaDao.createPessoa(pessoa);
-        mensagem("Pessoa criada com Sucesso!", "");
+        mensagem("Usuário criada com Sucesso!", "");
         this.pessoa = new Pessoa();
     }
 
@@ -177,7 +177,7 @@ public class PessoaBean implements Serializable {
             pessoaDao.mergePessoa(pessoa);
             init();
             listarPessoa();
-            mensagem("Pessoa criada com sucesso!", "");
+            mensagem("Usuário criada com sucesso!", "");
         } catch (RuntimeException e) {
             erro("Ocorreu um erro ao criar a pessoa.", "");
             e.printStackTrace();
@@ -186,7 +186,7 @@ public class PessoaBean implements Serializable {
 
     public void atualizaPessoa() {
         pessoaDao.updatePessoa(pessoa);
-        mensagem("Pessoa atualizada com sucesso!", "");
+        mensagem("Usuário atualizada com sucesso!", "");
         pessoa = new Pessoa();
     }
 

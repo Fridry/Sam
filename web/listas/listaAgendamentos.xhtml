@@ -28,7 +28,15 @@
                         <h:outputText value="#{agenda.local.nomeLocal}" />
                     </p:column>
 
-                    <p:column headerText="Especialidade">
+                    <p:column headerText="Especialidade" filterMatchMode="exact" filterBy="#{agenda.especialidade}">
+                        <f:facet name="filter">                
+                            <p:selectOneMenu onchange="PF('tabelaAgenda').filter()" id="idEspecialidade" value="#{agendamentoBean.agendamento.especialidade}" style="width: 150px;" converter="especialidadeConverter">
+                                <f:selectItem itemLabel="Todas" noSelectionOption="true" itemValue="#{null}"/>
+                                <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
+                                               itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
+                            </p:selectOneMenu>
+
+                        </f:facet>
                         <h:outputText value="#{agenda.especialidade.tipoEspecialidade}" />
                     </p:column>
 
