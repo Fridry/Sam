@@ -56,5 +56,20 @@
 			<type>1</type>
 			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioPessoas.jasper</location>
 		</link>
+		<link>
+			<name>relatorioPessoas_1.jrxml</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioPessoas.jrxml</location>
+		</link>
+		<link>
+			<name>relatorioPessoas_2.jasper</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioPessoas.jasper</location>
+		</link>
+		<link>
+			<name>relatorioPessoas_3.jasper</name>
+			<type>1</type>
+			<location>C:/Users/fridr/OneDrive/Documentos/NetBeansProjects/Sam/src/java/Relatorios/relatorioPessoas.jasper</location>
+		</link>
 	</linkedResources>
 </projectDescription>

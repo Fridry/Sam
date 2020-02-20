@@ -23,8 +23,8 @@
                             <f:selectItem itemLabel="Selecione a especialidade" noSelectionOption="true" />
                             <f:selectItems value="#{agendamentoBean.especialidades}" var="especialidade"
                                            itemValue="#{especialidade}" itemLabel="#{especialidade.tipoEspecialidade}"/>
-                        </p:selectOneMenu>
-                        <p:commandButton action="#{agendamentoBean.gerarRelatorioEspecialidade(agendamentoBean.agendamento.especialidade)}" icon="pi pi-file"/>
+                        </p:selectOneMenu><br />
+                        <p:commandButton value="Gerar relatório" action="#{agendamentoBean.gerarRelatorioEspecialidade(agendamentoBean.agendamento.especialidade)}" icon="pi pi-file"/>
 
                     </f:facet>
 

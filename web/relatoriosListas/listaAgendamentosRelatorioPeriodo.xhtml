@@ -10,29 +10,6 @@
             <p:growl id="mensagemGrowl" />  
 
             <h:form id="listaAgenda">
-                <div style="float:right;padding-top: 5px;">
-      
-                    <h:commandLink action="#{agendamentoBean.gerarRelatorio()}">
-                        <h:graphicImage name="/images/pdf.png"  width="24"/>
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/excel.png" width="24"/>
-                        <p:dataExporter type="xls" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/csv.png" width="24"/>
-                        <p:dataExporter type="csv" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage name="/images/xml.png" width="24"/>
-                        <p:dataExporter type="xml" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                </div>
-
 
                 <p:dataTable var="agenda" value="#{agendamentoBean.listarAgendamento()}" rows="15"
                              paginator="true" widgetVar="tabelaAgenda" id="agenda"
@@ -41,6 +18,15 @@
 
                     <f:facet name="header">
                         <h4 style="padding: 10px;">Relatório de consultas médicas por período</h4>
+                        <p>Selecione o periodo:</p>
+                        <p:outputLabel for="inicio" value="Data inicial:" />
+                        <p:datePicker id="inicio" value="#{dataInicial}" />
+
+                        <p:outputLabel for="fim" value="Data final:" />
+                        <p:datePicker id="fim" value="#{dataFinal}" />
+                        
+                        <p:commandButton value="Gerar relatório" action="#{agendamentoBean.gerarRelatorioPeriodo(dataInicial, dataFinal)}" icon="pi pi-file"/>
+
                     </f:facet>
 
                     <p:column headerText="Número SUS">

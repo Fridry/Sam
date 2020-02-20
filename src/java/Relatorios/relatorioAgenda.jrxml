@@ -61,7 +61,7 @@ WHERE (a.pessoa_id_pessoa = p.id_pessoa) AND (l.id_local = a.local_id_local) AND
 				<textElement textAlignment="Left">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Número SUS]]></text>
+				<text><![CDATA[CNS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="180" y="0" width="150" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="bd43077f-debd-4ebb-a360-d8c0031bc427">

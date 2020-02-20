@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,35 @@ public class Relatorio {
         stream = this.getClass().getResourceAsStream(arquivoJasper);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("idEspecialidade", idEspecialidade);
+        baos = new ByteArrayOutputStream();
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObject(stream);            
+            Connection conexao = HibernateUtil.getConexao();
+            JasperPrint print = JasperFillManager.fillReport(report, params, conexao);
+            JasperExportManager.exportReportToPdfStream(print, baos);
+
+            response.reset();
+            response.setContentType("application/pdf");
+            response.setContentLength(baos.size());
+            response.setHeader("Content-disposition", "inline; filename=" + nomeRelatorio);
+            response.getOutputStream().write(baos.toByteArray());
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+
+            context.responseComplete();
+
+        } catch (JRException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getRelatorioPeriodo(String arquivoJasper, String nomeRelatorio, Date inicio, Date fim) {
+        stream = this.getClass().getResourceAsStream(arquivoJasper);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("paramInicio", inicio);
+        params.put("paramFim", fim);
         baos = new ByteArrayOutputStream();
         try {
             JasperReport report = (JasperReport) JRLoader.loadObject(stream);            

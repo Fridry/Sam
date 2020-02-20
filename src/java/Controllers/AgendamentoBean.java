@@ -442,11 +442,30 @@ public class AgendamentoBean implements Serializable {
 
     public void gerarRelatorioEspecialidade(Especialidade especialidade) {
         int idEspecialidade = especialidade.getIdEspecialidade();
-        System.out.println(idEspecialidade);
         relatorio = new Relatorio();
         String arquivoJasper = "Simple_Blue.jasper";
         String nomeRelatorio = "relatorioEspecialidade.pdf";
         relatorio.getRelatorioEspecialidade(arquivoJasper, nomeRelatorio, idEspecialidade);
     }
+    
+    public void gerarRelatorioPeriodo(Date inicio, Date fim) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+        String strDataInicio = dateFormat.format(inicio);
+        String strDataFim = dateFormat.format(fim);
+        
+        String restInicio = strDataInicio + " 00:00:00";
+        String restFim = strDataFim + " 23:59:59";
+
+        DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date dataFormatadaIni = dateTimeFormat.parse(restInicio);
+        Date dataFormatadaFim = dateTimeFormat.parse(restFim);
+
+        
+        relatorio = new Relatorio();
+        String arquivoJasper = "relatorioAgendaPeriodo.jasper";
+        String nomeRelatorio = "relatorioPeriodo.pdf";
+        relatorio.getRelatorioPeriodo(arquivoJasper, nomeRelatorio, dataFormatadaIni, dataFormatadaFim);
+    }
 }

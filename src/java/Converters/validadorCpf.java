@@ -28,13 +28,15 @@ public class validadorCpf implements Validator {
         String cpf2 = cpf1.replace("-","");
         String cpf = cpf2.replace(" ","");
         
-        if (cpf.length() != 11 || !calcularDigitoVerificador(cpf.substring(0, 9)).equals(cpf.substring(9, 11)) || validaIgualdade(cpf)) {
+        if (cpf.length() != 11 || !calcularDigitoVerificador(cpf.substring(0, 9))
+                .equals(cpf.substring(9, 11)) || validaIgualdade(cpf)) {
 
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF inválido.", "Favor informar um CPF válido."));
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                    "CPF inválido.", "Favor informar um CPF válido."));
         }
     }
 
-    //Créditos ao JavaFree.org pelo algoritmo de validação de CPF 
+    
     private String calcularDigitoVerificador(String num) {
         Integer primDig, segDig;
         int soma = 0, peso = 10;

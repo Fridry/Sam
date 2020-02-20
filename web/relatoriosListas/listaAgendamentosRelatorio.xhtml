@@ -17,11 +17,6 @@
                     </h:commandLink>
 
                     <h:commandLink>
-                        <p:graphicImage name="/images/excel.png" width="24"/>
-                        <p:dataExporter type="xls" target="agenda" fileName="RelatorioDeAgendamentos" />
-                    </h:commandLink>
-
-                    <h:commandLink>
                         <p:graphicImage name="/images/csv.png" width="24"/>
                         <p:dataExporter type="csv" target="agenda" fileName="RelatorioDeAgendamentos" />
                     </h:commandLink>
@@ -43,7 +38,7 @@
                         <h4 style="padding: 10px;">Relatório geral de consultas médicas</h4>
                     </f:facet>
 
-                    <p:column headerText="Número SUS">
+                    <p:column headerText="CNS">
                         <h:outputText value="#{agenda.pessoa.numSus}" />
                     </p:column>
 

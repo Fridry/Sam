@@ -85,7 +85,7 @@
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Número SUS]]></text>
+				<text><![CDATA[CNS ]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
