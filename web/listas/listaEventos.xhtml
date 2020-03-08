@@ -46,10 +46,11 @@
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":listaEventos:tabelaEventos"/>
                         </p:confirmDialog>
 
-                        <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" action="#{eventoBean.carregaEvento(evento)}"
+                        <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" action="#{eventoBean.carregaEventoId(evento.idEvento)}"
                                           onclick="PF('idModal').show();" update=":cadEvento:inputEvento"/>
 
-                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#"  />  
+                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#{eventoBean.carregaEventoId(evento.idEvento)}"
+                                          onclick="PF('idModalDetalhes').show();" update=":cadEventoDetalhes:inputEvento"/>  
                     </p:column>
 
                 </p:dataTable>
@@ -79,10 +80,6 @@
                                            itemValue="#{local}" itemLabel="#{local.nomeLocal}"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="idLocalEventoAdd" value="Não localizou o local? " />
-                        <p:commandButton id="idLocalEventoAdd" value="Cadastre um novo local" type="button" onclick="PF('idModalLocal').show();"
-                                         action="#{localBean.init()}" update=":idLocalEvento"/>
-
                         <p:outputLabel for="idInfoEvento" value="Informações do evento:" />
                         <p:inputTextarea rows="5" cols="30" value="#{eventoBean.evento.informacoes}" counter="idInfoEvento" maxlength="50" counterTemplate="{0} caracteres restantes." autoResize="false" />
                         <br />
@@ -95,54 +92,30 @@
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
+            
+            <p:dialog header="Detalhes" widgetVar="idModalDetalhes" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
+                <h:form id="cadEventoDetalhes">
 
-            <p:dialog header="Cadastro de locais" widgetVar="idModalLocal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
-                <h:form id="cadLocal">
-                    <h:panelGrid>
-                        <p:messages id="mensagem" showDetail="true" closable="true"/>
-                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="4" id="inputEvento">
+                        <p:outputLabel for="idNomeEvento" value="Nome do evento: " />
+                        <p:inputText id="idNomeEvento" value="#{eventoBean.evento.nomeEvento}" readonly="true" />
 
-                    <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
+                        <p:outputLabel for="idDataHoraEvento" value="Data e Hora: " />
+                        <p:inputText id="idDataHoraEvento" value="#{eventoBean.evento.dataHoraEvento}" readonly="true" />
 
-                        <p:outputLabel for="idLocal" value="Nome do local: " />
-                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="30"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idEmail" value="E-mail: " />
-                        <p:inputText id="idEmail" value="#{localBean.contato.email}" maxlength="50"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idTelefone" value="Telefone: " />
-                        <p:inputMask mask="(99) 99999-9999" id="idTelefone" value="#{localBean.contato.telefone}"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idRua" value="Rua: " />
-                        <p:inputText id="idRua" value="#{localBean.contato.rua}" maxlength="50"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idRumero" value="Numero: " />
-                        <p:inputText id="idRumero" value="#{localBean.contato.numero}"  maxlength="6"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idBairro" value="Bairro: " />
-                        <p:inputText id="idBairro" value="#{localBean.contato.bairro}" maxlength="20"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idCep" value="CEP: " />
-                        <p:inputMask mask="99999-999" id="idCep" value="#{localBean.contato.cep}"
-                                     required="true" requiredMessage="Campo obrigatório"/>
-
-                        <p:outputLabel for="idCidade" value="Cidade: " />
-                        <p:inputText id="idCidade" value="#{localBean.contato.cidade}" maxlength="20"
-                                     required="true" requiredMessage="Campo obrigatório"/>
+                        <p:outputLabel for="idLocalEvento" value="Local do evento:" />
+                        <p:inputText id="idLocalEvento" value="#{eventoBean.evento.local.nomeLocal}" readonly="true" />
+           
+                        <p:outputLabel for="idInfoEvento" value="Informações do evento:" />
+                        <p:inputTextarea id="idInfoEvento" rows="5" cols="30" value="#{eventoBean.evento.informacoes}" readonly="true" autoResize="false" />
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Cadastrar" action="#{localBean.fundirLocal(localBean.contato)}" update="mensagem :cadLocal:inputLocal"/>
-                        <p:commandButton value="Fechar" oncomplete="PF('idModalLocal').hide();" update="mensagem"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('idModalDetalhes').hide();"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
+
         </div>
 
     </ui:define>

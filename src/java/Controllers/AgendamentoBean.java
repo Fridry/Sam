@@ -294,6 +294,20 @@ public class AgendamentoBean implements Serializable {
             e.printStackTrace();
         }
     }
+    
+     //Salva ou atualiza os dados no banco
+    public void atualizarAgendamento() {
+        try {
+            agendamentoDao.updateAgendamento(agendamento);
+            eventModel.updateEvent(eventoDefault);
+            init();
+            listarAgendamento();
+            mensagem("Agendamento atualizado com sucesso!", "");
+        } catch (RuntimeException e) {
+            erro("Ocorreu um erro ao agendar.", "");
+            e.printStackTrace();
+        }
+    }
 
     //Exclui os dados
     public void deletaAgendamento(Agendamento agendamento) {

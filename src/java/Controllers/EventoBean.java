@@ -162,6 +162,7 @@ public class EventoBean implements Serializable {
     }
 
     public String carregaEvento(Evento evento) {
+        init();
         this.evento = evento;
         return "editar";
     }
@@ -214,9 +215,9 @@ public class EventoBean implements Serializable {
         }
     }
 
-    public String carregaEvento(int id) {
+    public void carregaEventoId(int id) {
+        init();
         this.evento = eventoDao.getById(id);
-        return "editar";
     }
     
     public void removerEvento() {

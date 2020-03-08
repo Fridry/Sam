@@ -23,18 +23,18 @@
             </p:submenu>
 
             <p:submenu label="Eventos">
-                <p:menuitem icon="pi pi-calendar-plus" value="Agendar" outcome="/formularios/cadEvento" />
+                <p:menuitem icon="pi pi-calendar-plus" value="Agendar" outcome="/formularios/cadEvento" action="#{eventoBean.init()}"/>
                 <p:menuitem icon="pi pi-calendar" value="Calendário" outcome="/listas/listaEventosCalendario" />
                 <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaEventos" />
             </p:submenu>
 
             <p:submenu label="Locais">
-                <p:menuitem icon="pi pi-map-marker" value="Cadastrar" outcome="/formularios/cadLocal" />
+                <p:menuitem icon="pi pi-map-marker" value="Cadastrar" outcome="/formularios/cadLocal" action="#{localBean.init()}"/>
                 <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaLocais" />
             </p:submenu>
 
             <p:submenu label="Especialidades">
-                <p:menuitem icon="pi pi-tag" value="Cadastrar" outcome="/formularios/cadEspecialidade" />
+                <p:menuitem icon="pi pi-tag" value="Cadastrar" outcome="/formularios/cadEspecialidade" action="#{especialidadeBean.init()}"/>
                 <p:menuitem icon="pi pi-list" value="Listar" outcome="/listas/listaEspecialidades" />
             </p:submenu>
 

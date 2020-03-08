@@ -74,12 +74,6 @@
                         <p:outputLabel for="idDataHoraEvent" value="Data e Hora: " />
                         <p:calendar id="idDataHoraEvent" value="#{agendamentoBean.eventoDefault.startDate}" navigator="true" locale="pt_BR"
                                     timeZone="GMT-3" mask="true" pattern="dd/MM/yyyy HH:mm" placeholder="Data e Hora"/>
-
-                        <h:outputText value="Status:" />
-                        <p:selectOneButton value="#{agendamentoBean.agendamento.status}">
-                            <f:selectItem itemLabel="Agendado" itemValue="Agendado" />
-                            <f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
-                        </p:selectOneButton>
                     </h:panelGrid>
 
                     <h:panelGrid columns="3">

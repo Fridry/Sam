@@ -9,11 +9,11 @@
         <h:form id="formLocal">
             <p:panel header="Cadastro de local">
 
-                <p:growl id="mensagemAdd" showDetail="true" autoUpdate="true"/>
+                <p:growl id="mensagemAdd" showDetail="true"/>
 
                 <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
                     <p:outputLabel for="id-nome-local" value="Nome do local: " />
-                    <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="30"
+                    <p:inputText id="id-nome-local" value="#{localBean.local.nomeLocal}" maxlength="50"
                                  required="true" requiredMessage="Campo obrigatório"/>
 
                     <p:outputLabel for="id-email" value="E-mail: " />
@@ -21,7 +21,7 @@
                                  required="true" requiredMessage="Campo obrigatório"/>
 
                     <p:outputLabel for="id-telefone" value="Telefone: " />
-                    <p:inputMask mask="(99) 99999-9999" id="id-telefone" value="#{localBean.contato.telefone}"
+                    <p:inputMask mask="(99) 9999-9999" id="id-telefone" value="#{localBean.contato.telefone}"
                                  required="true" requiredMessage="Campo obrigatório"/>
 
                     <p:outputLabel for="id-rua" value="Rua: " />

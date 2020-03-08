@@ -44,13 +44,14 @@
                         <p:commandButton  icon="pi pi-pencil" alt="Editar" title="Editar" action="#{localBean.carregaLocal(local, local.contato)}"
                                           onclick="PF('idModal').show();" update=":cadLocal:inputLocal"/>
 
-                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#"  />  
+                        <p:commandButton  icon="pi pi-search" alt="Detalhes" title="Detalhes" action="#{localBean.carregaLocal(local, local.contato)}"
+                                          onclick="PF('idModalDetalhes').show();" update=":cadLocalDet:inputLocal"/>  
                     </p:column>
 
                 </p:dataTable>
             </h:form>
 
-            <p:dialog header="Cadastro de testes" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
+            <p:dialog header="Cadastro de locais" widgetVar="idModal" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
                 <h:form id="cadLocal">
                     <h:panelGrid>
                         <p:messages id="mensagem" showDetail="true" closable="true"/>
@@ -59,7 +60,7 @@
                     <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
 
                         <p:outputLabel for="idLocal" value="Nome do local: " />
-                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="30"
+                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="50"
                                      required="true" requiredMessage="Campo obrigatório"/>
 
                         <p:outputLabel for="idEmail" value="E-mail: " />
@@ -94,6 +95,49 @@
                     <h:panelGrid columns="2">
                         <p:commandButton value="Cadastrar" action="#{localBean.fundirLocal(localBean.contato)}" update="mensagem :listaLocais:tabelaLocais :cadLocal:inputLocal"/>
                         <p:commandButton value="Fechar" oncomplete="PF('idModal').hide();" update="mensagem :listaLocais:tabelaLocais :cadLocal:inputLocal"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog> 
+            
+            <p:dialog header="Detalhes" widgetVar="idModalDetalhes" modal="true" draggable="false" resizable="false" closable="false" showEffect="clip" hideEffect="clip">
+                <h:form id="cadLocalDet">
+                    <h:panelGrid columns="2" cellpadding="4" id="inputLocal">
+
+                        <p:outputLabel for="idLocal" value="Nome do local: " />
+                        <p:inputText id="idLocal" value="#{localBean.local.nomeLocal}" maxlength="50"
+                                      readonly="true"/>
+
+                        <p:outputLabel for="idEmail" value="E-mail: " />
+                        <p:inputText id="idEmail" value="#{localBean.contato.email}" maxlength="50"
+                                     readonly="true"/>
+
+                        <p:outputLabel for="idTelefone" value="Telefone: " />
+                        <p:inputText id="idTelefone" value="#{localBean.contato.telefone}"
+                                     readonly="true"/>
+
+                        <p:outputLabel for="idRua" value="Rua: " />
+                        <p:inputText id="idRua" value="#{localBean.contato.rua}" maxlength="50"
+                                     required="true" requiredMessage="Campo obrigatório" readonly="true"/>
+
+                        <p:outputLabel for="idRumero" value="Numero: " />
+                        <p:inputText id="idRumero" value="#{localBean.contato.numero}"  maxlength="6"
+                                     required="true" requiredMessage="Campo obrigatório" readonly="true"/>
+
+                        <p:outputLabel for="idBairro" value="Bairro: " />
+                        <p:inputText id="idBairro" value="#{localBean.contato.bairro}" maxlength="20"
+                                     readonly="true"/>
+
+                        <p:outputLabel for="idCep" value="CEP: " />
+                        <p:inputMask mask="99999-999" id="idCep" value="#{localBean.contato.cep}"
+                                     readonly="true"/>
+
+                        <p:outputLabel for="idCidade" value="Cidade: " />
+                        <p:inputText id="idCidade" value="#{localBean.contato.cidade}" maxlength="20"
+                                     readonly="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Fechar" oncomplete="PF('idModalDetalhes').hide();" update=" :listaLocais:tabelaLocais :cadLocalDet:inputLocal"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog> 
